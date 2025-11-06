@@ -1,0 +1,27 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/api/pulse/test-data/route.ts:178:8
+Type error: No overload matches this call.
+  Overload 1 of 2, '(values: { content: string; content_type: string; created_at?: string; id?: string; metadata?: Json; prompt_used?: string; title?: string; updated_at?: string; user_id: string; }, options?: { count?: "exact" | "planned" | "estimated"; }): PostgrestFilterBuilder<...>', gave the following error.
+    Argument of type '{ content_type: string; title: string; content_body: string; credits_used: number; user_id: string; }' is not assignable to parameter of type '{ content: string; content_type: string; created_at?: string; id?: string; metadata?: Json; prompt_used?: string; title?: string; updated_at?: string; user_id: string; }'.
+      Property 'content' is missing in type '{ content_type: string; title: string; content_body: string; credits_used: number; user_id: string; }' but required in type '{ content: string; content_type: string; created_at?: string; id?: string; metadata?: Json; prompt_used?: string; title?: string; updated_at?: string; user_id: string; }'.
+  Overload 2 of 2, '(values: { content: string; content_type: string; created_at?: string; id?: string; metadata?: Json; prompt_used?: string; title?: string; updated_at?: string; user_id: string; }[], options?: { count?: "exact" | "planned" | "estimated"; defaultToNull?: boolean; }): PostgrestFilterBuilder<...>', gave the following error.
+    Object literal may only specify known properties, and 'user_id' does not exist in type '{ content: string; content_type: string; created_at?: string; id?: string; metadata?: Json; prompt_used?: string; title?: string; updated_at?: string; user_id: string; }[]'.
+
+[0m [90m 176 |[39m     [36mconst[39m { error } [33m=[39m [36mawait[39m supabase[0m
+[0m [90m 177 |[39m       [33m.[39m[36mfrom[39m([32m'generated_content'[39m)[0m
+[0m[31m[1m>[22m[39m[90m 178 |[39m       [33m.[39minsert({[0m
+[0m [90m     |[39m        [31m[1m^[22m[39m[0m
+[0m [90m 179 |[39m         user_id[33m:[39m userId[33m,[39m[0m
+[0m [90m 180 |[39m         [33m...[39mcontent[0m
+[0m [90m 181 |[39m       })[0m
+Next.js build worker exited with code: 1 and signal: null

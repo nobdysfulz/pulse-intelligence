@@ -1,0 +1,411 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (176kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/19) ...
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/agents". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/goals". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/personaladvisor". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/content-studio". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+   Generating static pages (4/19) 
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/to-do". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/market". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+   Generating static pages (9/19) 
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/simple". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/role-play". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/_not-found". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/plans". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/settings". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+   Generating static pages (14/19) 
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/intelligence". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547) {
+  digest: '3626975890'
+}
+
+Error occurred prerendering page "/dashboard". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: @clerk/clerk-react: The publishableKey passed to Clerk is invalid. You can get your Publishable key at https://dashboard.clerk.com/last-active?path=api-keys. (key=placeholder_clerk_key)
+    at Object.throwInvalidPublishableKeyError (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:30:1325)
+    at /Users/chastinmiles/Downloads/pulse-intelligence/.next/server/chunks/41.js:19:51985
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61157)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+ ✓ Generating static pages (19/19)
+
+> Export encountered errors on following paths:
+	/_not-found/page: /_not-found
+	/agents/page: /agents
+	/content-studio/page: /content-studio
+	/dashboard/page: /dashboard
+	/goals/page: /goals
+	/intelligence/page: /intelligence
+	/market/page: /market
+	/page: /
+	/personaladvisor/page: /personaladvisor
+	/plans/page: /plans
+	/role-play/page: /role-play
+	/settings/page: /settings
+	/simple/page: /simple
+	/to-do/page: /to-do

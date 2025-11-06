@@ -1,0 +1,22 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/api/pulse/score/route.ts:41:34
+Type error: Property 'calculated_at' does not exist on type 'PulseScore'.
+
+[0m [90m 39 |[39m         interventions[33m,[39m[0m
+[0m [90m 40 |[39m         history[33m:[39m scoreHistory[33m,[39m[0m
+[0m[31m[1m>[22m[39m[90m 41 |[39m         lastUpdated[33m:[39m latestScore[33m.[39mcalculated_at[0m
+[0m [90m    |[39m                                  [31m[1m^[22m[39m[0m
+[0m [90m 42 |[39m       }[0m
+[0m [90m 43 |[39m     })[0m
+[0m [90m 44 |[39m[0m
+Next.js build worker exited with code: 1 and signal: null

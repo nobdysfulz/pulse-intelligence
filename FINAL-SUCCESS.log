@@ -1,0 +1,23 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/dashboard/page.tsx:435:16
+Type error: Type '{ children: (string | Element)[]; onClick: () => void; className: string; }' is not assignable to type 'IntrinsicAttributes & RefAttributes<any>'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & RefAttributes<any>'.
+
+[0m [90m 433 |[39m                 [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+[0m [90m 434 |[39m               [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 435 |[39m               [33m<[39m[33mButton[39m[0m
+[0m [90m     |[39m                [31m[1m^[22m[39m[0m
+[0m [90m 436 |[39m                 onClick[33m=[39m{() [33m=>[39m navigate[33m.[39mpush([32m'/goals'[39m [33m+[39m [32m'?tab=planner'[39m)}[0m
+[0m [90m 437 |[39m                 className[33m=[39m[32m"bg-white text-[#7C3AED] hover:bg-gray-100 font-semibold"[39m[0m
+[0m [90m 438 |[39m               [33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

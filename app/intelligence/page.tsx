@@ -1,0 +1,9 @@
+import { PulseDashboardSimple } from "@/components/pulse/pulse-dashboard-simple"
+
+export default function Intelligence() {
+  return (
+    <div className="p-6">
+      <PulseDashboardSimple />
+    </div>
+  )
+}

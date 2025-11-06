@@ -1,0 +1,56 @@
+import { currentUser } from '@clerk/nextjs/server'
+import Link from 'next/link'
+
+export default async function Dashboard() {
+  const user = await currentUser()
+  
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="px-4 py-6 sm:px-0">
+          <div className="border-4 border-dashed border-gray-200 rounded-lg p-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              Welcome to Pulse Intelligence, {user?.firstName}! 🎉
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              Your real estate coaching command center is ready for action.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold mb-2">🏠 Dashboard</h3>
+                <p className="text-gray-600">Your daily business overview</p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold mb-2">☑️ To-Do</h3>
+                <p className="text-gray-600">Manage your daily actions</p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold mb-2">🎯 Goals</h3>
+                <p className="text-gray-600">Track your business objectives</p>
+              </div>
+            </div>
+            
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-blue-900 mb-2">
+                Next Steps
+              </h3>
+              <p className="text-blue-800 mb-4">
+                We'll be building out your complete Pulse Intelligence platform with:
+              </p>
+              <ul className="list-disc list-inside text-blue-700 space-y-1">
+                <li>PULSE Scoring System</li>
+                <li>Business Planning Wizard</li>
+                <li>Content Studio</li>
+                <li>Market Intelligence</li>
+                <li>AI Agents Team</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -1,0 +1,235 @@
+project_id = "pdbggzsmgcrguhscynnk"
+
+[functions.clerkWebhook]
+verify_jwt = false
+
+[functions.entityOperations]
+verify_jwt = false
+
+[functions.saveOnboardingProgress]
+verify_jwt = false
+
+[functions.updateUserData]
+verify_jwt = false
+
+[functions.executive_assistantChat]
+verify_jwt = true
+
+[functions.content_agentChat]
+verify_jwt = true
+
+[functions.transaction_coordinatorChat]
+verify_jwt = true
+
+[functions.createTransactionTool]
+verify_jwt = false
+
+[functions.getTransactionsTool]
+verify_jwt = false
+
+[functions.updateTransactionTool]
+verify_jwt = false
+
+[functions.sendGoogleEmailTool]
+verify_jwt = false
+
+[functions.sendOutlookEmailTool]
+verify_jwt = false
+
+[functions.scheduleGoogleCalendarEventTool]
+verify_jwt = false
+
+[functions.findAvailableTimeSlotsTool]
+verify_jwt = false
+
+[functions.createGoogleDriveFolderTool]
+verify_jwt = false
+
+[functions.createGoogleDocTool]
+verify_jwt = false
+
+[functions.createGoogleSheetTool]
+verify_jwt = false
+
+[functions.researchAndSummarizeTool]
+verify_jwt = false
+
+[functions.publishFacebookPostTool]
+verify_jwt = false
+
+[functions.publishInstagramPostTool]
+verify_jwt = false
+
+[functions.publishLinkedInPostTool]
+verify_jwt = false
+
+[functions.getFacebookPageInsightsTool]
+verify_jwt = false
+
+[functions.getInstagramInsightsTool]
+verify_jwt = false
+
+[functions.generateImageTool]
+verify_jwt = false
+
+[functions.createLoftyTaskTool]
+verify_jwt = false
+
+[functions.createFollowUpBossTaskTool]
+verify_jwt = false
+
+[functions.createSkySlopeTransactionTool]
+verify_jwt = false
+
+[functions.uploadSkySlopeDocumentTool]
+verify_jwt = false
+
+[functions.getSkySlopeTransactionDetailsTool]
+verify_jwt = false
+
+[functions.updateSkySlopeTransactionTool]
+verify_jwt = false
+
+[functions.listSkySlopeTransactionsTool]
+verify_jwt = false
+
+[functions.getSkySlopeChecklistItemsTool]
+verify_jwt = false
+
+[functions.buildGraphContext]
+verify_jwt = true
+
+[functions.computePulse]
+verify_jwt = true
+
+[functions.computeGane]
+verify_jwt = true
+
+[functions.computeMoro]
+verify_jwt = true
+
+[functions.googleCalendarAuth]
+verify_jwt = true
+
+[functions.generateTodoAnalytics]
+verify_jwt = true
+
+[functions.getAdminUsers]
+verify_jwt = true
+
+[functions.adminEntityCRUD]
+verify_jwt = true
+
+[functions.adminOperations]
+verify_jwt = true
+
+[functions.bulkImportData]
+verify_jwt = true
+
+[functions.openaiChat]
+verify_jwt = false
+
+[functions.openaiRolePlay]
+verify_jwt = false
+
+[functions.generateSocialPostTool]
+verify_jwt = false
+
+[functions.copilotChat]
+verify_jwt = true
+
+[functions.getAgentContext]
+verify_jwt = true
+
+[functions.getUserContext]
+verify_jwt = false
+
+[functions.clerkSyncProfile]
+verify_jwt = false
+
+[functions.processReferral]
+verify_jwt = false
+
+[functions.getPlatformMetrics]
+verify_jwt = false
+
+[functions.finalizeAgentOnboarding]
+verify_jwt = true
+
+[functions.getSignedAudioUrl]
+verify_jwt = true
+
+[functions.initiateGoogleWorkspaceOAuth]
+verify_jwt = true
+
+[functions.handleGoogleWorkspaceCallback]
+verify_jwt = false
+
+[functions.initiateZoomOAuth]
+verify_jwt = true
+
+[functions.zoomOAuthCallback]
+verify_jwt = false
+
+[functions.initiateMetaOAuth]
+verify_jwt = true
+
+[functions.metaOAuthCallback]
+verify_jwt = false
+
+[functions.initiateLinkedInOAuth]
+verify_jwt = true
+
+[functions.linkedinOAuthCallback]
+verify_jwt = false
+
+[functions.initiateMicrosoftOAuth]
+verify_jwt = true
+
+[functions.microsoftOAuthCallback]
+verify_jwt = false
+
+[functions.getIntegrationContext]
+verify_jwt = true
+
+[functions.elevenLabsTTS]
+verify_jwt = true
+
+[functions.whisperSTT]
+verify_jwt = true
+
+[functions.getTwilioAvailableNumbers]
+verify_jwt = true
+
+[functions.purchaseTwilioNumber]
+verify_jwt = true
+
+[functions.downloadCampaignTemplate]
+verify_jwt = true
+
+[functions.sendContactsToElevenLabs]
+verify_jwt = true
+
+[functions.initElevenLabsRolePlaySession]
+verify_jwt = true
+
+[functions.elevenLabsWebhook]
+verify_jwt = false
+
+[functions.elevenLabsRolePlayWebhook]
+verify_jwt = false
+
+[functions.analyzeRolePlaySession]
+verify_jwt = false
+
+[functions.getUserAutopilotActivity]
+verify_jwt = true
+
+[functions.loftyAuth]
+verify_jwt = true
+
+[functions.loftySync]
+verify_jwt = true
+
+[functions.sendEmail]
+verify_jwt = true

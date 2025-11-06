@@ -1,0 +1,266 @@
+import './App.css'
+import ClerkSupabaseSync from '../../components/context/ClerkSupabaseSync'
+import { Toaster } from "../../components/ui/toaster"
+
+import React from 'react'
+import AppErrorBoundary from '../../components/ui/AppErrorBoundary'
+
+// Import pages directly
+const Login = React.lazy(() => import('./pages/Login'))
+const Signup = React.lazy(() => import('./pages/Signup'))
+const Dashboard = React.lazy(() => import('./pages/Dashboard'))
+const ToDo = React.lazy(() => import('./pages/ToDo'))
+const Agents = React.lazy(() => import('./pages/Agents'))
+const Goals = React.lazy(() => import('./pages/Goals'))
+const Market = React.lazy(() => import('./pages/Market'))
+const Contacts = React.lazy(() => import('./pages/Contacts'))
+const Settings = React.lazy(() => import('./pages/Settings'))
+const GoalPlanner = React.lazy(() => import('./pages/GoalPlanner'))
+const ContentStudio = React.lazy(() => import('./pages/ContentStudio'))
+const RolePlay = React.lazy(() => import('./pages/RolePlay'))
+const RolePlaySession = React.lazy(() => import('./pages/RolePlaySession'))
+const SessionResults = React.lazy(() => import('./pages/SessionResults'))
+const PersonalAdvisor = React.lazy(() => import('./pages/PersonalAdvisor'))
+const Onboarding = React.lazy(() => import('./pages/Onboarding'))
+const AgentsOnboarding = React.lazy(() => import('./pages/AgentsOnboarding'))
+const FacebookAuthConfirmation = React.lazy(() => import('./pages/FacebookAuthConfirmation'))
+const InstagramAuthConfirmation = React.lazy(() => import('./pages/InstagramAuthConfirmation'))
+const LinkedInAuthConfirmation = React.lazy(() => import('./pages/LinkedInAuthConfirmation'))
+const MicrosoftAuthConfirmation = React.lazy(() => import('./pages/MicrosoftAuthConfirmation'))
+const GoogleWorkspaceAuthConfirmation = React.lazy(() => import('./pages/GoogleWorkspaceAuthConfirmation'))
+const ZoomAuthConfirmation = React.lazy(() => import('./pages/ZoomAuthConfirmation'))
+const Intelligence = React.lazy(() => import('./pages/Intelligence'))
+const IntelligenceSurvey = React.lazy(() => import('./pages/IntelligenceSurvey'))
+const Plans = React.lazy(() => import('./pages/Plans'))
+const PlatformMetrics = React.lazy(() => import('./pages/PlatformMetrics'))
+const AdminPlatformImport = React.lazy(() => import('./pages/AdminPlatformImport'))
+const AdminContentConfig = React.lazy(() => import('./pages/AdminContentConfig'))
+const AdminTaskTemplates = React.lazy(() => import('./pages/AdminTaskTemplates'))
+const AdminUserRepair = React.lazy(() => import('./pages/AdminUserRepair'))
+
+import ProtectedRoute from './components/ProtectedRoute'
+import Layout from './pages/Layout'
+import ErrorBoundary from './components/ui/ErrorBoundary'
+
+function App() {
+  return (
+    <AppErrorBoundary>
+      <BrowserRouter>
+      <React.Suspense fallback={
+        <div className="flex items-center justify-center min-h-screen bg-background">
+          <div className="text-text-body">Loading...</div>
+        </div>
+      }>
+        <Routes>
+          <Route path="/login/*" element={<Login />} />
+          <Route path="/signup/*" element={<Signup />} />
+          
+          {/* OAuth callback routes */}
+          <Route path="/auth/callback/facebook" element={<FacebookAuthConfirmation />} />
+          <Route path="/auth/callback/instagram" element={<InstagramAuthConfirmation />} />
+          <Route path="/auth/callback/linkedin" element={<LinkedInAuthConfirmation />} />
+          <Route path="/auth/callback/microsoft" element={<MicrosoftAuthConfirmation />} />
+          <Route path="/auth/callback/google-workspace" element={<GoogleWorkspaceAuthConfirmation />} />
+          <Route path="/auth/callback/zoom" element={<ZoomAuthConfirmation />} />
+
+          {/* Protected routes - WITH ClerkSupabaseSync */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <ClerkSupabaseSync />
+                <Layout>
+                  <ErrorBoundary>
+                    <Dashboard />
+                  </ErrorBoundary>
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/to-do"
+            element={
+              <ProtectedRoute>
+                <Layout><ToDo /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/agents"
+            element={
+              <ProtectedRoute>
+                <Layout><Agents /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/goals"
+            element={
+              <ProtectedRoute>
+                <Layout><Goals /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/market"
+            element={
+              <ProtectedRoute>
+                <Layout><Market /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/intelligence"
+            element={
+              <ProtectedRoute>
+                <Layout><Intelligence /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <ProtectedRoute>
+                <Layout><Contacts /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Layout><Settings /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/goal-planner"
+            element={
+              <ProtectedRoute>
+                <Layout><GoalPlanner /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/content-studio"
+            element={
+              <ProtectedRoute>
+                <Layout><ContentStudio /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/role-play"
+            element={
+              <ProtectedRoute>
+                <Layout><RolePlay /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/role-play-session"
+            element={
+              <ProtectedRoute>
+                <Layout><RolePlaySession /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/session-results"
+            element={
+              <ProtectedRoute>
+                <Layout><SessionResults /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/personaladvisor"
+            element={
+              <ProtectedRoute>
+                <Layout><PersonalAdvisor /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/onboarding"
+            element={
+              <ProtectedRoute>
+                <Layout><Onboarding /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/agents-onboarding"
+            element={
+              <ProtectedRoute>
+                <Layout><AgentsOnboarding /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/intelligence-survey"
+            element={
+              <ProtectedRoute>
+                <Layout><IntelligenceSurvey /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/plans"
+            element={
+              <ProtectedRoute>
+                <Layout><Plans /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/platform-metrics"
+            element={
+              <ProtectedRoute>
+                <Layout><PlatformMetrics /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/platform-import"
+            element={
+              <ProtectedRoute>
+                <Layout><AdminPlatformImport /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/content-config"
+            element={
+              <ProtectedRoute>
+                <Layout><AdminContentConfig /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/task-templates"
+            element={
+              <ProtectedRoute>
+                <Layout><AdminTaskTemplates /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/user-repair"
+            element={
+              <ProtectedRoute>
+                <Layout><AdminUserRepair /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </React.Suspense>
+      <Toaster />
+    </BrowserRouter>
+    </AppErrorBoundary>
+  )
+}
+
+export default App

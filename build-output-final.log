@@ -1,0 +1,51 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/api/pulse/score/route.ts
+Module not found: Can't resolve '@/lib/pulse-intelligence/pulse-service'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/api/pulse/test-data/route.ts
+Module not found: Can't resolve '@/lib/supabase'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/dashboard/layout.tsx
+Module not found: Can't resolve '@/components/navigation/primary-sidebar'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/dashboard/layout.tsx
+Module not found: Can't resolve '@/components/navigation/top-header'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/dashboard/page.tsx
+Error: 
+  [31mx[0m Unterminated regexp literal
+    ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/dashboard/page.tsx[0m:70:1]
+ [2m70[0m |       name: 'NOVA',
+ [2m71[0m |       role: 'Executive Assistant',
+ [2m72[0m |       image: '/images/agents/executive-assistant.png',
+ [2m73[0m |       link: /agents + '?tab=executive_assistant'
+    : [31;1m            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+ [2m74[0m |     },
+ [2m75[0m |     {
+ [2m76[0m |       name: 'SIRIUS',
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+
+
+> Build failed because of webpack errors

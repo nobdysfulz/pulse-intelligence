@@ -1,0 +1,23 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/role-play/page.tsx:806:10
+Type error: Property 'defaultValue' is missing in type '{ children: Element[]; type: string; collapsible: true; className: string; }' but required in type '{ [x: string]: any; className: any; type?: string; defaultValue: any; collapsible?: boolean; children: any; }'.
+
+[0m [90m 804 |[39m[0m
+[0m [90m 805 |[39m       {filteredScripts[33m.[39mlength [33m>[39m [35m0[39m [33m?[39m ([0m
+[0m[31m[1m>[22m[39m[90m 806 |[39m         [33m<[39m[33mAccordion[39m type[33m=[39m[32m"single"[39m collapsible className[33m=[39m[32m"w-full"[39m[33m>[39m[0m
+[0m [90m     |[39m          [31m[1m^[22m[39m[0m
+[0m [90m 807 |[39m           {filteredScripts[33m.[39mmap((script[33m:[39m any) [33m=>[39m ([0m
+[0m [90m 808 |[39m             [33m<[39m[33mAccordionItem[39m value[33m=[39m{script[33m.[39mid} key[33m=[39m{script[33m.[39mid}[33m>[39m[0m
+[0m [90m 809 |[39m               [33m<[39m[33mAccordionTrigger[39m className[33m=[39m[32m"text-sm font-semibold"[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

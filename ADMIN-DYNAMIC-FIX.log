@@ -1,0 +1,48 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/19) ...
+   Generating static pages (4/19) 
+   Generating static pages (9/19) 
+   Generating static pages (14/19) 
+ ✓ Generating static pages (19/19)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ƒ /                                    183 B          97.6 kB
+├ ○ /_not-found                          152 B          88.9 kB
+├ ○ /agents                              25.5 kB         258 kB
+├ ƒ /api/pulse/score                     0 B                0 B
+├ ƒ /api/pulse/test-data                 0 B                0 B
+├ ○ /api/test                            0 B                0 B
+├ ○ /content-studio                      18.2 kB         226 kB
+├ ○ /dashboard                           10.5 kB         174 kB
+├ ○ /goals                               24.2 kB         426 kB
+├ ○ /intelligence                        5.08 kB         161 kB
+├ ○ /market                              7.62 kB         338 kB
+├ ○ /personaladvisor                     4.81 kB         190 kB
+├ ○ /plans                               2.94 kB         155 kB
+├ ○ /role-play                           11.4 kB         302 kB
+├ ○ /settings                            17.8 kB         227 kB
+├ ○ /simple                              152 B          88.9 kB
+└ ○ /to-do                               19 kB           326 kB
++ First Load JS shared by all            88.7 kB
+  ├ chunks/2117-176d659c2b1a5a6a.js      31.9 kB
+  ├ chunks/fd9d1056-e4fd97a7c8c637cb.js  53.6 kB
+  └ other shared chunks (total)          3.19 kB
+
+
+ƒ Middleware                             73 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

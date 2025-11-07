@@ -1,0 +1,24 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/to-do/page.tsx:877:11
+Type error: Type 'unknown[]' is not assignable to type 'string[]'.
+  Type 'unknown' is not assignable to type 'string'.
+
+[0m [90m 875 |[39m     [36mconst[39m dayTasks [33m=[39m allActions[33m.[39mfilter((a) [33m=>[39m a[33m.[39mactionDate [33m&&[39m isSameDay([36mnew[39m [33mDate[39m(a[33m.[39mactionDate)[33m,[39m day))[33m;[39m[0m
+[0m [90m 876 |[39m     [90m// Get unique categories for the day, default if none specified[39m[0m
+[0m[31m[1m>[22m[39m[90m 877 |[39m     [36mconst[39m categories[33m:[39m string[] [33m=[39m [[33m...[39m[36mnew[39m [33mSet[39m(dayTasks[33m.[39mmap((t[33m:[39m any) [33m=>[39m {[0m
+[0m [90m     |[39m           [31m[1m^[22m[39m[0m
+[0m [90m 878 |[39m       [90m// Special case for Power Hour Theme quadrant which is based on actionType[39m[0m
+[0m [90m 879 |[39m       [36mif[39m (t[33m.[39mactionType [33m===[39m [32m'lead_generation'[39m) [36mreturn[39m [32m'lead_generation_dot'[39m[33m;[39m[0m
+[0m [90m 880 |[39m       [36mreturn[39m t[33m.[39mcategory [33m||[39m [32m'default'[39m[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null

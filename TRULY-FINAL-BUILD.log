@@ -1,0 +1,23 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/to-do/page.tsx:805:40
+Type error: Property 'duration' does not exist on type 'string'.
+
+[0m [90m 803 |[39m[0m
+[0m [90m 804 |[39m     sortedTasks[33m.[39mforEach((task) [33m=>[39m {[0m
+[0m[31m[1m>[22m[39m[90m 805 |[39m       [36mconst[39m taskDurationMinutes [33m=[39m task[33m.[39mduration [33m||[39m [35m60[39m[33m;[39m [90m// Default to 60 minutes if not specified[39m[0m
+[0m [90m     |[39m                                        [31m[1m^[22m[39m[0m
+[0m [90m 806 |[39m[0m
+[0m [90m 807 |[39m       [90m// If current schedule time exceeds the end of the day window, skip[39m[0m
+[0m [90m 808 |[39m       [36mif[39m (currentTotalMinutes [33m>=[39m endOfDayMinutes) {[0m
+Next.js build worker exited with code: 1 and signal: null

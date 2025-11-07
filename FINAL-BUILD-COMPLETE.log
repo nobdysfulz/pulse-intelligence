@@ -1,0 +1,24 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/plans/page.tsx:177:29
+Type error: Type '{ children: Element; asChild: true; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonProps & RefAttributes<HTMLButtonElement>'.
+  Property 'asChild' does not exist on type 'IntrinsicAttributes & ButtonProps & RefAttributes<HTMLButtonElement>'.
+
+[0m [90m 175 |[39m                         [33m<[39m[33m/[39m[33mButton[39m[33m>[39m [33m:[39m[0m
+[0m [90m 176 |[39m[0m
+[0m[31m[1m>[22m[39m[90m 177 |[39m                     [33m<[39m[33mButton[39m asChild className[33m=[39m{cn([0m
+[0m [90m     |[39m                             [31m[1m^[22m[39m[0m
+[0m [90m 178 |[39m                       [32m'w-full text-white'[39m[33m,[39m[0m
+[0m [90m 179 |[39m                       plan[33m.[39mpopular [33m?[39m [32m'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700'[39m [33m:[39m [32m'bg-slate-900 hover:bg-slate-800'[39m[0m
+[0m [90m 180 |[39m                     )}[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

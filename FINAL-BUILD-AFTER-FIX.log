@@ -1,0 +1,111 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/agents/page.tsx
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/agents/page.tsx[0m:224:1]
+ [2m224[0m |     setSelectedLog(log);
+ [2m225[0m |   };
+ [2m226[0m | 
+ [2m227[0m |   const handleBackToList =  => {
+     : [31;1m                            ^^[0m
+ [2m228[0m |     setSelectedLog(null);
+ [2m229[0m |   };
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/agents/page.tsx
+
+./app/content-studio/page.tsx
+Error: 
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/content-studio/page.tsx[0m:87:1]
+ [2m87[0m | const ContentItemCard = ({ title, description }: any) => {
+ [2m88[0m |   const safeDescription = description || '';
+ [2m89[0m | 
+ [2m90[0m |   const handleCopy =  => {
+    : [31;1m                      ^^[0m
+ [2m91[0m |     if (!safeDescription.trim()) {
+ [2m92[0m |       toast.error('No content to copy.');
+ [2m93[0m |       return;
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/content-studio/page.tsx
+
+./app/dashboard/page.tsx
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/dashboard/page.tsx[0m:366:1]
+ [2m366[0m |     router.push(createPageUrl(`PersonalAdvisor?query=${encodeURIComponent(advisorQuery)}`));
+ [2m367[0m |   };
+ [2m368[0m | 
+ [2m369[0m |   const handleMyAITeamClick =  => {
+     : [31;1m                               ^^[0m
+ [2m370[0m |     if (isSubscriberOrAdmin) {
+ [2m371[0m |       router.push(createPageUrl('Agents'));
+ [2m372[0m |     } else {
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+
+./app/goals/page.tsx
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/goals/page.tsx[0m:601:1]
+ [2m601[0m |   // --- END OF NEW CALCULATIONS ---
+ [2m602[0m | 
+ [2m603[0m |   // This function now only renders the content *below* the main page header
+ [2m604[0m |   const renderGoalsMainContent =  => {
+     : [31;1m                                  ^^[0m
+ [2m605[0m |     return (
+ [2m606[0m |       <>
+ [2m607[0m |         {/* CRM Connection Status Banner */}
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/goals/page.tsx
+
+./app/intelligence/page.tsx
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/intelligence/page.tsx[0m:157:1]
+ [2m157[0m |     };
+ [2m158[0m |   }, [fetchGraphContext]);
+ [2m159[0m | 
+ [2m160[0m |   const handleRefresh =  => {
+     : [31;1m                         ^^[0m
+ [2m161[0m |     setRefreshing(true);
+ [2m162[0m |     fetchGraphContext(true);
+ [2m163[0m |   };
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/intelligence/page.tsx
+
+
+> Build failed because of webpack errors

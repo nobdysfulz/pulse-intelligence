@@ -1,0 +1,23 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/content-studio/page.tsx:772:11
+Type error: Type '{ label: string; date: Date; color: string; }' is not assignable to type 'string'.
+
+[0m [90m 770 |[39m[0m
+[0m [90m 771 |[39m         [36mconst[39m calendarDays[33m:[39m string[] [33m=[39m [[0m
+[0m[31m[1m>[22m[39m[90m 772 |[39m           { label[33m:[39m [32m'Yesterday'[39m[33m,[39m date[33m:[39m subDays([36mnew[39m [33mDate[39m()[33m,[39m [35m1[39m)[33m,[39m color[33m:[39m [32m'border-l-[#94A3B8] bg-[#F8FAFC]'[39m }[33m,[39m[0m
+[0m [90m     |[39m           [31m[1m^[22m[39m[0m
+[0m [90m 773 |[39m           { label[33m:[39m [32m'Today'[39m[33m,[39m date[33m:[39m [36mnew[39m [33mDate[39m()[33m,[39m color[33m:[39m [32m'border-l-[#EF4444] bg-[#FEF2F2]'[39m }[33m,[39m[0m
+[0m [90m 774 |[39m           { label[33m:[39m [32m'Tomorrow'[39m[33m,[39m date[33m:[39m addDays([36mnew[39m [33mDate[39m()[33m,[39m [35m1[39m)[33m,[39m color[33m:[39m [32m'border-l-[#EAB308] bg-[#FEFCE8]'[39m }[33m,[39m[0m
+[0m [90m 775 |[39m           { label[33m:[39m format(addDays([36mnew[39m [33mDate[39m()[33m,[39m [35m2[39m)[33m,[39m [32m'EEEE'[39m)[33m,[39m date[33m:[39m addDays([36mnew[39m [33mDate[39m()[33m,[39m [35m2[39m)[33m,[39m color[33m:[39m [32m'border-l-[#22C55E] bg-[#F0FDF4]'[39m }[0m
+Next.js build worker exited with code: 1 and signal: null

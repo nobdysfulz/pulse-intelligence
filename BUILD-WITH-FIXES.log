@@ -1,0 +1,54 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/22) ...
+   Generating static pages (5/22) 
+   Generating static pages (10/22) 
+🔐 DEBUG - TierAwareOnboarding component loaded
+   Generating static pages (16/22) 
+ ✓ Generating static pages (22/22)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ƒ /                                    183 B          97.6 kB
+├ ○ /_not-found                          152 B          88.9 kB
+├ ○ /agents                              25.7 kB         257 kB
+├ ƒ /api/pulse/score                     0 B                0 B
+├ ƒ /api/pulse/test-data                 0 B                0 B
+├ ○ /api/test                            0 B                0 B
+├ ○ /contacts                            2.57 kB         104 kB
+├ ○ /content-studio                      17 kB           226 kB
+├ ○ /dashboard                           10.4 kB         173 kB
+├ ○ /goals                               24.2 kB         425 kB
+├ ○ /intelligence                        5.62 kB         161 kB
+├ ○ /market                              7.75 kB         337 kB
+├ ○ /my-market-pack                      6.03 kB         198 kB
+├ ○ /onboarding                          16.1 kB         203 kB
+├ ○ /personaladvisor                     4.7 kB          189 kB
+├ ○ /plans                               3.56 kB         154 kB
+├ ○ /role-play                           11.9 kB         302 kB
+├ ○ /settings                            18.3 kB         226 kB
+├ ƒ /sign-in/[[...sign-in]]              1.38 kB         126 kB
+├ ƒ /sign-up/[[...sign-up]]              1.38 kB         126 kB
+├ ○ /simple                              152 B          88.9 kB
+└ ○ /to-do                               19 kB           325 kB
++ First Load JS shared by all            88.7 kB
+  ├ chunks/2117-176d659c2b1a5a6a.js      31.9 kB
+  ├ chunks/fd9d1056-e4fd97a7c8c637cb.js  53.6 kB
+  └ other shared chunks (total)          3.19 kB
+
+
+ƒ Middleware                             73 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

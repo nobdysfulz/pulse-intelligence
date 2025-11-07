@@ -1,0 +1,23 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/to-do/page.tsx:443:31
+Type error: Operator '>' cannot be applied to types 'unknown' and 'number'.
+
+[0m [90m 441 |[39m       categoryAllocation[33m,[39m[0m
+[0m [90m 442 |[39m       timeOfDayCompletion[33m:[39m [33mObject[39m[33m.[39mentries(timeOfDayCompletion)[33m.[39m[0m
+[0m[31m[1m>[22m[39m[90m 443 |[39m         filter(([[33m,[39m value]) [33m=>[39m value [33m>[39m [35m0[39m) [90m// Only include categories with values[39m[0m
+[0m [90m     |[39m                               [31m[1m^[22m[39m[0m
+[0m [90m 444 |[39m         [33m.[39mmap(([name[33m,[39m value]) [33m=>[39m ({ name[33m,[39m value }))[0m
+[0m [90m 445 |[39m     }[33m;[39m[0m
+[0m [90m 446 |[39m   }[33m,[39m [allActions[33m,[39m pulseData])[33m;[39m [90m// Added preferences as dependency for consistency if 'now' calculation was impacted by timezone[39m[0m
+Next.js build worker exited with code: 1 and signal: null

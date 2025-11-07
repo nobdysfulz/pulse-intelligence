@@ -362,7 +362,7 @@ export default function DashboardPage() {
   const handleAdvisorSubmit = (e: any) => {
     e.preventDefault();
     if (!advisorQuery.trim()) return;
-    router.push(createPageUrl(`PersonalAdvisor?query=${encodeURIComponent(advisorQuery)}`));
+    router.push(`/personaladvisor?query=${encodeURIComponent(advisorQuery)}`);
   };
 
   const handleMyAITeamClick = () => {
@@ -480,7 +480,7 @@ export default function DashboardPage() {
         {/* Quick Access Buttons */}
         <div className="grid grid-cols-4 gap-4 mb-6">
           <Button
-            onClick={() => router.push('/roleplay')}
+            onClick={() => router.push('/role-play')}
             className="h-20 bg-white hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 border-2 border-[#E2E8F0] hover:border-[#6D28D9] text-[#1E293B] flex flex-col items-center justify-center gap-2 transition-all"
             variant="outline"
           >
@@ -488,7 +488,7 @@ export default function DashboardPage() {
             <span className="font-semibold">Role Play</span>
           </Button>
           <Button
-            onClick={() => router.push('/contentstudio')}
+            onClick={() => router.push('/content-studio')}
             className="h-20 bg-white hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 border-2 border-[#E2E8F0] hover:border-[#6D28D9] text-[#1E293B] flex flex-col items-center justify-center gap-2 transition-all"
             variant="outline"
           >
@@ -543,7 +543,7 @@ export default function DashboardPage() {
             </div>
 
             <Button
-              onClick={() => router.push('/to-do?tab=scores')}
+              onClick={() => router.push('/to-do' + '?tab=scores')}
               className="bg-[#ffffff] text-violet-700 px-4 py-2 text-sm font-semibold rounded-md w-full h-10 hover:bg-[#eeeeee] mt-auto"
             >
               VIEW MORE
@@ -620,7 +620,7 @@ export default function DashboardPage() {
             </div>
 
             <Button
-              onClick={() => router.push('/to-do?tab=tasks')}
+              onClick={() => router.push('/to-do' + '?tab=tasks')}
               className="w-full h-10 bg-[#6D28D9] hover:bg-[#5B21B6] text-white rounded-md text-sm font-semibold mt-auto"
             >
               VIEW ALL

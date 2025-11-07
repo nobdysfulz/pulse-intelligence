@@ -45,7 +45,19 @@ export default function UserProvider({ children }) {
             }
 
             console.log('[UserProvider] Calling getUserContext backend function...');
-            
+
+            try {
+                console.log('[UserProvider] Ensuring user defaults exist...');
+                await supabase.functions.invoke('initializeUserData', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: {},
+                });
+            } catch (seedError) {
+                console.warn('[UserProvider] initializeUserData failed (continuing):', seedError);
+            }
+
             // Call backend function to get all user data at once
             const { data: context, error: contextError } = await supabase.functions.invoke(
                 'getUserContext',
@@ -68,6 +80,19 @@ export default function UserProvider({ children }) {
                         
                         if (newToken && newToken !== token) {
                             console.log('[UserProvider] Retrying with fresh token...');
+
+                            try {
+                                console.log('[UserProvider] Re-running initializeUserData with fresh token...');
+                                await supabase.functions.invoke('initializeUserData', {
+                                    headers: {
+                                        Authorization: `Bearer ${newToken}`,
+                                    },
+                                    body: {},
+                                });
+                            } catch (seedRetryError) {
+                                console.warn('[UserProvider] initializeUserData retry failed (continuing):', seedRetryError);
+                            }
+
                             // Retry with fresh token
                             const { data: retryContext, error: retryError } = await supabase.functions.invoke(
                                 'getUserContext',

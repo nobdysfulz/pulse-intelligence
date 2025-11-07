@@ -153,6 +153,9 @@ verify_jwt = false
 [functions.getPlatformMetrics]
 verify_jwt = false
 
+[functions.initializeUserData]
+verify_jwt = false
+
 [functions.finalizeAgentOnboarding]
 verify_jwt = true
 

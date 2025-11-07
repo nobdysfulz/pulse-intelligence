@@ -7,10 +7,10 @@ import { useRouter } from 'next/navigation';
 import { Play, Clock, ChevronLeft, ChevronRight, Download, Printer, Eye, EyeOff, PhoneOff } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { UserContext } from '../../src/components/context/UserContext';
-import ContextualTopNav from '../../src/components/layout/ContextualTopNav';
-import ContextualSidebar from '../../src/components/layout/ContextualSidebar';
-import LoadingIndicator from '../../src/components/ui/LoadingIndicator';
+import { UserContext } from '@/components/context/UserContext';
+import ContextualTopNav from '@/components/layout/ContextualTopNav';
+import ContextualSidebar from '@/components/layout/ContextualSidebar';
+import LoadingIndicator from '@/components/ui/LoadingIndicator';
 import useCredits from '@/components/credits/useCredits';
 import { createPageUrl } from '@/utils';
 import { supabase } from '@/integrations/supabase/client';

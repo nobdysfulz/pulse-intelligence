@@ -543,7 +543,7 @@ export default function DashboardPage() {
             </div>
 
             <Button
-              onClick={() => router.push('/todo' + '?tab=scores')}
+              onClick={() => router.push('/to-do?tab=scores')}
               className="bg-[#ffffff] text-violet-700 px-4 py-2 text-sm font-semibold rounded-md w-full h-10 hover:bg-[#eeeeee] mt-auto"
             >
               VIEW MORE
@@ -554,7 +554,7 @@ export default function DashboardPage() {
           <div className="bg-white border border-[#E2E8F0] rounded-lg p-6 flex flex-col h-full">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-base font-semibold text-[#1E293B]">Today's Focus</h3>
-              <button onClick={() => router.push('/todo')}>
+              <button onClick={() => router.push('/to-do')}>
                 <ArrowRight className="w-5 h-5 text-[#475569] hover:text-[#6D28D9]" />
               </button>
             </div>
@@ -620,7 +620,7 @@ export default function DashboardPage() {
             </div>
 
             <Button
-              onClick={() => router.push('/todo' + '?tab=tasks')}
+              onClick={() => router.push('/to-do?tab=tasks')}
               className="w-full h-10 bg-[#6D28D9] hover:bg-[#5B21B6] text-white rounded-md text-sm font-semibold mt-auto"
             >
               VIEW ALL

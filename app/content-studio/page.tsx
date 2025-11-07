@@ -333,6 +333,12 @@ export default function ContentStudioPage() {
     }
   }, [contextLoading, user, loadPageData]);
 
+  useEffect(() => {
+    if (!contextLoading && !user) {
+      setLoading(false);
+    }
+  }, [contextLoading, user]);
+
   const handleContentGenerated = async (contentData) => {
     if (!user?.id) {
       toast.error('You need to be logged in to save content.');
@@ -882,6 +888,21 @@ export default function ContentStudioPage() {
         return null;
     }
   };
+
+  if (!loading && !user) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center bg-[#F8FAFC]">
+        <div className="rounded-xl bg-white p-8 text-center shadow-lg">
+          <h2 className="text-lg font-semibold text-[#1E293B]">
+            Sign in to access the Content Studio
+          </h2>
+          <p className="mt-2 text-sm text-[#475569]">
+            Please log in to generate and manage your marketing content.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

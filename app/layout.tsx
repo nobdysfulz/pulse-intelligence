@@ -1,6 +1,6 @@
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider, SignedIn, SignedOut } from '@clerk/nextjs'
 import './globals.css'
-import { UserProvider } from '@/components/context/UserContext'
+import UserProvider from '@/components/context/UserProvider'
 import AppLayout from '@/components/layout/AppLayout'
 
 export const metadata = {
@@ -16,12 +16,19 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <UserProvider>
-            <AppLayout>
+        <body className="min-h-screen bg-slate-900">
+          <SignedIn>
+            <UserProvider>
+              <AppLayout>
+                {children}
+              </AppLayout>
+            </UserProvider>
+          </SignedIn>
+          <SignedOut>
+            <main className="min-h-screen flex flex-col">
               {children}
-            </AppLayout>
-          </UserProvider>
+            </main>
+          </SignedOut>
         </body>
       </html>
     </ClerkProvider>

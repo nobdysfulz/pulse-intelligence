@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useContext, useMemo, useCallback } from "react";
 import { useSearchParams } from 'next/navigation';
-import { UserContext } from '../../src/components/context/UserContext';
+import { UserContext } from '@/components/context/UserContext';
 import { DailyAction, AgentConfig } from '@/api/entities';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"; // Added CardHeader, CardTitle
@@ -16,13 +16,13 @@ import { format, startOfMonth, endOfMonth, startOfWeek, addDays, isSameDay, each
 import { cn } from "@/lib/utils";
 import { calculatePulseScore } from "@/components/pulse/pulseScoring";
 import { generateDailyTasks } from "@/components/actions/taskGeneration";
-import ContextualTopNav from '../../src/components/layout/ContextualTopNav';
-import ContextualSidebar from '../../src/components/layout/ContextualSidebar';
-import AddActionModal from '../../src/components/actions/AddActionModal';
+import ContextualTopNav from '@/components/layout/ContextualTopNav';
+import ContextualSidebar from '@/components/layout/ContextualSidebar';
+import AddActionModal from '@/components/actions/AddActionModal';
 import { supabase } from '@/integrations/supabase/client';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Bar, BarChart } from 'recharts';
 import ReactMarkdown from 'react-markdown';
-import LoadingIndicator, { InlineLoadingIndicator } from '../../src/components/ui/LoadingIndicator';
+import LoadingIndicator, { InlineLoadingIndicator } from '@/components/ui/LoadingIndicator';
 
 export default function ToDoPage() {
   const {

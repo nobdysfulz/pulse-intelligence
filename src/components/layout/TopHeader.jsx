@@ -17,7 +17,7 @@ export default function TopHeader() {
     try {
       await signOut();
       toast.success('Successfully logged out.');
-      router.push('/login');
+      router.push('/sign-in');
     } catch (error) {
       toast.error('Failed to log out.');
       console.error('Logout error:', error);
@@ -29,7 +29,7 @@ export default function TopHeader() {
   };
 
   return (
-    <header className="bg-[#232323] text-white pt-10 pr-6 pb-10 pl-6 h-14 flex-shrink-0 flex items-center justify-between shadow-[2px_2px_20px_0px_#707070AD]">
+    <header className="bg-[#1E293B] text-white pt-10 pr-6 pb-10 pl-6 h-14 flex-shrink-0 flex items-center justify-between shadow-[2px_2px_20px_0px_#707070AD]">
       {/* Left side with name */}
       <div className="flex items-center gap-3">
         <span className="text-xl font-bold tracking-tight">

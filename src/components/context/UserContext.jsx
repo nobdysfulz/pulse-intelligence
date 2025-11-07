@@ -41,6 +41,12 @@ export const UserProvider = ({ children }) => {
     isSupportChatOpen: false,
   });
 
+  useEffect(() => {
+    // Set loading to false after initial mount
+    // In a real implementation, this would fetch user data first
+    setUserState(prev => ({ ...prev, loading: false }));
+  }, []);
+
   const refreshUserData = () => {
     console.log('Refresh user data called');
     // This would typically refetch user data

@@ -2,18 +2,17 @@
 
 
 import React, { useState, useEffect, useContext, useMemo, useCallback } from "react";
-import { useSearchParams } from 'next/navigation';
 import { UserContext } from '../../src/components/context/UserContext';
 import { DailyAction, AgentConfig } from '@/api/entities';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"; // Added CardHeader, CardTitle
-import { Checkbox } from "@/components/ui/checkbox";
-import { Progress } from "@/components/ui/progress";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "../../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"; // Added CardHeader, CardTitle
+import { Checkbox } from "../../components/ui/checkbox";
+import { Progress } from "../../components/ui/progress";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
 import { PlusCircle, RefreshCw, Printer, Download, Clock, Info, Calendar as CalendarIcon, ArrowUp, ArrowDown, BarChart2 } from "lucide-react";
 import { toast } from "sonner";
 import { format, startOfMonth, endOfMonth, startOfWeek, addDays, isSameDay, eachHourOfInterval, startOfDay, endOfDay, subWeeks, eachDayOfInterval, differenceInHours, getHours, endOfWeek } from "date-fns";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { calculatePulseScore } from "@/components/pulse/pulseScoring";
 import { generateDailyTasks } from "@/components/actions/taskGeneration";
 import ContextualTopNav from '../../src/components/layout/ContextualTopNav';
@@ -38,17 +37,18 @@ export default function ToDoPage() {
   } = useContext(UserContext);
 
   // Check URL params for tab
-  const searchParams = useSearchParams();
-  const tabFromUrl = searchParams?.get('tab');
+  const urlParams = new URLSearchParams(window.location.search);
+  const tabFromUrl = urlParams.get('tab');
   const [activeTab, setActiveTab] = useState(tabFromUrl || 'schedule');
 
   // Listen for URL changes to update active tab
   useEffect(() => {
-    const tabParam = searchParams?.get('tab');
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get('tab');
     if (tabParam && tabParam !== activeTab) {
       setActiveTab(tabParam);
     }
-  }, [searchParams, activeTab]);
+  }, [window.location.search]);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -61,7 +61,7 @@ export default function ToDoPage() {
   const [takeawaysLoading, setTakeawaysLoading] = useState(false);
 
 
-  const tabs= [
+  const tabs: string[] = [
     { id: 'schedule', label: 'Daily Action Plan' },
     { id: 'tasks', label: 'Tasks' },
     { id: 'scores', label: 'Scores' },
@@ -129,7 +129,7 @@ export default function ToDoPage() {
   }, [allActions, todayFormatted]);
 
   const monthlyGoals = useMemo(() => {
-    const specificGoalTitles= [
+    const specificGoalTitles: string[] = [
       "Total Conversations",
       "Total Appointments Set",
       "Total Agreements Signed",
@@ -243,7 +243,7 @@ export default function ToDoPage() {
   };
 
   const handleDownloadCSV = () => {
-    const allTasks= [
+    const allTasks: string[] = [
       ...todaysTasks.map((t: any) => ({ ...t, list: 'Due Today' })),
       ...completedToday.map((t: any) => ({ ...t, list: 'Completed' })),
       ...overdueTasks.map((t: any) => ({ ...t, list: 'Overdue' }))];
@@ -259,7 +259,7 @@ export default function ToDoPage() {
     const csvRows: string[] = [headers.join(',')];
 
     allTasks.forEach((task) => {
-      const row= [
+      const row: string[] = [
         task.list,
         `"${task.title.replace(/"/g, '""')}"`,
         `"${task.description?.replace(/"/g, '""') || ''}"`,
@@ -284,12 +284,6 @@ export default function ToDoPage() {
     toast.success("Tasks downloaded successfully.");
   };
 
-  const handlePrint = () => {
-    if (typeof window !== 'undefined') {
-      window.print();
-    }
-  };
-
   const pulseTasks = useMemo(() => todaysTasks.filter((a) => a.category === 'pulse_based'), [todaysTasks]);
   const powerHourTasks = useMemo(() => todaysTasks.filter((a) => a.category === 'power_hour'), [todaysTasks]);
   const businessBuildingTasks = useMemo(() => todaysTasks.filter((a) => a.category === 'build_business'), [todaysTasks]);
@@ -298,7 +292,7 @@ export default function ToDoPage() {
   const databaseBuildingTasks = useMemo(() => todaysTasks.filter((a) => a.category === 'build_database'), [todaysTasks]);
 
   const generateSuggestedSchedule = () => {
-    const schedule = [];
+    const schedule: string[] = [];
     let currentTimeInMinutes = 9 * 60; // Start at 9 AM
 
     todaysTasks.forEach((task) => {
@@ -446,7 +440,7 @@ export default function ToDoPage() {
       completionTrend,
       categoryAllocation,
       timeOfDayCompletion: Object.entries(timeOfDayCompletion).
-        filter(([, value]) => (value as number) > 0) // Only include categories with values
+        filter(([, value]) => value > 0) // Only include categories with values
         .map(([name, value]) => ({ name, value }))
     };
   }, [allActions, pulseData]); // Added preferences as dependency for consistency if 'now' calculation was impacted by timezone
@@ -516,7 +510,7 @@ export default function ToDoPage() {
 
               {generating ? <InlineLoadingIndicator /> : <RefreshCw className="w-5 h-5 text-[#475569]" />}
             </button>
-            <button onClick={handlePrint} className="p-2 bg-white hover:bg-[#F8FAFC] border border-[#E2E8F0] rounded transition-colors" title="Print">
+            <button onClick={() => window.print()} className="p-2 bg-white hover:bg-[#F8FAFC] border border-[#E2E8F0] rounded transition-colors" title="Print">
               <Printer className="w-5 h-5 text-[#475569]" />
             </button>
             <button onClick={handleDownloadCSV} className="p-2 bg-white hover:bg-[#F8FAFC] border border-[#E2E8F0] rounded transition-colors" title="Download">
@@ -586,7 +580,7 @@ export default function ToDoPage() {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis dataKey="name" tick={{ fontSize: 12 }} />
                 <YAxis tick={{ fontSize: 12 }} unit="%" domain={[0, 100]} />
-                <Tooltip contentStyle={{ fontSize: 12, padding: '4px 8px' }} formatter={(value) => `${(value as number).toFixed(0)}%`} />
+                <Tooltip contentStyle={{ fontSize: 12, padding: '4px 8px' }} formatter={(value) => `${value.toFixed(0)}%`} />
                 <Line type="monotone" dataKey="completion" stroke="#7C3AED" strokeWidth={2} dot={{ r: 4 }} />
               </LineChart>
             </ResponsiveContainer>
@@ -638,11 +632,9 @@ export default function ToDoPage() {
                 <LoadingIndicator text="Analyzing your patterns..." size="md" />
               </div>
             ) : (
-              <div className="text-sm text-[#475569] leading-relaxed prose prose-sm max-w-none">
-                <ReactMarkdown>
-                  {aiTakeaways || 'Your activity patterns show steady progress. Focus on maintaining consistency and completing high-priority tasks during your most productive hours.'}
-                </ReactMarkdown>
-              </div>
+              <ReactMarkdown className="text-sm text-[#475569] leading-relaxed prose prose-sm max-w-none">
+                {aiTakeaways || 'Your activity patterns show steady progress. Focus on maintaining consistency and completing high-priority tasks during your most productive hours.'}
+              </ReactMarkdown>
             )}
           </CardContent>
         </Card>
@@ -793,10 +785,10 @@ function ScheduleView({ allActions }) {
 
   const scheduledItems = useMemo(() => {
     let currentTotalMinutes = 9 * 60; // Start at 9 AM in minutes from midnight
-    const items = [];
+    const items: string[] = [];
 
     // Sort tasks for consistent display, e.g., by priority, then by title
-    const sortedTasks = [...tasksForSelectedDate].sort((a, b) => {
+    const sortedTasks: string[] = [...tasksForSelectedDate].sort((a, b) => {
       // Higher priority (lower number) comes first
       if (a.priority && b.priority && a.priority !== b.priority) {
         return a.priority - b.priority;
@@ -880,7 +872,7 @@ function ScheduleView({ allActions }) {
   const DayButton = ({ day }: any) => {
     const dayTasks = allActions.filter((a) => a.actionDate && isSameDay(new Date(a.actionDate), day));
     // Get unique categories for the day, default if none specified
-    const categories = [...new Set(dayTasks.map((t: any) => {
+    const categories: string[] = [...new Set(dayTasks.map((t: any) => {
       // Special case for Power Hour Theme quadrant which is based on actionType
       if (t.actionType === 'lead_generation') return 'lead_generation_dot';
       return t.category || 'default';
@@ -1124,7 +1116,7 @@ function TasksView({ todaysTasks, completedToday, overdueTasks, onToggle, displa
 }
 
 function ScoresView({ pulseScores }) {
-  const scores= [
+  const scores: string[] = [
     { letter: 'P', label: 'Planning', value: pulseScores?.planningAdherence || 0, max: 20 },
     { letter: 'U', label: 'Urgency', value: pulseScores?.urgencyManagement || 0, max: 20 },
     { letter: 'L', label: 'Lead Engagement', value: pulseScores?.leadEngagement || 0, max: 20 },

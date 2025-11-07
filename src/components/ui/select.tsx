@@ -3,12 +3,45 @@ import * as React from "react"
 import { ChevronDown } from "lucide-react"
 import { cn } from "../../lib/utils"
 
-const Select = React.forwardRef(({ children, value, onValueChange, ...props }, ref) => {
+interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  value?: any;
+  onValueChange?: (value: any) => void;
+}
+
+interface SelectTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string;
+  children?: React.ReactNode;
+  value?: any;
+  isOpen?: boolean;
+  selectContentChildren?: React.ReactElement[];
+}
+
+interface SelectValueProps extends React.HTMLAttributes<HTMLSpanElement> {
+  placeholder?: string;
+  children?: React.ReactNode;
+}
+
+interface SelectContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  children?: React.ReactNode;
+  onValueChange?: (value: any) => void;
+  onClose?: () => void;
+}
+
+interface SelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  children?: React.ReactNode;
+  value?: any;
+  onValueChange?: (value: any) => void;
+}
+
+const Select = React.forwardRef<HTMLDivElement, SelectProps>(({ children, value, onValueChange, ...props }, ref) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  let selectTrigger = null;
-  let selectContent = null;
-  const otherChildren = [];
+  let selectTrigger: React.ReactElement | null = null;
+  let selectContent: React.ReactElement | null = null;
+  const otherChildren: React.ReactNode[] = [];
 
   // Separate direct children into trigger, content, and others
   React.Children.forEach(children, child => {
@@ -26,7 +59,7 @@ const Select = React.forwardRef(({ children, value, onValueChange, ...props }, r
   });
 
   // Extract the SelectItem children from SelectContent to pass to SelectTrigger
-  const selectContentItems = selectContent ? React.Children.toArray(selectContent.props.children) : [];
+  const selectContentItems = selectContent ? React.Children.toArray(selectContent.props.children) as React.ReactElement[] : [];
 
   return (
     <div className="relative" ref={ref} {...props}>
@@ -38,8 +71,8 @@ const Select = React.forwardRef(({ children, value, onValueChange, ...props }, r
         selectContentChildren: selectContentItems
       })}
       {isOpen && selectContent && React.cloneElement(selectContent, {
-        onValueChange: (val) => {
-          onValueChange(val);
+        onValueChange: (val: any) => {
+          onValueChange?.(val);
           setIsOpen(false);
         },
         onClose: () => setIsOpen(false)
@@ -51,12 +84,12 @@ const Select = React.forwardRef(({ children, value, onValueChange, ...props }, r
 });
 Select.displayName = "Select"
 
-const SelectTrigger = React.forwardRef(({ className, children, value, isOpen, selectContentChildren, ...props }, ref) => {
+const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(({ className, children, value, isOpen, selectContentChildren, ...props }, ref) => {
   const selectValueChild = React.Children.toArray(children).find(
-    (child) => child.type === SelectValue
+    (child): child is React.ReactElement => React.isValidElement(child) && child.type === SelectValue
   );
 
-  let displayValue = selectValueChild?.props.placeholder || "Select...";
+  let displayValue: React.ReactNode = selectValueChild?.props.placeholder || "Select...";
 
   if (value !== undefined && value !== null && selectContentChildren && selectContentChildren.length > 0) {
     const selectedItem = selectContentChildren.find(
@@ -85,19 +118,19 @@ const SelectTrigger = React.forwardRef(({ className, children, value, isOpen, se
 });
 SelectTrigger.displayName = "SelectTrigger"
 
-const SelectValue = React.forwardRef(({ placeholder, children, ...props }, ref) => (
+const SelectValue = React.forwardRef<HTMLSpanElement, SelectValueProps>(({ placeholder, children, ...props }, ref) => (
   <span ref={ref} {...props}>
     {children || placeholder || "Select..."}
   </span>
 ))
 SelectValue.displayName = "SelectValue"
 
-const SelectContent = React.forwardRef(({ className, children, onValueChange, onClose, ...props }, ref) => {
-  const contentRef = React.useRef(null);
+const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(({ className, children, onValueChange, onClose, ...props }, ref) => {
+  const contentRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (contentRef.current && !contentRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (contentRef.current && !contentRef.current.contains(event.target as Node)) {
         onClose?.();
       }
     };
@@ -117,8 +150,8 @@ const SelectContent = React.forwardRef(({ className, children, onValueChange, on
     >
       <div className="p-1">
         {React.Children.map(children, child => {
-          if (child.type === SelectItem) {
-            return React.cloneElement(child, { onValueChange });
+          if (React.isValidElement(child) && child.type === SelectItem) {
+            return React.cloneElement(child, { onValueChange } as any);
           }
           return child;
         })}
@@ -128,7 +161,7 @@ const SelectContent = React.forwardRef(({ className, children, onValueChange, on
 })
 SelectContent.displayName = "SelectContent"
 
-const SelectItem = React.forwardRef(({ className, children, value, onValueChange, ...props }, ref) => (
+const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(({ className, children, value, onValueChange, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(

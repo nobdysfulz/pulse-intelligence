@@ -4,7 +4,7 @@ import { UserContext } from '../context/UserContext';
 import { Loader2, CheckCircle2, Circle, ExternalLink } from 'lucide-react';
 import { Button } from '../ui/button';
 import { toast } from 'sonner';
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '../../integrations/supabase/client';
 import { createPageUrl } from '../../utils';
 import { useRouter } from 'next/navigation';
 

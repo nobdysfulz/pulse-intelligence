@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 
 import React, { useState, useEffect, useContext, useMemo, useCallback, useRef } from "react";
@@ -64,37 +63,37 @@ export default function DashboardPage() {
   }, [onboardingJourney]);
 
   const handleResumeOnboarding = useCallback(() => {
-    router.push("/onboarding");
+    router.push(createPageUrl('Onboarding'));
   }, [router]);
 
-  const agentAvatars = [
+  const agentAvatars: string[] = [
     {
       name: 'NOVA',
       role: 'Executive Assistant',
       image: '/images/agents/executive-assistant.png',
-      link: '/agents' + '?tab=executive_assistant'
+      link: createPageUrl('Agents') + '?tab=executive_assistant'
     },
     {
       name: 'SIRIUS',
       role: 'Content Agent',
       image: '/images/agents/content-agent.png',
-      link: '/agents' + '?tab=content_agent'
+      link: createPageUrl('Agents') + '?tab=content_agent'
     },
     {
       name: 'VEGA',
       role: 'Transaction Coordinator',
       image: '/images/agents/transaction-coordinator.png',
-      link: '/agents' + '?tab=transaction_coordinator'
+      link: createPageUrl('Agents') + '?tab=transaction_coordinator'
     },
     {
       name: 'PHOENIX',
       role: 'Leads Agent',
       image: '/images/agents/leads-agent.png',
-      link: '/agents' + '?tab=leads_agent'
+      link: createPageUrl('Agents') + '?tab=leads_agent'
     }
   ];
 
-  const isSubscriberOrAdmin = ['Subscriber', 'Admin', 'Owner', 'Investor'].includes(user?.subscriptionTier);
+  const isSubscriberOrAdmin: string[] = ['Subscriber', 'Admin', 'Owner', 'Investor'].includes(user?.subscriptionTier);
 
   const userInitials = useMemo(() => {
     const firstName = user?.firstName || user?.full_name?.split(' ')[0];
@@ -290,7 +289,7 @@ export default function DashboardPage() {
     // Check if business plan exists
     if (!businessPlan) {
       toast.info("Complete your Production Planner to generate personalized actions.");
-      router.push('/goals' + '?tab=planner');
+      router.push(createPageUrl('Goals') + '?tab=planner');
       return;
     }
 
@@ -369,9 +368,9 @@ export default function DashboardPage() {
 
   const handleMyAITeamClick = () => {
     if (isSubscriberOrAdmin) {
-      router.push('/agents');
+      router.push(createPageUrl('Agents'));
     } else {
-      router.push('/plans');
+      router.push(createPageUrl('Plans'));
     }
   };
 
@@ -432,7 +431,7 @@ export default function DashboardPage() {
                 </div>
               </div>
               <Button
-                onClick={() => router.push('/goals' + '?tab=planner')}
+                onClick={() => router.push(createPageUrl('Goals') + '?tab=planner')}
                 className="bg-white text-[#7C3AED] hover:bg-gray-100 font-semibold"
               >
                 Get Started <ArrowRight className="w-4 h-4 ml-2" />
@@ -482,7 +481,7 @@ export default function DashboardPage() {
         {/* Quick Access Buttons */}
         <div className="grid grid-cols-4 gap-4 mb-6">
           <Button
-            onClick={() => router.push('/roleplay')}
+            onClick={() => router.push(createPageUrl('RolePlay'))}
             className="h-20 bg-white hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 border-2 border-[#E2E8F0] hover:border-[#6D28D9] text-[#1E293B] flex flex-col items-center justify-center gap-2 transition-all"
             variant="outline"
           >
@@ -490,7 +489,7 @@ export default function DashboardPage() {
             <span className="font-semibold">Role Play</span>
           </Button>
           <Button
-            onClick={() => router.push('/contentstudio')}
+            onClick={() => router.push(createPageUrl('ContentStudio'))}
             className="h-20 bg-white hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 border-2 border-[#E2E8F0] hover:border-[#6D28D9] text-[#1E293B] flex flex-col items-center justify-center gap-2 transition-all"
             variant="outline"
           >
@@ -498,7 +497,7 @@ export default function DashboardPage() {
             <span className="font-semibold">Content Studio</span>
           </Button>
           <Button
-            onClick={() => router.push('/market')}
+            onClick={() => router.push(createPageUrl('Market'))}
             className="h-20 bg-white hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 border-2 border-[#E2E8F0] hover:border-[#6D28D9] text-[#1E293B] flex flex-col items-center justify-center gap-2 transition-all"
             variant="outline"
           >
@@ -545,7 +544,7 @@ export default function DashboardPage() {
             </div>
 
             <Button
-              onClick={() => router.push('/todo' + '?tab=scores')}
+              onClick={() => router.push(createPageUrl('ToDo') + '?tab=scores')}
               className="bg-[#ffffff] text-violet-700 px-4 py-2 text-sm font-semibold rounded-md w-full h-10 hover:bg-[#eeeeee] mt-auto"
             >
               VIEW MORE
@@ -556,7 +555,7 @@ export default function DashboardPage() {
           <div className="bg-white border border-[#E2E8F0] rounded-lg p-6 flex flex-col h-full">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-base font-semibold text-[#1E293B]">Today's Focus</h3>
-              <button onClick={() => router.push('/todo')}>
+              <button onClick={() => router.push(createPageUrl('ToDo'))}>
                 <ArrowRight className="w-5 h-5 text-[#475569] hover:text-[#6D28D9]" />
               </button>
             </div>
@@ -622,7 +621,7 @@ export default function DashboardPage() {
             </div>
 
             <Button
-              onClick={() => router.push('/todo' + '?tab=tasks')}
+              onClick={() => router.push(createPageUrl('ToDo') + '?tab=tasks')}
               className="w-full h-10 bg-[#6D28D9] hover:bg-[#5B21B6] text-white rounded-md text-sm font-semibold mt-auto"
             >
               VIEW ALL
@@ -633,7 +632,7 @@ export default function DashboardPage() {
           <div className="bg-white border border-[#E2E8F0] rounded-lg p-6 flex flex-col h-full">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-base font-semibold text-[#1E293B]">Intelligence Score</h3>
-              <button onClick={() => router.push('/intelligence')}>
+              <button onClick={() => router.push(createPageUrl('Intelligence'))}>
                 <ArrowRight className="w-5 h-5 text-[#475569] hover:text-[#6D28D9]" />
               </button>
             </div>
@@ -702,7 +701,7 @@ export default function DashboardPage() {
                 />
                 <h4 className="text-lg font-semibold text-[#1E293B]">Ask Me About Your Market</h4>
               </div>
-              <button onClick={() => router.push('/personaladvisor')}>
+              <button onClick={() => router.push(createPageUrl('PersonalAdvisor'))}>
                 <ArrowRight className="w-5 h-5 text-[#475569] hover:text-[#6D28D9]" />
               </button>
             </div>
@@ -757,7 +756,7 @@ export default function DashboardPage() {
           <div className="bg-white border border-[#E2E8F0] rounded-lg p-6 flex flex-col h-full">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-base font-semibold text-[#1E293B]">Activities Progress</h3>
-              <button onClick={() => router.push('/goals')}>
+              <button onClick={() => router.push(createPageUrl('Goals'))}>
                 <ArrowRight className="w-5 h-5 text-[#475569] hover:text-[#6D28D9]" />
               </button>
             </div>
@@ -783,7 +782,7 @@ export default function DashboardPage() {
               })}
             </div>
             <Button
-              onClick={() => router.push('/goals')}
+              onClick={() => router.push(createPageUrl('Goals'))}
               className="w-full h-10 bg-[#6D28D9] hover:bg-[#5B21B6] text-white rounded-md text-sm font-semibold mt-4"
             >
               VIEW ALL
@@ -794,7 +793,7 @@ export default function DashboardPage() {
           <div className="bg-white border border-[#E2E8F0] rounded-lg p-6 flex flex-col h-full">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-base font-semibold text-[#1E293B]">Goals Progress</h3>
-              <button onClick={() => router.push('/goals')}>
+              <button onClick={() => router.push(createPageUrl('Goals'))}>
                 <ArrowRight className="w-5 h-5 text-[#475569] hover:text-[#6D28D9]" />
               </button>
             </div>
@@ -834,7 +833,7 @@ export default function DashboardPage() {
             </div>
 
             <Button
-              onClick={() => router.push('/goals')}
+              onClick={() => router.push(createPageUrl('Goals'))}
               className="w-full h-10 bg-[#6D28D9] hover:bg-[#5B21B6] text-white rounded-md text-sm font-semibold mt-4"
             >
               VIEW ALL

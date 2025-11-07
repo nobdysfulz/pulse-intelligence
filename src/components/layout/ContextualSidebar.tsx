@@ -1,7 +1,13 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
 
-export default function ContextualSidebar({ title, children, className }) {
+interface ContextualSidebarProps {
+  title?: string;
+  children: React.ReactNode;
+  className?: string;
+}
+
+export default function ContextualSidebar({ title, children, className }: ContextualSidebarProps) {
   // Check if title contains "Copilot" to change the display text
   const showCopilotText = title?.toLowerCase().includes('copilot');
 
@@ -15,6 +21,6 @@ export default function ContextualSidebar({ title, children, className }) {
       <div className="pt-4 pr-6 pb-6 pl-6 flex-1 overflow-y-auto">
         {children}
       </div>
-    </aside>);
-
+    </aside>
+  );
 }

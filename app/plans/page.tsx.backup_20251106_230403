@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
 import { UserCredit, UserAgentSubscription } from '@/api/entities';
 import { UserContext } from '@/components/context/UserContext';
-import { cn } from "@/lib/utils";
+import { cn } from '../../lib/utils';
 import { differenceInDays, endOfMonth } from 'date-fns';
 
 export default function PlansPage() {
@@ -66,7 +66,7 @@ export default function PlansPage() {
     return false;
   };
 
-  const allPlans= [
+  const allPlans: string[] = [
     {
       type: 'subscription',
       name: "Free",

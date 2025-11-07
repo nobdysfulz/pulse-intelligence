@@ -4,17 +4,20 @@ import React, { useState, useContext, createContext } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "../../lib/utils";
 
-const AccordionContext = createContext({
+const AccordionContext = createContext<{
+    activeItem: string | null;
+    setActiveItem: (value: string | null) => void;
+}>({
     activeItem: null,
     setActiveItem: () => {},
 });
 
-const AccordionItemContext = createContext(null);
+const AccordionItemContext = createContext<string | null>(null);
 
-const Accordion = ({ className, type = "single", defaultValue, collapsible = true, children, ...props }) => {
+const Accordion = ({ className, type = "single", defaultValue, collapsible = true, children, ...props }: any) => {
     const [activeItem, setActiveItem] = useState(defaultValue || null);
 
-    const handleSetActiveItem = (value) => {
+    const handleSetActiveItem = (value: string | null) => {
         if (type === "single") {
             if (collapsible && activeItem === value) {
                 setActiveItem(null);
@@ -33,7 +36,7 @@ const Accordion = ({ className, type = "single", defaultValue, collapsible = tru
     );
 };
 
-const AccordionItem = React.forwardRef(({ className, value, children, ...props }, ref) => (
+const AccordionItem = React.forwardRef<HTMLDivElement, any>(({ className, value, children, ...props }, ref) => (
     <AccordionItemContext.Provider value={value}>
         <div ref={ref} className={cn("border-b", className)} {...props}>
             {children}
@@ -42,7 +45,7 @@ const AccordionItem = React.forwardRef(({ className, value, children, ...props }
 ));
 AccordionItem.displayName = "AccordionItem";
 
-const AccordionTrigger = React.forwardRef(({ className, children, ...props }, ref) => {
+const AccordionTrigger = React.forwardRef<HTMLButtonElement, any>(({ className, children, ...props }, ref) => {
     const { activeItem, setActiveItem } = useContext(AccordionContext);
     const value = useContext(AccordionItemContext);
     const isOpen = activeItem === value;
@@ -66,7 +69,7 @@ const AccordionTrigger = React.forwardRef(({ className, children, ...props }, re
 });
 AccordionTrigger.displayName = "AccordionTrigger";
 
-const AccordionContent = React.forwardRef(({ className, children, ...props }, ref) => {
+const AccordionContent = React.forwardRef<HTMLDivElement, any>(({ className, children, ...props }, ref) => {
     const { activeItem } = useContext(AccordionContext);
     const value = useContext(AccordionItemContext);
     const isOpen = activeItem === value;

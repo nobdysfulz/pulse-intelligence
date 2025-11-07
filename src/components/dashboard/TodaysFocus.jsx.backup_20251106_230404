@@ -6,8 +6,8 @@ import { createPageUrl } from '../../utils';
 import { RefreshCw } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
-import { DailyAction } from "@/api/entities";
-import { supabase } from "@/integrations/supabase/client";
+import { DailyAction } from '../../api/entities';
+import { supabase } from '../../integrations/supabase/client';
 import { toast } from 'sonner';
 
 const TaskItem = ({ task, onToggle }) =>

@@ -2,7 +2,7 @@
 
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { UserContext } from '../../src/components/context/UserContext';
+import { UserContext } from '@/components/context/UserContext';
 import { Button } from '@/components/ui/button';
 import { Loader2, Send, Settings, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
@@ -10,7 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { usePathname, useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { useQueryClient } from '@tanstack/react-query';
-import AITypingIndicator from '../../src/components/ui/AITypingIndicator';
+import AITypingIndicator from '@/components/ui/AITypingIndicator';
 
 const TypingBubble = ({ text, onTypingComplete }: any) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -193,6 +193,21 @@ export default function PersonalAdvisorPage() {
           className="w-12 h-12 animate-spin-slow object-contain"
           style={{ animationDuration: '3s' }}
         />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center bg-[#F8FAFC]">
+        <div className="rounded-xl bg-white p-8 text-center shadow-lg">
+          <h2 className="text-lg font-semibold text-[#1E293B]">
+            Sign in to talk to your advisor
+          </h2>
+          <p className="mt-2 text-sm text-[#475569]">
+            Your personalized advisor is available after you log in.
+          </p>
+        </div>
       </div>
     );
   }

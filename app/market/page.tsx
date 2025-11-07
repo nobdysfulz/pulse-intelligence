@@ -2,22 +2,22 @@
 
 
 import React, { useState, useEffect, useContext, useMemo } from 'react';
-import { UserContext } from '../../src/components/context/UserContext';
+import { UserContext } from '@/components/context/UserContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2, TrendingUp, Home, DollarSign, Calendar, Send, Sparkles, Download, Printer, RefreshCw, AlertCircle, MessageSquare, UserCheck } from 'lucide-react';
 import { toast } from 'sonner';
-import ContextualTopNav from '../../src/components/layout/ContextualTopNav';
-import ContextualSidebar from '../../src/components/layout/ContextualSidebar';
+import ContextualTopNav from '@/components/layout/ContextualTopNav';
+import ContextualSidebar from '@/components/layout/ContextualSidebar';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import jsPDF from 'jspdf';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
 import { InlineLoadingIndicator } from "@/components/ui/LoadingIndicator";
-import MarketConfigForm from '../../src/components/market/MarketConfigForm';
+import MarketConfigForm from '@/components/market/MarketConfigForm';
 import { UserMarketConfig } from '@/api/entities';
 
 

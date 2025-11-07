@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { createPageUrl } from '@/utils';
-import { Home, CheckSquare, Target, Users, LogOut, TrendingUp, Camera, Award, MessageSquare, Brain } from 'lucide-react';
+import { Home, CheckSquare, Target, Users, LogOut, TrendingUp, Camera, Award, MessageSquare, Brain, Zap } from 'lucide-react';
 import { UserContext } from '../context/UserContext';
 import { useClerk } from '@clerk/clerk-react';
 
@@ -162,17 +162,13 @@ export default function PrimarySidebar({ onNavigate, isMobile, onClose }: Primar
 
       <div className="mt-auto">
         {/* The Upgrade link is visible only if the user is NOT an admin */}
-        {!isAdmin && ( 
+        {!isAdmin && (
           <Link
             href="/plans"
             className="text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-medium flex items-center transition-colors hover:bg-[#F8FAFC]"
             onClick={() => onNavigate?.()}
           >
-            <img 
-              src="/images/logos/pulse-logo.png" 
-              alt="Upgrade" 
-              className="w-5 h-5 mr-3"
-            />
+            <Zap className="w-5 h-5 mr-3 text-[#7C3AED]" />
             <span className="text-left">Upgrade</span>
           </Link>
         )}

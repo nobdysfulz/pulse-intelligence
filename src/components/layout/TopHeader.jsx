@@ -30,13 +30,8 @@ export default function TopHeader() {
 
   return (
     <header className="bg-[#232323] text-white pt-10 pr-6 pb-10 pl-6 h-14 flex-shrink-0 flex items-center justify-between shadow-[2px_2px_20px_0px_#707070AD]">
-      {/* Left side with logo and name */}
+      {/* Left side with name */}
       <div className="flex items-center gap-3">
-        <img
-          src="/images/logos/emblem.png"
-          alt="PULSE Emblem"
-          className="h-7 w-auto"
-        />
         <span className="text-xl font-bold tracking-tight">
           <span className="font-extrabold">PULSE</span>
           <span className="font-medium">Intelligence</span>

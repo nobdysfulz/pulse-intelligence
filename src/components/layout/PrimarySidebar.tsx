@@ -1,15 +1,21 @@
 import React, { useContext } from 'react';
-import { usePathname } from 'next/navigation'; import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { createPageUrl } from '@/utils';
 import { Home, CheckSquare, Target, Users, LogOut, TrendingUp, Camera, Award, MessageSquare, Brain } from 'lucide-react';
 import { UserContext } from '../context/UserContext';
 import { useClerk } from '@clerk/clerk-react';
 
-export default function PrimarySidebar({ onNavigate }) {
+interface PrimarySidebarProps {
+  onNavigate?: () => void;
+  isMobile?: boolean;
+  onClose?: () => void;
+}
+
+export default function PrimarySidebar({ onNavigate, isMobile, onClose }: PrimarySidebarProps) {
   const { user } = useContext(UserContext);
   const { signOut } = useClerk();
-  const location = usePathname();
-  const currentPath = location.pathname;
+  const currentPath = usePathname();
 
   const isAdmin = user?.role === 'admin';
   const isSubscriberOrAdmin = user?.subscriptionTier === 'Subscriber' || user?.subscriptionTier === 'Admin';
@@ -37,24 +43,21 @@ export default function PrimarySidebar({ onNavigate }) {
     <aside className="bg-white w-40 flex flex-col h-full border-r border-[#E2E8F0] shadow-sm pt-4">
       <nav className="flex-1 py-4">
         {/* Dashboard */}
-        <NavLink
-          key="dashboard"
-          to="/dashboard"
-          end={true}
+        <Link
+          href="/dashboard"
           className={
-            `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC] 
+            `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC]
             ${isDashboardActive ? 'font-semibold bg-[#F8FAFC]' : ''}`
           }
           onClick={() => onNavigate?.()}
         >
           <Home className="w-5 h-5 mr-3" />
           <span className="text-left">Dashboard</span>
-        </NavLink>
+        </Link>
 
         {/* To-Do */}
-        <NavLink
-          key="todo"
-          to="/to-do"
+        <Link
+          href="/to-do"
           className={
             `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC] 
             ${isToDoActive ? 'font-semibold bg-[#F8FAFC]' : ''}`
@@ -63,12 +66,11 @@ export default function PrimarySidebar({ onNavigate }) {
         >
           <CheckSquare className="w-5 h-5 mr-3" />
           <span className="text-left">To-Do</span>
-        </NavLink>
+        </Link>
 
         {/* Goals */}
-        <NavLink
-          key="goals"
-          to="/goals"
+        <Link
+          href="/goals"
           className={
             `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC] 
             ${isGoalsActive ? 'font-semibold bg-[#F8FAFC]' : ''}`
@@ -77,12 +79,11 @@ export default function PrimarySidebar({ onNavigate }) {
         >
           <Target className="w-5 h-5 mr-3" />
           <span className="text-left">Goals</span>
-        </NavLink>
+        </Link>
 
         {/* Intelligence */}
-        <NavLink
-          key="intelligence"
-          to="/intelligence"
+        <Link
+          href="/intelligence"
           className={
             `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC] 
             ${isIntelligenceActive ? 'font-semibold bg-[#F8FAFC]' : ''}`
@@ -91,12 +92,11 @@ export default function PrimarySidebar({ onNavigate }) {
         >
           <Brain className="w-5 h-5 mr-3" />
           <span className="text-left">Intelligence</span>
-        </NavLink>
+        </Link>
 
         {/* Content */}
-        <NavLink
-          key="content"
-          to="/content-studio"
+        <Link
+          href="/content-studio"
           className={
             `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC] 
             ${isContentActive ? 'font-semibold bg-[#F8FAFC]' : ''}`
@@ -105,12 +105,11 @@ export default function PrimarySidebar({ onNavigate }) {
         >
           <Camera className="w-5 h-5 mr-3" />
           <span className="text-left">Content</span>
-        </NavLink>
+        </Link>
 
         {/* Skills */}
-        <NavLink
-          key="skills"
-          to="/role-play"
+        <Link
+          href="/role-play"
           className={
             `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC] 
             ${isSkillsActive ? 'font-semibold bg-[#F8FAFC]' : ''}`
@@ -119,12 +118,11 @@ export default function PrimarySidebar({ onNavigate }) {
         >
           <Award className="w-5 h-5 mr-3" />
           <span className="text-left">Skills</span>
-        </NavLink>
+        </Link>
 
         {/* My Advisor */}
-        <NavLink
-          key="advisor"
-          to="/personaladvisor"
+        <Link
+          href="/personaladvisor"
           className={
             `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC] 
             ${isAdvisorActive ? 'font-semibold bg-[#F8FAFC]' : ''}`
@@ -133,12 +131,11 @@ export default function PrimarySidebar({ onNavigate }) {
         >
           <MessageSquare className="w-5 h-5 mr-3" />
           <span className="text-left">My Advisor</span>
-        </NavLink>
+        </Link>
 
         {/* My Market */}
-        <NavLink
-          key="market"
-          to="/market"
+        <Link
+          href="/market"
           className={
             `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC] 
             ${isMarketActive ? 'font-semibold bg-[#F8FAFC]' : ''}`
@@ -147,12 +144,11 @@ export default function PrimarySidebar({ onNavigate }) {
         >
           <TrendingUp className="w-5 h-5 mr-3" />
           <span className="text-left">My Market</span>
-        </NavLink>
+        </Link>
 
         {/* My AI Agents - Conditionally links to Plans or Agents based on subscription */}
-        <NavLink
-          key="agents"
-          to={aiAgentsLink}
+        <Link
+          href={aiAgentsLink}
           className={
             `text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-normal flex items-center transition-colors hover:bg-[#F8FAFC] 
             ${isAgentsActive ? 'font-semibold bg-[#F8FAFC]' : ''}`
@@ -161,14 +157,14 @@ export default function PrimarySidebar({ onNavigate }) {
         >
           <Users className="w-5 h-5 mr-3" />
           <span className="text-left">My AI Agents</span>
-        </NavLink>
+        </Link>
       </nav>
 
       <div className="mt-auto">
         {/* The Upgrade link is visible only if the user is NOT an admin */}
         {!isAdmin && ( 
-          <NavLink
-            to="/plans"
+          <Link
+            href="/plans"
             className="text-[#01070f] pt-2 pr-1 pb-2 pl-4 text-sm font-medium flex items-center transition-colors hover:bg-[#F8FAFC]"
             onClick={() => onNavigate?.()}
           >
@@ -178,7 +174,7 @@ export default function PrimarySidebar({ onNavigate }) {
               className="w-5 h-5 mr-3"
             />
             <span className="text-left">Upgrade</span>
-          </NavLink>
+          </Link>
         )}
         
         <div className="p-2 border-t border-[#E2E8F0]">

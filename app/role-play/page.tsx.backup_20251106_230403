@@ -203,7 +203,7 @@ const ScenarioSearchSidebar = ({ scenarios, onStartScenario, isInitiating, activ
     const unique = new Set();
     scenarios.forEach((scenario) => {
       if (scenario.category) unique.add(scenario.category);
-    });
+    };
     return Array.from(unique);
   }, [scenarios]);
 
@@ -211,7 +211,7 @@ const ScenarioSearchSidebar = ({ scenarios, onStartScenario, isInitiating, activ
     const unique = new Set();
     scenarios.forEach((scenario) => {
       if (scenario.difficultyLevel) unique.add(scenario.difficultyLevel);
-    });
+    };
     return Array.from(unique);
   }, [scenarios]);
 
@@ -311,7 +311,7 @@ const ActiveSessionSidebar = ({ scenario, onEndSession }: any) => {
       return;
     }
 
-    const sections = [`<h2>${scenario.name}</h2>`,
+    const sections: string[] = [`<h2>${scenario.name}</h2>`,
       `<p><strong>Persona:</strong> ${scenario.clientPersona || 'Not specified'}</p>`,
       `<p><strong>Difficulty:</strong> ${scenario.difficultyLevel?.replace(/_/g, ' ') || 'Not specified'}</p>`,
       `<h3>Initial Context</h3><p>${(scenario.initialContext || '').replace(/\n/g, '<br />')}</p>`,
@@ -375,7 +375,7 @@ const ActiveSessionSidebar = ({ scenario, onEndSession }: any) => {
           }
           doc.text(line, 40, y);
           y += 14;
-        });
+        };
         y += 6;
       };
 
@@ -513,7 +513,7 @@ const SessionResultsSidebar = ({ sessionLog, scenario, analysis, onDelete }: any
         setAudioLoading(true);
         const { data, error } = await supabase.functions.invoke('getSignedAudioUrl', {
           body: { file_uri: recordingUrl }
-        });
+        };
         if (error) throw error;
         if (data?.signed_url) {
           setAudioUrl(data.signed_url);
@@ -553,7 +553,7 @@ const SessionResultsSidebar = ({ sessionLog, scenario, analysis, onDelete }: any
       const speaker = turn.role === 'agent' ? 'Client' : 'You';
       const message = turn.message || turn.original_message || '';
       transcriptText += `${speaker}: ${message}\n\n`;
-    });
+    };
 
     const blob = new Blob([transcriptText], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -756,7 +756,7 @@ const ScriptsSidebar = () => {
     const unique = new Set();
     scripts.forEach((script) => {
       if (script.category) unique.add(script.category);
-    });
+    };
     return Array.from(unique);
   }, [scripts]);
 
@@ -766,7 +766,7 @@ const ScriptsSidebar = () => {
       const matchesName = script.title?.toLowerCase().includes(term);
       const matchesCategory = category === 'all' || script.category === category;
       return matchesName && matchesCategory;
-    });
+    };
   }, [scripts, searchTerm, category]);
 
   if (loading) {
@@ -803,7 +803,7 @@ const ScriptsSidebar = () => {
       </div>
 
       {filteredScripts.length > 0 ? (
-        <Accordion type="single" collapsible className="w-full" defaultValue="">
+        <Accordion type="single" collapsible className="w-full">
           {filteredScripts.map((script: any) => (
             <AccordionItem value={script.id} key={script.id}>
               <AccordionTrigger className="text-sm font-semibold">
@@ -947,7 +947,7 @@ export default function RolePlayPage() {
 
     if (!user?.phone) {
       toast.error('Please add your phone number in Settings > Profile to start a role-play call.');
-      navigate.push('/settings');
+      navigate(createPageUrl('Settings'));
       return;
     }
 
@@ -972,7 +972,7 @@ export default function RolePlayPage() {
           user_phone: user.phone,
           user_id: user.id
         }
-      });
+      };
 
       if (error) {
         throw error;

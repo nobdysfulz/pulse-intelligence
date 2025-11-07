@@ -1,6 +1,7 @@
 import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
 import { UserProvider } from '@/components/context/UserContext'
+import AppLayout from '@/components/layout/AppLayout'
 
 export const metadata = {
   title: 'Pulse Intelligence',
@@ -17,7 +18,9 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <UserProvider>
-            {children}
+            <AppLayout>
+              {children}
+            </AppLayout>
           </UserProvider>
         </body>
       </html>

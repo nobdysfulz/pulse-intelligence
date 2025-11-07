@@ -41,7 +41,7 @@ export default function AgentsPage() {
   const [showSingleCallModal, setShowSingleCallModal] = useState(false);
   const logsPerPage = 10;
 
-  const isSubscriber = ['Subscriber', 'Admin', 'Owner', 'Investor'].includes(user?.subscriptionTier);
+  const isSubscriber: string[] = ['Subscriber', 'Admin', 'Owner', 'Investor'].includes(user?.subscriptionTier);
 
   // Check onboarding status
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function AgentsPage() {
   const handleTabChange = (tabId: any) => {
     setActiveTab(tabId);
     setRightSidebarTab('guidelines');
-    const newUrl = `/agents?tab=${tabId}`;
+    const newUrl = `${createPageUrl('Agents')}?tab=${tabId}`;
     window.history.pushState({}, '', newUrl);
   };
 
@@ -167,7 +167,7 @@ export default function AgentsPage() {
         const chunk = callLogs.slice(i, i + chunkSize);
         
         chunk.forEach((log) => {
-          const row= [
+          const row: string[] = [
             format(new Date(log.created_date), 'yyyy-MM-dd hh:mm a'),
             `"${log.contactName || 'Unknown'}"`,
             log.contactPhone || '',

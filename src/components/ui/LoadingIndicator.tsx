@@ -1,20 +1,29 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
 
+type SizeVariant = 'sm' | 'md' | 'lg';
+
+interface LoadingIndicatorProps {
+  text?: string;
+  size?: SizeVariant;
+  className?: string;
+}
+
 /**
  * AI Loading Indicator with spinning and pulsing custom AI icon
- * @param {string} text - Loading text to display
- * @param {string} size - Size variant: 'sm', 'md', 'lg'
- * @param {string} className - Additional classes
  */
-export default function LoadingIndicator({ text = "Loading...", size = "md", className }) {
-  const sizeClasses = {
+export default function LoadingIndicator({
+  text = "Loading...",
+  size = "md",
+  className
+}: LoadingIndicatorProps) {
+  const sizeClasses: Record<SizeVariant, string> = {
     sm: "w-6 h-6",
     md: "w-10 h-10",
     lg: "w-16 h-16"
   };
 
-  const textSizeClasses = {
+  const textSizeClasses: Record<SizeVariant, string> = {
     sm: "text-xs",
     md: "text-sm",
     lg: "text-base"
@@ -48,10 +57,15 @@ export default function LoadingIndicator({ text = "Loading...", size = "md", cla
   );
 }
 
+interface InlineLoadingIndicatorProps {
+  text?: string;
+  className?: string;
+}
+
 /**
  * Inline AI Loading Indicator (for buttons and inline contexts)
  */
-export function InlineLoadingIndicator({ text = "", className }) {
+export function InlineLoadingIndicator({ text = "", className }: InlineLoadingIndicatorProps) {
   return (
     <div className={cn("flex items-center gap-2", className)}>
       <div className="relative w-5 h-5">

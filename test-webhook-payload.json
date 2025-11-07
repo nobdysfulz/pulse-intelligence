@@ -1,0 +1,19 @@
+{
+  "data": {
+    "id": "user_359yzrcCZ40w8O8QcF8MjksjIUF",
+    "first_name": "Test",
+    "last_name": "User",
+    "email_addresses": [
+      {
+        "id": "idn_359yzyVAdcPwzpIG1bm8xTefNi3",
+        "email_address": "test@pwru.app",
+        "verification": {
+          "status": "verified"
+        }
+      }
+    ],
+    "primary_email_address_id": "idn_359yzyVAdcPwzpIG1bm8xTefNi3",
+    "profile_image_url": "https://www.gravatar.com/avatar?d=mp"
+  },
+  "type": "user.created"
+}

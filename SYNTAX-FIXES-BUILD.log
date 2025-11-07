@@ -1,0 +1,279 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/dashboard/page.tsx
+Error: 
+  [31mx[0m Unterminated regexp literal
+    ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/dashboard/page.tsx[0m:77:1]
+ [2m77[0m |       name: 'SIRIUS',
+ [2m78[0m |       role: 'Content Agent',
+ [2m79[0m |       image: '/images/agents/content-agent.png',
+ [2m80[0m |       link: /agents + '?tab=content_agent'
+    : [31;1m            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+ [2m81[0m |     },
+ [2m82[0m |     {
+ [2m83[0m |       name: 'VEGA',
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+
+./app/role-play/page.tsx
+Error: 
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:69:1]
+ [2m69[0m |     metrics.criteriaFeedback ||
+ [2m70[0m |     metrics.criteria ||
+ [2m71[0m |     metrics.evaluations ||
+ [2m72[0m |     {});
+    : [31;1m      ^[0m
+ [2m73[0m | 
+ [2m74[0m |   const statsSource =
+ [2m75[0m |     metrics.stats ||
+    `----
+
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:76:1]
+ [2m76[0m |     metrics.performance_stats ||
+ [2m77[0m |     metrics.performanceStats ||
+ [2m78[0m |     metrics.summary_stats ||
+ [2m79[0m |     {});
+    : [31;1m      ^[0m
+ [2m80[0m | 
+ [2m81[0m |   const resolveFeedback = (keys, fallback: any) => {
+ [2m82[0m |     for (const key of keys) {
+    `----
+
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:90:1]
+ [2m90[0m |       if (metrics[camelKey]) return metrics[camelKey];
+ [2m91[0m |     }
+ [2m92[0m |     return fallback;
+ [2m93[0m |   });
+    : [31;1m   ^[0m
+ [2m94[0m | 
+ [2m95[0m |   const resolveStat = (keys: any) => {
+ [2m96[0m |     for (const key of keys) {
+    `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:104:1]
+ [2m104[0m |       if (metrics[camelKey] !== undefined) return metrics[camelKey];
+ [2m105[0m |     }
+ [2m106[0m |     return null;
+ [2m107[0m |   });
+     : [31;1m   ^[0m
+ [2m108[0m | 
+ [2m109[0m |   const resolveSentiment = () => {
+ [2m110[0m |     const sentimentValue =
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:121:1]
+ [2m121[0m |     } catch (error) {
+ [2m122[0m |       return null;
+ [2m123[0m |     }
+ [2m124[0m |   });
+     : [31;1m   ^[0m
+ [2m125[0m | 
+ [2m126[0m |   const passingScore =
+ [2m127[0m |     metrics.passing_score ||
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:148:1]
+ [2m148[0m |       return overallScore >= passingScore ? 'PASS' : 'FAIL';
+ [2m149[0m |     }
+ [2m150[0m |     return 'UNKNOWN';
+ [2m151[0m |   });
+     : [31;1m   ^[0m
+ [2m152[0m | 
+ [2m153[0m |   const callSummary =
+ [2m154[0m |     metrics.call_summary ||
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:191:1]
+ [2m191[0m |       metrics.recording_url ||
+ [2m192[0m |       metrics.recordingUrl ||
+ [2m193[0m |       null
+ [2m194[0m |   });
+     : [31;1m   ^[0m
+ [2m195[0m | 
+ [2m196[0m |   return normalized;
+ [2m197[0m | });
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:194:1]
+ [2m194[0m |   });
+ [2m195[0m | 
+ [2m196[0m |   return normalized;
+ [2m197[0m | });
+     : [31;1m ^[0m
+ [2m198[0m | const ScenarioSearchSidebar = ({ scenarios, onStartScenario, isInitiating, activeScenarioId, getDifficultyColor }: any) => {
+ [2m199[0m |   const [category, setCategory] = useState('all');
+ [2m200[0m |   const [difficulty, setDifficulty] = useState('all');
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:297:1]
+ [2m297[0m |       </div>
+ [2m298[0m |     </div>
+ [2m299[0m |   );
+ [2m300[0m | });
+     : [31;1m ^[0m
+ [2m301[0m | const ActiveSessionSidebar = ({ scenario, onEndSession }: any) => {
+ [2m302[0m |   const [isHidden, setIsHidden] = useState(false);
+ [2m303[0m |   const [isDownloading, setIsDownloading] = useState(false);
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:348:1]
+ [2m348[0m |     printWindow.document.close();
+ [2m349[0m |     printWindow.focus();
+ [2m350[0m |     printWindow.print();
+ [2m351[0m |   });
+     : [31;1m   ^[0m
+ [2m352[0m | 
+ [2m353[0m |   const handleDownload = async () => {
+ [2m354[0m |     setIsDownloading(true);
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:377:1]
+ [2m377[0m |           y += 14;
+ [2m378[0m |         });
+ [2m379[0m |         y += 6;
+ [2m380[0m |       });
+     : [31;1m       ^[0m
+ [2m381[0m | 
+ [2m382[0m |       addSection('Persona', scenario.clientPersona || 'Not specified');
+ [2m383[0m |       addSection('Difficulty', scenario.difficultyLevel?.replace(/_/g, ' ') || 'Not specified');
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:407:1]
+ [2m407[0m |     } finally {
+ [2m408[0m |       setIsDownloading(false);
+ [2m409[0m |     }
+ [2m410[0m |   });
+     : [31;1m   ^[0m
+ [2m411[0m | 
+ [2m412[0m |   return (
+ [2m413[0m |     <div className="space-y-6">
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:493:1]
+ [2m493[0m |       </Button>
+ [2m494[0m |     </div>
+ [2m495[0m |   );
+ [2m496[0m | });
+     : [31;1m ^[0m
+ [2m497[0m | const SessionResultsSidebar = ({ sessionLog, scenario, analysis, onDelete }: any) => {
+ [2m498[0m |   const [audioUrl, setAudioUrl] = useState<any>(null);
+ [2m499[0m |   const [audioLoading, setAudioLoading] = useState(false);
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:527:1]
+ [2m527[0m |       } finally {
+ [2m528[0m |         setAudioLoading(false);
+ [2m529[0m |       }
+ [2m530[0m |     });
+     : [31;1m     ^[0m
+ [2m531[0m | 
+ [2m532[0m |     loadAudio();
+ [2m533[0m |   }, [analysis?.recordingUrl, sessionLog?.recordingUrl]);
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:566:1]
+ [2m566[0m |     URL.revokeObjectURL(url);
+ [2m567[0m | 
+ [2m568[0m |     toast.success('Transcript downloaded');
+ [2m569[0m |   });
+     : [31;1m   ^[0m
+ [2m570[0m | 
+ [2m571[0m |   if (!sessionLog) {
+ [2m572[0m |     return <p className="text-sm text-center text-[#64748B]">Select a session to see the analysis.</p>;
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:727:1]
+ [2m727[0m |       </Button>
+ [2m728[0m |     </div>
+ [2m729[0m |   );
+ [2m730[0m | });
+     : [31;1m ^[0m
+ [2m731[0m | const ScriptsSidebar = () => {
+ [2m732[0m |   const [scripts, setScripts] = useState<any[]>([]);
+ [2m733[0m |   const [searchTerm, setSearchTerm] = useState('');
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:747:1]
+ [2m747[0m |       } finally {
+ [2m748[0m |         setLoading(false);
+ [2m749[0m |       }
+ [2m750[0m |     });
+     : [31;1m     ^[0m
+ [2m751[0m | 
+ [2m752[0m |     fetchScripts();
+ [2m753[0m |   }, []);
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:848:1]
+ [2m848[0m |       )}
+ [2m849[0m |     </div>
+ [2m850[0m |   );
+ [2m851[0m | });
+     : [31;1m ^[0m
+ [2m852[0m | export default function RolePlayPage() {
+ [2m853[0m |   const { user, loading: contextLoading } = useContext(UserContext);
+ [2m854[0m |   const { deductCredits, hasSufficientCredits } = useCredits();
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:938:1]
+ [2m938[0m |     } finally {
+ [2m939[0m |       setLoading(false);
+ [2m940[0m |     }
+ [2m941[0m |   });
+     : [31;1m   ^[0m
+ [2m942[0m |   const handleStartScenario = async (scenario) => {
+ [2m943[0m |     if (activeSessionScenario) {
+ [2m944[0m |       toast.info('Please end your current session before starting a new one.');
+     `----
+
+  [31mx[0m Unterminated regexp literal
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:947:1]
+ [2m947[0m | 
+ [2m948[0m |     if (!user?.phone) {
+ [2m949[0m |       toast.error('Please add your phone number in Settings > Profile to start a role-play call.');
+ [2m950[0m |       router.push(/settings);
+     : [31;1m                  ^^^^^^^^^^^[0m
+ [2m951[0m |       return;
+ [2m952[0m |     }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/role-play/page.tsx
+
+
+> Build failed because of webpack errors

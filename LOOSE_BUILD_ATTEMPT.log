@@ -1,0 +1,17 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+ ⨯ Failed to load next.config.js, see more info here https://nextjs.org/docs/messages/next-config-error
+
+> Build error occurred
+ReferenceError: module is not defined in ES module scope
+This file is being treated as an ES module because it has a '.js' file extension and '/Users/chastinmiles/Downloads/pulse-intelligence/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+    at file:///Users/chastinmiles/Downloads/pulse-intelligence/next.config.js:11:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:329:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)
+    at async loadConfig (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/server/config.js:711:36)
+    at async Span.traceAsyncFn (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/trace/trace.js:154:20)
+    at async /Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/build/index.js:374:28
+    at async Span.traceAsyncFn (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/trace/trace.js:154:20)
+    at async build (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/build/index.js:368:9)

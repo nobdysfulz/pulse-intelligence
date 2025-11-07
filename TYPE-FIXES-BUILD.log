@@ -1,0 +1,32 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/dashboard/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/dashboard/page.tsx[0m:407:1]
+ [2m407[0m |   }
+ [2m408[0m | 
+ [2m409[0m |   return (
+ [2m410[0m |     <div className="bg-[#F8FAFC] p-8">
+     : [31;1m     ^^^[0m
+ [2m411[0m |       <div className="max-w-[1400px] mx-auto space-y-6">
+ [2m412[0m |         {onboardingReminderStatus.onboardingRequired && (
+ [2m413[0m |           <OnboardingReminder
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+
+
+> Build failed because of webpack errors

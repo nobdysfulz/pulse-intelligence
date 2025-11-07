@@ -1,0 +1,24 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/goals/page.tsx:748:57
+Type error: Argument of type 'ValueType' is not assignable to parameter of type 'string'.
+  Type 'number' is not assignable to type 'string'.
+
+[0m [90m 746 |[39m                   [33m<[39m[33mTooltip[39m[0m
+[0m [90m 747 |[39m                     contentStyle[33m=[39m{{ fontSize[33m:[39m [35m12[39m[33m,[39m padding[33m:[39m [32m'4px 8px'[39m }}[0m
+[0m[31m[1m>[22m[39m[90m 748 |[39m                     formatter[33m=[39m{(value) [33m=>[39m [32m`${parseFloat(value).toFixed(1)}%`[39m}[0m
+[0m [90m     |[39m                                                         [31m[1m^[22m[39m[0m
+[0m [90m 749 |[39m                   [33m/[39m[33m>[39m[0m
+[0m [90m 750 |[39m                   [33m<[39m[33mLine[39m type[33m=[39m[32m"monotone"[39m dataKey[33m=[39m[32m"goal"[39m stroke[33m=[39m[32m"#A8A29E"[39m strokeWidth[33m=[39m{[35m2[39m} dot[33m=[39m{[36mfalse[39m} name[33m=[39m[32m"Goal Pace"[39m [33m/[39m[33m>[39m[0m
+[0m [90m 751 |[39m                   [33m<[39m[33mLine[39m type[33m=[39m[32m"monotone"[39m dataKey[33m=[39m[32m"actual"[39m stroke[33m=[39m[32m"#7C3AED"[39m strokeWidth[33m=[39m{[35m2[39m} dot[33m=[39m{[36mfalse[39m} name[33m=[39m[32m"Actual Progress"[39m [33m/[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

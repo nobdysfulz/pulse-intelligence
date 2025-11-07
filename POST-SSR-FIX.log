@@ -1,0 +1,46 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/19) ...
+   Generating static pages (4/19) 
+   Generating static pages (9/19) 
+   Generating static pages (14/19) 
+ReferenceError: document is not defined
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:215939)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:98488)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:181410)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:252327)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:295515)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612) {
+  digest: '4111018106'
+}
+
+Error occurred prerendering page "/settings". Read more: https://nextjs.org/docs/messages/prerender-error
+
+ReferenceError: document is not defined
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:215939)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:98488)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:181410)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:252327)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:295515)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82612)
+ ✓ Generating static pages (19/19)
+
+> Export encountered errors on following paths:
+	/settings/page: /settings

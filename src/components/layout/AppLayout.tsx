@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useUser } from '@clerk/clerk-react';
+import { usePathname } from 'next/navigation';
 import PrimarySidebar from './PrimarySidebar';
 import TopHeader from './TopHeader';
 import { Menu } from 'lucide-react';
@@ -11,6 +13,16 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isSignedIn, isLoaded } = useUser();
+  const pathname = usePathname();
+
+  // Check if current route is a public route (sign-in/sign-up)
+  const isPublicRoute = pathname === '/' || pathname?.startsWith('/sign-in') || pathname?.startsWith('/sign-up');
+
+  // If not loaded yet or on a public route, don't show the layout chrome
+  if (!isLoaded || !isSignedIn || isPublicRoute) {
+    return <>{children}</>;
+  }
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-gray-50">

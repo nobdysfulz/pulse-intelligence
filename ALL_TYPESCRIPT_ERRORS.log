@@ -1,0 +1,20 @@
+app/role-play/page.tsx(238,23): error TS2322: Type 'unknown' is not assignable to type 'Key'.
+app/role-play/page.tsx(238,33): error TS2322: Type 'unknown' is not assignable to type 'string | number | readonly string[]'.
+app/role-play/page.tsx(239,22): error TS2339: Property 'replace' does not exist on type 'unknown'.
+app/role-play/page.tsx(250,23): error TS2322: Type 'unknown' is not assignable to type 'Key'.
+app/role-play/page.tsx(250,35): error TS2322: Type 'unknown' is not assignable to type 'string | number | readonly string[]'.
+app/role-play/page.tsx(251,24): error TS2339: Property 'replace' does not exist on type 'unknown'.
+app/role-play/page.tsx(798,21): error TS2322: Type 'unknown' is not assignable to type 'Key'.
+app/role-play/page.tsx(798,31): error TS2322: Type 'unknown' is not assignable to type 'string | number | readonly string[]'.
+app/role-play/page.tsx(799,20): error TS2339: Property 'replace' does not exist on type 'unknown'.
+app/role-play/page.tsx(806,10): error TS2741: Property 'defaultValue' is missing in type '{ children: Element[]; type: string; collapsible: true; className: string; }' but required in type '{ [x: string]: any; className: any; type?: string; defaultValue: any; collapsible?: boolean; children: any; }'.
+app/role-play/page.tsx(808,14): error TS2322: Type '{ children: Element[]; value: any; key: any; }' is not assignable to type 'IntrinsicAttributes & RefAttributes<any>'.
+app/role-play/page.tsx(809,16): error TS2322: Type '{ children: Element; className: string; }' is not assignable to type 'IntrinsicAttributes & RefAttributes<any>'.
+app/role-play/page.tsx(817,16): error TS2559: Type '{ children: Element; }' has no properties in common with type 'IntrinsicAttributes & RefAttributes<any>'.
+app/role-play/page.tsx(950,7): error TS2349: This expression is not callable.
+app/to-do/page.tsx(443,31): error TS2365: Operator '>' cannot be applied to types 'unknown' and 'number'.
+app/to-do/page.tsx(566,14): error TS2741: Property 'delta' is missing in type '{ title: string; value: string; }' but required in type '{ title: any; value: any; delta: any; }'.
+app/to-do/page.tsx(567,14): error TS2741: Property 'delta' is missing in type '{ title: string; value: string; }' but required in type '{ title: any; value: any; delta: any; }'.
+app/to-do/page.tsx(568,14): error TS2741: Property 'delta' is missing in type '{ title: string; value: string; }' but required in type '{ title: any; value: any; delta: any; }'.
+app/to-do/page.tsx(583,109): error TS2339: Property 'toFixed' does not exist on type 'ValueType'.
+app/to-do/page.tsx(618,10): error TS2559: Type '{ children: Element[]; }' has no properties in common with type 'IntrinsicAttributes & RefAttributes<any>'.

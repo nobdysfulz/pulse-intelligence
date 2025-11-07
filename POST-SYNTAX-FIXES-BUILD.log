@@ -1,0 +1,110 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/dashboard/page.tsx
+Error: 
+  [31mx[0m Unterminated regexp literal
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/dashboard/page.tsx[0m:289:1]
+ [2m289[0m |     // Check if business plan exists
+ [2m290[0m |     if (!businessPlan) {
+ [2m291[0m |       toast.info("Complete your Production Planner to generate personalized actions.");
+ [2m292[0m |       router.push(/goals + '?tab=planner');
+     : [31;1m                  ^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+ [2m293[0m |       return;
+ [2m294[0m |     }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+
+./app/role-play/page.tsx
+Error: 
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:69:1]
+ [2m69[0m |     metrics.criteriaFeedback ||
+ [2m70[0m |     metrics.criteria ||
+ [2m71[0m |     metrics.evaluations ||
+ [2m72[0m |     {});
+    : [31;1m      ^[0m
+ [2m73[0m | 
+ [2m74[0m |   const statsSource =
+ [2m75[0m |     metrics.stats ||
+    `----
+
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:76:1]
+ [2m76[0m |     metrics.performance_stats ||
+ [2m77[0m |     metrics.performanceStats ||
+ [2m78[0m |     metrics.summary_stats ||
+ [2m79[0m |     {});
+    : [31;1m      ^[0m
+ [2m80[0m | 
+ [2m81[0m |   const resolveFeedback = (keys, fallback: any) => {
+ [2m82[0m |     for (const key of keys) {
+    `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:377:1]
+ [2m377[0m |           y += 14;
+ [2m378[0m |         });
+ [2m379[0m |         y += 6;
+ [2m380[0m |       });
+     : [31;1m       ^[0m
+ [2m381[0m | 
+ [2m382[0m |       addSection('Persona', scenario.clientPersona || 'Not specified');
+ [2m383[0m |       addSection('Difficulty', scenario.difficultyLevel?.replace(/_/g, ' ') || 'Not specified');
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:527:1]
+ [2m527[0m |       } finally {
+ [2m528[0m |         setAudioLoading(false);
+ [2m529[0m |       }
+ [2m530[0m |     });
+     : [31;1m     ^[0m
+ [2m531[0m | 
+ [2m532[0m |     loadAudio();
+ [2m533[0m |   }, [analysis?.recordingUrl, sessionLog?.recordingUrl]);
+     `----
+
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:747:1]
+ [2m747[0m |       } finally {
+ [2m748[0m |         setLoading(false);
+ [2m749[0m |       }
+ [2m750[0m |     });
+     : [31;1m     ^[0m
+ [2m751[0m | 
+ [2m752[0m |     fetchScripts();
+ [2m753[0m |   }, []);
+     `----
+
+  [31mx[0m Expected a semicolon
+      ,-[[36;1;4m/Users/chastinmiles/Downloads/pulse-intelligence/app/role-play/page.tsx[0m:1214:1]
+ [2m1214[0m |       search: 'Search Scenarios',
+ [2m1215[0m |       results: 'Session Results',
+ [2m1216[0m |       scripts: 'Script Stacks'
+ [2m1217[0m |     });
+      : [31;1m     ^[0m
+ [2m1218[0m |     return titles[activeTab];
+ [2m1219[0m |   };
+      `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/role-play/page.tsx
+
+
+> Build failed because of webpack errors

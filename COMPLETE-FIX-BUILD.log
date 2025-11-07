@@ -1,0 +1,74 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/19) ...
+   Generating static pages (4/19) 
+   Generating static pages (9/19) 
+   Generating static pages (14/19) 
+ReferenceError: window is not defined
+    at K (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/to-do/page.js:1:3477)
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nB (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:67539)
+    at nD (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:66681) {
+  digest: '2860126121'
+}
+
+Error occurred prerendering page "/to-do". Read more: https://nextjs.org/docs/messages/prerender-error
+
+ReferenceError: window is not defined
+    at K (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/to-do/page.js:1:3477)
+    at nj (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nI (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47011)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47718)
+    at nM (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+    at nN (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nB (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:67539)
+    at nD (/Users/chastinmiles/Downloads/pulse-intelligence/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:66681)
+ReferenceError: document is not defined
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:215894)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:98443)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:181365)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:252282)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:295470)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567) {
+  digest: '1106432755'
+}
+
+Error occurred prerendering page "/settings". Read more: https://nextjs.org/docs/messages/prerender-error
+
+ReferenceError: document is not defined
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:215894)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:98443)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:181365)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:252282)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567)
+    at Object.<anonymous> (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:295470)
+    at r (/Users/chastinmiles/Downloads/pulse-intelligence/.next/server/app/settings/page.js:16:82567)
+ ✓ Generating static pages (19/19)
+
+> Export encountered errors on following paths:
+	/settings/page: /settings
+	/to-do/page: /to-do

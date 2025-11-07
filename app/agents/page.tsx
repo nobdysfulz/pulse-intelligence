@@ -2,29 +2,28 @@
 
 
 import React, { useState, useEffect, useContext, useMemo } from 'react';
-import { UserContext } from '../../src/components/context/UserContext';
+import { UserContext } from '@/components/context/UserContext';
 import { UserOnboarding } from '@/api/entities';
 import { Button } from '@/components/ui/button';
 import { RefreshCw, CalendarPlus, Phone, Upload } from 'lucide-react';
 import { toast } from 'sonner';
-import { createPageUrl } from '@/utils';
 import { format } from 'date-fns';
-import ContextualTopNav from '../../src/components/layout/ContextualTopNav';
-import ContextualSidebar from '../../src/components/layout/ContextualSidebar';
-import AgentChatInterface from '../../src/components/agents/AgentChatInterface';
-import GuidelinesPanel from '../../src/components/agents/GuidelinesPanel';
-import KnowledgePanel from '../../src/components/agents/KnowledgePanel';
-import PastContentPanel from '../../src/components/agents/PastContentPanel';
-import CurrentTransactionsPanel from '../../src/components/agents/CurrentTransactionsPanel';
-import AgentOnboardingFlow from '../../src/components/agents/onboarding/AgentOnboardingFlow';
-import LoadingIndicator from '../../src/components/ui/LoadingIndicator';
+import ContextualTopNav from '@/components/layout/ContextualTopNav';
+import ContextualSidebar from '@/components/layout/ContextualSidebar';
+import AgentChatInterface from '@/components/agents/AgentChatInterface';
+import GuidelinesPanel from '@/components/agents/GuidelinesPanel';
+import KnowledgePanel from '@/components/agents/KnowledgePanel';
+import PastContentPanel from '@/components/agents/PastContentPanel';
+import CurrentTransactionsPanel from '@/components/agents/CurrentTransactionsPanel';
+import AgentOnboardingFlow from '@/components/agents/onboarding/AgentOnboardingFlow';
+import LoadingIndicator from '@/components/ui/LoadingIndicator';
 
 // Lead Concierge imports (DO NOT MODIFY)
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import CallDetailSidebar from '../../src/components/agents/CallDetailSidebar';
-import CallMetrics from '../../src/components/agents/CallMetrics';
-import CreateCampaignModal from '../../src/components/agents/CreateCampaignModal';
-import SingleCallModal from '../../src/components/agents/SingleCallModal';
+import CallDetailSidebar from '@/components/agents/CallDetailSidebar';
+import CallMetrics from '@/components/agents/CallMetrics';
+import CreateCampaignModal from '@/components/agents/CreateCampaignModal';
+import SingleCallModal from '@/components/agents/SingleCallModal';
 
 export default function AgentsPage() {
   const { user, loading: contextLoading } = useContext(UserContext);
@@ -115,6 +114,12 @@ export default function AgentsPage() {
     }
   }, [contextLoading, user]);
 
+  useEffect(() => {
+    if (!contextLoading && !user) {
+      setLoading(false);
+    }
+  }, [contextLoading, user]);
+
   const loadPageData = async () => {
     setLoading(true);
     try {
@@ -130,6 +135,21 @@ export default function AgentsPage() {
   };
 
   // Show onboarding if not completed
+  if (!user && !contextLoading) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center bg-[#F8FAFC]">
+        <div className="rounded-xl bg-white p-8 text-center shadow-lg">
+          <h2 className="text-lg font-semibold text-[#1E293B]">
+            Sign in to access your AI agents
+          </h2>
+          <p className="mt-2 text-sm text-[#475569]">
+            Your agent workspace becomes available once you log in.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (showOnboarding) {
     return <AgentOnboardingFlow onComplete={() => setShowOnboarding(false)} />;
   }

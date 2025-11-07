@@ -1,78 +1,37 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext } from 'react';
 
-export const UserContext = createContext({
-    user: null,
-    marketConfig: null,
-    agentProfile: null,
-    preferences: null,
-    onboarding: null,
-    actions: [],
-    agentConfig: null,
-    userAgentSubscription: null,
-    goals: [],
-    businessPlan: null,
-    pulseHistory: [],
-    pulseConfig: null,
-    loading: true,
-    error: null,
-    refreshUserData: () => {},
-    isSupportChatOpen: false,
-    setSupportChatOpen: () => {},
-});
-
-export const UserProvider = ({ children }) => {
-  const [userState, setUserState] = useState({
-    user: null,
-    marketConfig: null,
-    agentProfile: null,
-    preferences: null,
-    onboarding: null,
-    actions: [],
-    agentConfig: null,
-    userAgentSubscription: null,
-    goals: [],
-    businessPlan: null,
-    pulseHistory: [],
-    pulseConfig: null,
-    loading: true,
-    error: null,
-    isSupportChatOpen: false,
-  });
-
-  useEffect(() => {
-    // Set loading to false after initial mount
-    // In a real implementation, this would fetch user data first
-    setUserState(prev => ({ ...prev, loading: false }));
-  }, []);
-
-  const refreshUserData = () => {
-    console.log('Refresh user data called');
-    // This would typically refetch user data
-  };
-
-  const setSupportChatOpen = (isOpen) => {
-    setUserState(prev => ({ ...prev, isSupportChatOpen: isOpen }));
-  };
-
-  const value = {
-    ...userState,
-    refreshUserData,
-    setSupportChatOpen,
-  };
-
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  );
+const defaultState = {
+  user: null,
+  marketConfig: null,
+  agentProfile: null,
+  preferences: null,
+  onboarding: null,
+  actions: [],
+  agentConfig: null,
+  userAgentSubscription: null,
+  goals: [],
+  businessPlan: null,
+  pulseHistory: [],
+  pulseConfig: null,
+  loading: true,
+  error: null,
+  refreshUserData: () => {},
+  isSupportChatOpen: false,
+  setSupportChatOpen: () => {},
 };
+
+export const UserContext = createContext(defaultState);
 
 export const useUser = () => {
   const context = useContext(UserContext);
+
   if (context === undefined) {
     throw new Error('useUser must be used within a UserProvider');
   }
+
   return context;
 };
+
+export { default as UserProvider } from './UserProvider';

@@ -66,10 +66,13 @@ export async function validateClerkToken(token: string): Promise<string> {
  */
 export async function validateClerkTokenWithJose(token: string): Promise<string> {
   try {
-    const CLERK_PUBLISHABLE_KEY = Deno.env.get('VITE_CLERK_PUBLISHABLE_KEY');
-    
+    const CLERK_PUBLISHABLE_KEY =
+      Deno.env.get('VITE_CLERK_PUBLISHABLE_KEY') ||
+      Deno.env.get('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY') ||
+      Deno.env.get('CLERK_PUBLISHABLE_KEY');
+
     if (!CLERK_PUBLISHABLE_KEY) {
-      throw new Error('VITE_CLERK_PUBLISHABLE_KEY environment variable is required');
+      throw new Error('A Clerk publishable key environment variable is required');
     }
 
     // Extract frontend API domain from publishable key

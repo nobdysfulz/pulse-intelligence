@@ -154,3 +154,4 @@ You can also add component or integration tests using your preferred tooling (e.
 - [`MIGRATION-SUMMARY.md`](./MIGRATION-SUMMARY.md) – exhaustive record of the Base44 → Lovable migration, including integration details and deployment checklist.
 - [`TECHNICAL-DEBT.md`](./TECHNICAL-DEBT.md) – prioritized backlog of future enhancements (CRM integrations, AI improvements, call flows, etc.).
 
+ 

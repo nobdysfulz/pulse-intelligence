@@ -50,3 +50,4 @@ backup-*/
 # Large files
 *.node
 *.dll
+.next/

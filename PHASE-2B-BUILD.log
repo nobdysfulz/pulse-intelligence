@@ -1,0 +1,183 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/intelligence-survey/page.tsx:192:24
+Type error: Type '{ children: Element; value: any; onValueChange: (val: any) => void; }' is not assignable to type 'IntrinsicAttributes & RefAttributes<any>'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & RefAttributes<any>'.
+
+[0m [90m 190 |[39m                   [33m<[39m[33mdiv[39m className[33m=[39m[32m"mt-3"[39m[33m>[39m[0m
+[0m [90m 191 |[39m                     {q[33m.[39mtype [33m===[39m [32m'single_select'[39m [33m&&[39m ([0m
+[0m[31m[1m>[22m[39m[90m 192 |[39m                       [33m<[39m[33mRadioGroup[39m value[33m=[39m{answers[q[33m.[39mid]} onValueChange[33m=[39m{(val) [33m=>[39m handleAnswerChange(q[33m.[39mid[33m,[39m val)}[33m>[39m[0m
+[0m [90m     |[39m                        [31m[1m^[22m[39m[0m
+[0m [90m 193 |[39m                         [33m<[39m[33mdiv[39m className[33m=[39m[32m"grid grid-cols-1 md:grid-cols-2 gap-3"[39m[33m>[39m[0m
+[0m [90m 194 |[39m                           {q[33m.[39moptions[33m.[39mmap((opt[33m:[39m any) [33m=>[39m ([0m
+[0m [90m 195 |[39m                             [33m<[39m[33mLabel[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/tts/page.tsx:73:15
+Type error: Type '{ id: string; value: string; onChange: (e: any) => void; placeholder: string; rows: number; maxLength: number; className: string; }' is not assignable to type 'IntrinsicAttributes & RefAttributes<any>'.
+  Property 'id' does not exist on type 'IntrinsicAttributes & RefAttributes<any>'.
+
+[0m [90m 71 |[39m             [33m<[39m[33mLabel[39m htmlFor[33m=[39m[32m"text-input"[39m[33m>[39m[33mText[39m to [33mConvert[39m[33m<[39m[33m/[39m[33mLabel[39m[33m>[39m[0m
+[0m [90m 72 |[39m             [33m<[39m[33mTextarea[39m[0m
+[0m[31m[1m>[22m[39m[90m 73 |[39m               id[33m=[39m[32m"text-input"[39m[0m
+[0m [90m    |[39m               [31m[1m^[22m[39m[0m
+[0m [90m 74 |[39m               value[33m=[39m{text}[0m
+[0m [90m 75 |[39m               onChange[33m=[39m{(e) [33m=>[39m setText(e[33m.[39mtarget[33m.[39mvalue)}[0m
+[0m [90m 76 |[39m               placeholder[33m=[39m[32m"Enter text here..."[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/tts/page.tsx:91:17
+Type error: Type '{ id: string; min: number; max: number; step: number; value: number[]; onValueChange: (value: any) => void; }' is not assignable to type 'IntrinsicAttributes & RefAttributes<any>'.
+  Property 'id' does not exist on type 'IntrinsicAttributes & RefAttributes<any>'.
+
+[0m [90m 89 |[39m               [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+[0m [90m 90 |[39m               [33m<[39m[33mSlider[39m[0m
+[0m[31m[1m>[22m[39m[90m 91 |[39m                 id[33m=[39m[32m"stability"[39m[0m
+[0m [90m    |[39m                 [31m[1m^[22m[39m[0m
+[0m [90m 92 |[39m                 min[33m=[39m{[35m0[39m}[0m
+[0m [90m 93 |[39m                 max[33m=[39m{[35m1[39m}[0m
+[0m [90m 94 |[39m                 step[33m=[39m{[35m0.01[39m}[0m
+Next.js build worker exited with code: 1 and signal: null
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/tts/page.tsx:118:14
+Type error: Type '{ children: Element[]; variant: string; }' is not assignable to type 'IntrinsicAttributes & RefAttributes<any>'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & RefAttributes<any>'.
+
+[0m [90m 116 |[39m[0m
+[0m [90m 117 |[39m           {error [33m&&[39m ([0m
+[0m[31m[1m>[22m[39m[90m 118 |[39m             [33m<[39m[33mAlert[39m variant[33m=[39m[32m"destructive"[39m[33m>[39m[0m
+[0m [90m     |[39m              [31m[1m^[22m[39m[0m
+[0m [90m 119 |[39m               [33m<[39m[33mAlertTriangle[39m className[33m=[39m[32m"h-4 w-4"[39m [33m/[39m[33m>[39m[0m
+[0m [90m 120 |[39m               [33m<[39m[33mAlertTitle[39m[33m>[39m[33mError[39m[33m<[39m[33m/[39m[33mAlertTitle[39m[33m>[39m[0m
+[0m [90m 121 |[39m               [33m<[39m[33mAlertDescription[39m[33m>[39m{error}[33m<[39m[33m/[39m[33mAlertDescription[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/usage/page.tsx:123:33
+Type error: Type '{ id: string; checked: any; onCheckedChange: (checked: boolean) => Promise<void>; }' is not assignable to type 'IntrinsicAttributes & RefAttributes<any>'.
+  Property 'id' does not exist on type 'IntrinsicAttributes & RefAttributes<any>'.
+
+[0m [90m 121 |[39m                 [33m<[39m[33mCardContent[39m[33m>[39m[0m
+[0m [90m 122 |[39m                     [33m<[39m[33mdiv[39m className[33m=[39m[32m"flex items-center space-x-2"[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 123 |[39m                         [33m<[39m[33mSwitch[39m id[33m=[39m[32m"overages-toggle"[39m checked[33m=[39m{subscription[33m.[39mallowOverages} onCheckedChange[33m=[39m{handleToggleOverages} [33m/[39m[33m>[39m[0m
+[0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+[0m [90m 124 |[39m                         [33m<[39m[33mLabel[39m htmlFor[33m=[39m[32m"overages-toggle"[39m[33m>[39m[33mContinue[39m calls and bill overages (${subscription[33m.[39moverageRate[33m.[39mtoFixed([35m2[39m)}[33m/[39mmin)[33m<[39m[33m/[39m[33mLabel[39m[33m>[39m[0m
+[0m [90m 125 |[39m                     [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+[0m [90m 126 |[39m                     [33m<[39m[33mp[39m className[33m=[39m[32m"text-sm text-slate-500 mt-2"[39m[33m>[39m[33mIf[39m disabled[33m,[39m calls will be paused when you reach your monthly limit[33m.[39m[33m<[39m[33m/[39m[33mp[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/31) ...
+   Generating static pages (7/31) 
+🔐 DEBUG - TierAwareOnboarding component loaded
+   Generating static pages (15/31) 
+   Generating static pages (23/31) 
+ ✓ Generating static pages (31/31)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ƒ /                                    183 B          97.6 kB
+├ ƒ /_not-found                          152 B          88.9 kB
+├ ƒ /agents                              27.3 kB         259 kB
+├ ƒ /api/pulse/score                     0 B                0 B
+├ ƒ /api/pulse/test-data                 0 B                0 B
+├ ○ /api/test                            0 B                0 B
+├ ƒ /contacts                            4.61 kB         183 kB
+├ ƒ /content-studio                      16.2 kB         257 kB
+├ ƒ /dashboard                           9.84 kB         204 kB
+├ ƒ /goals                               20.6 kB         456 kB
+├ ƒ /intelligence                        7.14 kB         191 kB
+├ ƒ /intelligence-survey                 7.31 kB         191 kB
+├ ƒ /knowledge                           390 B          89.1 kB
+├ ƒ /market                              7.75 kB         368 kB
+├ ƒ /metrics                             4.27 kB         292 kB
+├ ƒ /my-market-pack                      6.03 kB         198 kB
+├ ƒ /objections                          3.93 kB         200 kB
+├ ƒ /onboarding                          15.3 kB         206 kB
+├ ƒ /personaladvisor                     6.32 kB         219 kB
+├ ƒ /plans                               5.19 kB         184 kB
+├ ƒ /role-play                           13.4 kB         331 kB
+├ ƒ /role-play/results                   5.89 kB         167 kB
+├ ƒ /role-play/session                   6.99 kB         161 kB
+├ ƒ /settings                            18.8 kB         228 kB
+├ ƒ /sign-in/[[...sign-in]]              1.38 kB         126 kB
+├ ƒ /sign-up/[[...sign-up]]              1.38 kB         126 kB
+├ ƒ /simple                              152 B          88.9 kB
+├ ƒ /support                             6.85 kB         220 kB
+├ ƒ /to-do                               11.5 kB         356 kB
+├ ƒ /tts                                 6.38 kB         107 kB
+└ ƒ /usage                               2.72 kB         167 kB
++ First Load JS shared by all            88.7 kB
+  ├ chunks/2117-176d659c2b1a5a6a.js      31.9 kB
+  ├ chunks/fd9d1056-e4fd97a7c8c637cb.js  53.6 kB
+  └ other shared chunks (total)          3.19 kB
+
+
+ƒ Middleware                             73 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

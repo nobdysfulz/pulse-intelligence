@@ -1,0 +1,94 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (176kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/admin/content-config/page.tsx:258:38
+Type error: Property 'className' is missing in type '{ children: any[]; variant: string; }' but required in type '{ [x: string]: any; className: any; variant?: string; }'.
+
+[0m [90m 256 |[39m                             [33m<[39m[33mdiv[39m className[33m=[39m[32m"flex-1"[39m[33m>[39m[0m
+[0m [90m 257 |[39m                                 [33m<[39m[33mdiv[39m className[33m=[39m[32m"flex items-center gap-2 mb-2"[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 258 |[39m                                     [33m<[39m[33mBadge[39m variant[33m=[39m[32m"outline"[39m[33m>[39m[33mWeek[39m {topic[33m.[39mweekNumber}[33m<[39m[33m/[39m[33mBadge[39m[33m>[39m[0m
+[0m [90m     |[39m                                      [31m[1m^[22m[39m[0m
+[0m [90m 259 |[39m                                     {topic[33m.[39misActive [33m?[39m[0m
+[0m [90m 260 |[39m                                         [33m<[39m[33mBadge[39m className[33m=[39m[32m"bg-green-100 text-green-800"[39m[33m>[39m[33mActive[39m[33m<[39m[33m/[39m[33mBadge[39m[33m>[39m [33m:[39m[0m
+[0m [90m 261 |[39m                                         [33m<[39m[33mBadge[39m variant[33m=[39m[32m"outline"[39m[33m>[39m[33mInactive[39m[33m<[39m[33m/[39m[33mBadge[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/admin/content-config/page.tsx:286:18
+Type error: Type '{ children: Element[]; className: string; }' is not assignable to type 'IntrinsicAttributes & RefAttributes<any>'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & RefAttributes<any>'.
+
+[0m [90m 284 |[39m[0m
+[0m [90m 285 |[39m             [33m<[39m[33mDialog[39m open[33m=[39m{showDialog} onOpenChange[33m=[39m{setShowDialog}[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 286 |[39m                 [33m<[39m[33mDialogContent[39m className[33m=[39m[32m"max-w-4xl max-h-[90vh] overflow-y-auto"[39m[33m>[39m[0m
+[0m [90m     |[39m                  [31m[1m^[22m[39m[0m
+[0m [90m 287 |[39m                     [33m<[39m[33mDialogHeader[39m[33m>[39m[0m
+[0m [90m 288 |[39m                         [33m<[39m[33mDialogTitle[39m[33m>[39m{editingTopic [33m?[39m [32m'Edit Topic'[39m [33m:[39m [32m'Create New Topic'[39m}[33m<[39m[33m/[39m[33mDialogTitle[39m[33m>[39m[0m
+[0m [90m 289 |[39m                         [33m<[39m[33mDialogDescription[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/admin/task-templates/page.tsx:157:50
+Type error: Type '{ children: Element[]; }' has no properties in common with type 'IntrinsicAttributes & RefAttributes<any>'.
+
+[0m [90m 155 |[39m                                                     [33m<[39m[33mButton[39m variant[33m=[39m[32m"ghost"[39m size[33m=[39m[32m"icon"[39m[33m>[39m[33m<[39m[33mMoreVertical[39m className[33m=[39m[32m"w-4 h-4"[39m [33m/[39m[33m>[39m[33m<[39m[33m/[39m[33mButton[39m[33m>[39m[0m
+[0m [90m 156 |[39m                                                 [33m<[39m[33m/[39m[33mDropdownMenuTrigger[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 157 |[39m                                                 [33m<[39m[33mDropdownMenuContent[39m[33m>[39m[0m
+[0m [90m     |[39m                                                  [31m[1m^[22m[39m[0m
+[0m [90m 158 |[39m                                                     [33m<[39m[33mDropdownMenuItem[39m onClick[33m=[39m{() [33m=>[39m handleEdit(template)}[33m>[39m[33m<[39m[33mEdit[39m className[33m=[39m[32m"w-4 h-4 mr-2"[39m [33m/[39m[33m>[39m [33mEdit[39m[33m<[39m[33m/[39m[33mDropdownMenuItem[39m[33m>[39m[0m
+[0m [90m 159 |[39m                                                     [33m<[39m[33mDropdownMenuItem[39m onClick[33m=[39m{() [33m=>[39m handleDelete(template[33m.[39mid)} className[33m=[39m[32m"text-red-600"[39m[33m>[39m[33m<[39m[33mTrash2[39m className[33m=[39m[32m"w-4 h-4 mr-2"[39m [33m/[39m[33m>[39m [33mDelete[39m[33m<[39m[33m/[39m[33mDropdownMenuItem[39m[33m>[39m[0m
+[0m [90m 160 |[39m                                                 [33m<[39m[33m/[39m[33mDropdownMenuContent[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/admin/task-templates/page.tsx:157:50
+Type error: Type '{ children: Element[]; }' has no properties in common with type 'IntrinsicAttributes & RefAttributes<unknown>'.
+
+[0m [90m 155 |[39m                                                     [33m<[39m[33mButton[39m variant[33m=[39m[32m"ghost"[39m size[33m=[39m[32m"icon"[39m[33m>[39m[33m<[39m[33mMoreVertical[39m className[33m=[39m[32m"w-4 h-4"[39m [33m/[39m[33m>[39m[33m<[39m[33m/[39m[33mButton[39m[33m>[39m[0m
+[0m [90m 156 |[39m                                                 [33m<[39m[33m/[39m[33mDropdownMenuTrigger[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 157 |[39m                                                 [33m<[39m[33mDropdownMenuContent[39m[33m>[39m[0m
+[0m [90m     |[39m                                                  [31m[1m^[22m[39m[0m
+[0m [90m 158 |[39m                                                     [33m<[39m[33mDropdownMenuItem[39m onClick[33m=[39m{() [33m=>[39m handleEdit(template)}[33m>[39m[33m<[39m[33mEdit[39m className[33m=[39m[32m"w-4 h-4 mr-2"[39m [33m/[39m[33m>[39m [33mEdit[39m[33m<[39m[33m/[39m[33mDropdownMenuItem[39m[33m>[39m[0m
+[0m [90m 159 |[39m                                                     [33m<[39m[33mDropdownMenuItem[39m onClick[33m=[39m{() [33m=>[39m handleDelete(template[33m.[39mid)} className[33m=[39m[32m"text-red-600"[39m[33m>[39m[33m<[39m[33mTrash2[39m className[33m=[39m[32m"w-4 h-4 mr-2"[39m [33m/[39m[33m>[39m [33mDelete[39m[33m<[39m[33m/[39m[33mDropdownMenuItem[39m[33m>[39m[0m
+[0m [90m 160 |[39m                                                 [33m<[39m[33m/[39m[33mDropdownMenuContent[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

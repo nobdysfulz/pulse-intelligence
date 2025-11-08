@@ -1,0 +1,25 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (176kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/objections/page.tsx:103:57
+Type error: Type '{ featureName: string; }' is not assignable to type 'IntrinsicAttributes & { feature: any; description: any; }'.
+  Property 'featureName' does not exist on type 'IntrinsicAttributes & { feature: any; description: any; }'.
+
+[0m [90m 101 |[39m                      [36mreturn[39m ([0m
+[0m [90m 102 |[39m                         [33m<[39m[33mCard[39m key[33m=[39m{objection[33m.[39mid} className[33m=[39m[32m"relative overflow-hidden"[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 103 |[39m                             {isLocked [33m&&[39m [33m<[39m[33mLockedFeature[39m featureName[33m=[39m[32m"this objection"[39m [33m/[39m[33m>[39m}[0m
+[0m [90m     |[39m                                                         [31m[1m^[22m[39m[0m
+[0m [90m 104 |[39m                             [33m<[39m[33mAccordion[39m type[33m=[39m[32m"single"[39m collapsible className[33m=[39m{[32m`transition-opacity ${isLocked ? 'opacity-50 pointer-events-none' : ''}`[39m}[33m>[39m[0m
+[0m [90m 105 |[39m                                 [33m<[39m[33mAccordionItem[39m value[33m=[39m{[32m`item-${objection.id}`[39m} className[33m=[39m[32m"border-b-0"[39m[33m>[39m[0m
+[0m [90m 106 |[39m                                     [33m<[39m[33mAccordionTrigger[39m className[33m=[39m[32m"p-4 font-semibold text-left hover:no-underline"[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

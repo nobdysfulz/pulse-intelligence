@@ -150,13 +150,20 @@ function TierAwareOnboarding({ initialPhase = "core" }) {
 
   // Temporary test to verify token works with edge function
   useEffect(() => {
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+
     const testEdgeFunctionDirectly = async () => {
+      if (!supabaseUrl) {
+        console.error('🔐 DIRECT TEST - Missing VITE_SUPABASE_URL environment variable');
+        return;
+      }
+
       try {
         const token = await getToken();
         console.log('🔐 DIRECT TEST - Token:', token?.substring(0, 50) + '...');
-        
+
         const response = await fetch(
-          'https://gzdzmqpkbgvkuulykjml.supabase.co/functions/v1/entityOperations',
+          `${supabaseUrl}/functions/v1/entityOperations`,
           {
             method: 'POST',
             headers: {
@@ -170,7 +177,7 @@ function TierAwareOnboarding({ initialPhase = "core" }) {
             })
           }
         );
-        
+
         console.log('🔐 DIRECT TEST - Response status:', response.status);
         const responseText = await response.text();
         console.log('🔐 DIRECT TEST - Response body:', responseText);
@@ -178,10 +185,12 @@ function TierAwareOnboarding({ initialPhase = "core" }) {
         console.error('🔐 DIRECT TEST - Error:', error);
       }
     };
-    
+
     // Run test after component loads
-    setTimeout(testEdgeFunctionDirectly, 2000);
-  }, []);
+    const timeoutId = setTimeout(testEdgeFunctionDirectly, 2000);
+
+    return () => clearTimeout(timeoutId);
+  }, [getToken]);
 
   // Add this inside the loadOnboardingProgress function, right after token retrieval
   const loadOnboardingProgress = async () => {

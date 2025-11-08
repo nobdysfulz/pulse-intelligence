@@ -6,9 +6,13 @@ const badgeVariants = {
   secondary: "bg-[#F8FAFC] text-[#475569] border-[#E2E8F0]",
   destructive: "bg-[#EF4444] text-white border-transparent",
   outline: "text-[#475569] border-[#E2E8F0]",
+} as const
+
+interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: keyof typeof badgeVariants;
 }
 
-function Badge({ className, variant = "default", ...props }) {
+function Badge({ className, variant = "default", ...props }: BadgeProps) {
   return (
     <div
       className={cn(

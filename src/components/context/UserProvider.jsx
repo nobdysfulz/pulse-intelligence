@@ -136,7 +136,7 @@ export default function UserProvider({ children }) {
                             if (!retryError && retryContext) {
                                 console.log('[UserProvider] Retry successful with fresh token');
                                 // Set context and skip the error throw
-                                setUser(retryContext.user);
+                                setUser(retryContext.profile);
                                 setOnboarding(retryContext.onboarding || {
                                     userId: clerkUser.id,
                                     onboardingCompleted: false,
@@ -145,7 +145,7 @@ export default function UserProvider({ children }) {
                                     completedSteps: []
                                 });
                                 setMarketConfig(retryContext.marketConfig);
-                                setAgentProfile(retryContext.agentProfile);
+                                setAgentProfile(retryContext.agentIntelligence);
                                 setPreferences(retryContext.preferences || {
                                     userId: clerkUser.id,
                                     coachingStyle: 'balanced',
@@ -156,12 +156,12 @@ export default function UserProvider({ children }) {
                                     emailNotifications: true,
                                     timezone: 'America/New_York'
                                 });
-                                setActions(retryContext.actions || []);
+                                setActions(retryContext.dailyActions || []);
                                 setAgentConfig(retryContext.agentConfig);
                                 setUserAgentSubscription(retryContext.userAgentSubscription);
                                 setGoals(retryContext.goals || []);
                                 setBusinessPlan(retryContext.businessPlan);
-                                setPulseHistory(retryContext.pulseHistory || []);
+                                setPulseHistory(retryContext.latestPulseScore ? [retryContext.latestPulseScore] : []);
                                 setPulseConfig(retryContext.pulseConfig);
                                 setLoading(false);
                                 return; // Exit successfully
@@ -180,9 +180,10 @@ export default function UserProvider({ children }) {
             }
 
             console.log('[UserProvider] Context loaded successfully from backend');
+            console.log('[UserProvider] Profile data:', context.profile);
 
             // Set all state from backend response
-            setUser(context.user);
+            setUser(context.profile);
             setOnboarding(context.onboarding || {
                 userId: clerkUser.id,
                 onboardingCompleted: false,
@@ -191,7 +192,7 @@ export default function UserProvider({ children }) {
                 completedSteps: []
             });
             setMarketConfig(context.marketConfig);
-            setAgentProfile(context.agentProfile);
+            setAgentProfile(context.agentIntelligence);
             setPreferences(context.preferences || {
                 userId: clerkUser.id,
                 coachingStyle: 'balanced',
@@ -202,12 +203,12 @@ export default function UserProvider({ children }) {
                 emailNotifications: true,
                 timezone: 'America/New_York'
             });
-            setActions(context.actions || []);
+            setActions(context.dailyActions || []);
             setAgentConfig(context.agentConfig);
             setUserAgentSubscription(context.userAgentSubscription);
             setGoals(context.goals || []);
             setBusinessPlan(context.businessPlan);
-            setPulseHistory(context.pulseHistory || []);
+            setPulseHistory(context.latestPulseScore ? [context.latestPulseScore] : []);
             setPulseConfig(context.pulseConfig);
 
             console.log('[UserProvider] All context data set successfully');

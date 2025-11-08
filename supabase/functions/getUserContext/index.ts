@@ -3,7 +3,7 @@ import { validateClerkTokenWithJose } from '../_shared/clerkAuth.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-clerk-auth',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
@@ -22,16 +22,16 @@ Deno.serve(async (req) => {
   console.log('[getUserContext] URL:', req.url);
 
   try {
-    // Step 1: Validate Authorization header
-    const authHeader = req.headers.get('Authorization');
-    console.log('[getUserContext] Auth header present:', !!authHeader);
+    // Step 1: Get Clerk token from custom header (to bypass Supabase's built-in JWT validation)
+    const clerkAuthHeader = req.headers.get('x-clerk-auth');
+    console.log('[getUserContext] x-clerk-auth header present:', !!clerkAuthHeader);
 
-    if (!authHeader?.startsWith('Bearer ')) {
-      console.error('[getUserContext] Missing or invalid Authorization header');
+    if (!clerkAuthHeader) {
+      console.error('[getUserContext] Missing x-clerk-auth header');
       return new Response(
         JSON.stringify({
-          error: 'Missing Authorization header',
-          details: 'Please provide a valid Bearer token'
+          error: 'Missing x-clerk-auth header',
+          details: 'Please provide a Clerk JWT token in x-clerk-auth header'
         }),
         {
           status: 401,
@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
     }
 
     // Step 2: Extract and validate JWT token
-    const token = authHeader.substring(7);
+    const token = clerkAuthHeader;
     console.log('[getUserContext] Token length:', token.length);
     console.log('[getUserContext] Token preview:', token.substring(0, 50) + '...');
 

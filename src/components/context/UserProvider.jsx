@@ -63,7 +63,7 @@ export default function UserProvider({ children }) {
                 const initResult = await Promise.race([
                     supabase.functions.invoke('initializeUserData', {
                         headers: {
-                            Authorization: `Bearer ${token}`,
+                            'x-clerk-auth': token,
                         },
                         body: {},
                     }),
@@ -82,7 +82,7 @@ export default function UserProvider({ children }) {
                 const result = await Promise.race([
                     supabase.functions.invoke('getUserContext', {
                         headers: {
-                            Authorization: `Bearer ${token}`,
+                            'x-clerk-auth': token,
                         },
                     }),
                     new Promise((_, reject) =>
@@ -115,7 +115,7 @@ export default function UserProvider({ children }) {
                                 console.log('[UserProvider] Re-running initializeUserData with fresh token...');
                                 await supabase.functions.invoke('initializeUserData', {
                                     headers: {
-                                        Authorization: `Bearer ${newToken}`,
+                                        'x-clerk-auth': newToken,
                                     },
                                     body: {},
                                 });
@@ -128,7 +128,7 @@ export default function UserProvider({ children }) {
                                 'getUserContext',
                                 {
                                     headers: {
-                                        Authorization: `Bearer ${newToken}`,
+                                        'x-clerk-auth': newToken,
                                     },
                                 }
                             );

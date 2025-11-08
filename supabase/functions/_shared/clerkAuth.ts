@@ -67,43 +67,58 @@ export async function validateClerkToken(token: string): Promise<string> {
 export async function validateClerkTokenWithJose(token: string): Promise<string> {
   try {
     const CLERK_PUBLISHABLE_KEY =
-      Deno.env.get('VITE_CLERK_PUBLISHABLE_KEY') ||
       Deno.env.get('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY') ||
-      Deno.env.get('CLERK_PUBLISHABLE_KEY');
+      Deno.env.get('CLERK_PUBLISHABLE_KEY') ||
+      Deno.env.get('VITE_CLERK_PUBLISHABLE_KEY');
+
+    console.log('[clerkAuth] Checking for Clerk publishable key...');
+    console.log('[clerkAuth] NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY present:', !!Deno.env.get('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY'));
+    console.log('[clerkAuth] CLERK_PUBLISHABLE_KEY present:', !!Deno.env.get('CLERK_PUBLISHABLE_KEY'));
+    console.log('[clerkAuth] VITE_CLERK_PUBLISHABLE_KEY present:', !!Deno.env.get('VITE_CLERK_PUBLISHABLE_KEY'));
 
     if (!CLERK_PUBLISHABLE_KEY) {
       throw new Error('A Clerk publishable key environment variable is required');
     }
 
+    console.log('[clerkAuth] Using Clerk publishable key (first 15 chars):', CLERK_PUBLISHABLE_KEY.substring(0, 15));
+
     // Extract frontend API domain from publishable key
     // Format: pk_test_<base64_encoded_domain> or pk_live_<base64_encoded_domain>
     const keyParts = CLERK_PUBLISHABLE_KEY.split('_');
+    console.log('[clerkAuth] Key parts:', keyParts.length);
+
     if (keyParts.length < 3) {
       throw new Error('Invalid CLERK_PUBLISHABLE_KEY format');
     }
-    
+
     // Decode the base64 domain
     const base64Domain = keyParts.slice(2).join('_');
     const domainBytes = Uint8Array.from(atob(base64Domain), c => c.charCodeAt(0));
     const frontendApi = new TextDecoder().decode(domainBytes);
-    
+
     // Sanitize: remove trailing $ if present (common in dev keys)
     const sanitizedFrontendApi = frontendApi.replace(/\$+$/, '');
     const jwksUrl = `https://${sanitizedFrontendApi}/.well-known/jwks.json`;
 
+    console.log('[clerkAuth] Frontend API:', sanitizedFrontendApi);
+    console.log('[clerkAuth] JWKS URL:', jwksUrl);
+
     // Import jose for JWT verification
+    console.log('[clerkAuth] Importing jose library...');
     const { jwtVerify, createRemoteJWKSet } = await import('https://deno.land/x/jose@v5.2.0/index.ts');
-    
+
     // Create JWKS getter that fetches Clerk's public keys
+    console.log('[clerkAuth] Creating JWKS remote set...');
     const JWKS = createRemoteJWKSet(new URL(jwksUrl));
-    
+
     // Verify JWT using RSA256 (Clerk's algorithm)
+    console.log('[clerkAuth] Verifying JWT with RS256...');
     const { payload } = await jwtVerify(token, JWKS, {
       algorithms: ['RS256'],
     });
 
     const userId = payload.sub;
-    
+
     if (!userId) {
       throw new Error('No sub claim in JWT');
     }
@@ -113,9 +128,12 @@ export async function validateClerkTokenWithJose(token: string): Promise<string>
 
   } catch (error) {
     console.error('[clerkAuth] JWT validation failed:', error);
+    console.error('[clerkAuth] Error name:', error instanceof Error ? error.name : 'unknown');
+    console.error('[clerkAuth] Error message:', error instanceof Error ? error.message : 'unknown');
+    console.error('[clerkAuth] Error stack:', error instanceof Error ? error.stack : 'none');
     throw new Error(
-      error instanceof Error 
-        ? `JWT validation failed: ${error.message}` 
+      error instanceof Error
+        ? `JWT validation failed: ${error.message}`
         : 'JWT validation failed'
     );
   }

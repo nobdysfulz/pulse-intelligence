@@ -1,4 +1,4 @@
-project_id = "pdbggzsmgcrguhscynnk"
+project_id = "jeukrohcgbnyquzrqvqr"
 
 [functions.clerkWebhook]
 verify_jwt = false

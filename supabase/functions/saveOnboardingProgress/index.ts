@@ -5,7 +5,7 @@ import { validateClerkTokenWithJose } from '../_shared/clerkAuth.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-clerk-auth',
 };
 
 // Error codes for easy filtering
@@ -40,7 +40,7 @@ serve(async (req) => {
     }
 
     // 📨 Log incoming request
-    const authHeader = req.headers.get('Authorization');
+    const authHeader = req.headers.get('x-clerk-auth') || req.headers.get('Authorization');
     console.log('📨 INCOMING_REQUEST:', {
       method: req.method,
       hasAuthHeader: !!authHeader,
@@ -57,7 +57,7 @@ serve(async (req) => {
       );
     }
 
-    const token = authHeader.substring(7);
+    const token = authHeader.startsWith('Bearer ') ? authHeader.substring(7) : authHeader;
 
     // ✅ Validate Clerk JWT
     let userId: string;

@@ -4,7 +4,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-clerk-auth',
 };
 
 serve(async (req) => {
@@ -20,7 +20,7 @@ serve(async (req) => {
       throw new Error('Missing required environment variables');
     }
 
-    const authHeader = req.headers.get('Authorization');
+    const authHeader = req.headers.get('x-clerk-auth') || req.headers.get('Authorization');
     if (!authHeader?.startsWith('Bearer ')) {
       return new Response(
         JSON.stringify({ error: 'Missing or invalid Authorization header' }),
@@ -28,7 +28,7 @@ serve(async (req) => {
       );
     }
 
-    const token = authHeader.substring(7);
+    const token = authHeader.startsWith('Bearer ') ? authHeader.substring(7) : authHeader;
     const parts = token.split('.');
     if (parts.length !== 3) {
       throw new Error('Invalid JWT format');

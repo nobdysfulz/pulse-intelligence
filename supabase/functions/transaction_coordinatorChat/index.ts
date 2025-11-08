@@ -6,7 +6,7 @@ import { executeTool } from '../_shared/toolExecutor.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-clerk-auth',
 };
 
 const VEGA_SYSTEM_PROMPT = `You are VEGA, an elite AI Transaction Coordinator for real estate professionals. Your mission is to ensure every transaction moves seamlessly from contract to closing, eliminating stress and preventing costly mistakes.
@@ -60,7 +60,7 @@ serve(async (req) => {
   }
 
   try {
-    const authHeader = req.headers.get('Authorization');
+    const authHeader = req.headers.get('x-clerk-auth') || req.headers.get('Authorization');
     if (!authHeader) {
       throw new Error('No authorization header');
     }

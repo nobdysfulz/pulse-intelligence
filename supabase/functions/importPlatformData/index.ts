@@ -3,7 +3,7 @@ import { parse } from "https://deno.land/std@0.211.0/csv/parse.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-clerk-auth',
 };
 
 Deno.serve(async (req) => {
@@ -24,7 +24,7 @@ Deno.serve(async (req) => {
     );
 
     // Check if user is admin
-    const authHeader = req.headers.get('Authorization')!;
+    const authHeader = req.headers.get('x-clerk-auth') || req.headers.get('Authorization')!;
     const token = authHeader.replace('Bearer ', '');
     const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
     

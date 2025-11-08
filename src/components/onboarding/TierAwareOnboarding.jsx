@@ -289,7 +289,7 @@ function TierAwareOnboarding({ initialPhase = "core" }) {
 
         const { error } = await supabase.functions.invoke("saveOnboardingProgress", {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'x-clerk-auth': token,
           },
           body: {
             progressData: {
@@ -394,7 +394,7 @@ function TierAwareOnboarding({ initialPhase = "core" }) {
 
       const { error } = await supabase.functions.invoke("saveOnboardingProgress", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          'x-clerk-auth': token,
         },
         body: {
           progressData: updates,

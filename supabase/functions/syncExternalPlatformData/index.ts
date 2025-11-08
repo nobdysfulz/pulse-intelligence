@@ -2,7 +2,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.76.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-clerk-auth',
 };
 
 Deno.serve(async (req) => {
@@ -17,7 +17,7 @@ Deno.serve(async (req) => {
     const localAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
     // Authenticate user
-    const authHeader = req.headers.get('Authorization');
+    const authHeader = req.headers.get('x-clerk-auth') || req.headers.get('Authorization');
     if (!authHeader) {
       throw new Error('Missing authorization header');
     }

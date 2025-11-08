@@ -6,7 +6,7 @@ import { executeTool } from '../_shared/toolExecutor.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-clerk-auth',
 };
 
 const SIRIUS_SYSTEM_PROMPT = `You are SIRIUS, an expert AI Content Agent for real estate professionals. Your primary mission is to help users manage their social media presence effectively across Facebook and Instagram.
@@ -55,7 +55,7 @@ serve(async (req) => {
   }
 
   try {
-    const authHeader = req.headers.get('Authorization');
+    const authHeader = req.headers.get('x-clerk-auth') || req.headers.get('Authorization');
     if (!authHeader) {
       throw new Error('No authorization header');
     }

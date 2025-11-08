@@ -4,7 +4,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-clerk-auth',
 };
 
 serve(async (req) => {
@@ -18,7 +18,7 @@ serve(async (req) => {
 
   // Client bound to the caller (to read their own roles under RLS)
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    global: { headers: { Authorization: req.headers.get('Authorization')! } },
+    global: { headers: { Authorization: req.headers.get('x-clerk-auth') || req.headers.get('Authorization')! } },
   });
 
   // Admin client to fetch all users (bypass RLS safely after authz check)

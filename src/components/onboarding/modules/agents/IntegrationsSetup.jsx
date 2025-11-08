@@ -69,7 +69,7 @@ export default function IntegrationsSetup({ data, onNext, onBack }) {
         case 'google':
           response = await supabase.functions.invoke('initiateGoogleWorkspaceOAuth', {
             headers: {
-              Authorization: `Bearer ${token}`
+              'x-clerk-auth': token
             },
             body: {
               redirectPath: '/onboarding'
@@ -85,7 +85,7 @@ export default function IntegrationsSetup({ data, onNext, onBack }) {
         case 'microsoft':
           response = await supabase.functions.invoke('initiateMicrosoftOAuth', {
             headers: {
-              Authorization: `Bearer ${token}`
+              'x-clerk-auth': token
             },
             body: {
               redirectPath: '/onboarding'
@@ -101,7 +101,7 @@ export default function IntegrationsSetup({ data, onNext, onBack }) {
         case 'zoom':
           response = await supabase.functions.invoke('initiateZoomOAuth', {
             headers: {
-              Authorization: `Bearer ${token}`
+              'x-clerk-auth': token
             },
             body: {
               redirectPath: '/onboarding'
@@ -117,7 +117,7 @@ export default function IntegrationsSetup({ data, onNext, onBack }) {
         case 'meta':
           response = await supabase.functions.invoke('initiateMetaOAuth', {
             headers: {
-              Authorization: `Bearer ${token}`
+              'x-clerk-auth': token
             },
             body: {
               redirectPath: '/onboarding',

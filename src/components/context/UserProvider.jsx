@@ -36,39 +36,67 @@ export default function UserProvider({ children }) {
         }
 
         console.log('[UserProvider] Starting fetchUserData');
+        console.log('[UserProvider] Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+        console.log('[UserProvider] Supabase Anon Key (first 20 chars):', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.substring(0, 20));
         setLoading(true);
         setError(null);
-        
+
+        // Set a safety timeout to prevent infinite loading
+        const timeoutId = setTimeout(() => {
+            console.error('[UserProvider] TIMEOUT: Function call exceeded 15 seconds');
+            setError('Request timeout. Please check your connection and refresh the page.');
+            setLoading(false);
+        }, 15000);
+
         try {
             // Get Clerk session token
             const token = await getToken();
             if (!token) {
+                clearTimeout(timeoutId);
                 throw new Error('Failed to get authentication token');
             }
 
-            console.log('[UserProvider] Calling getUserContext backend function...');
+            console.log('[UserProvider] Token obtained, calling backend functions...');
 
             try {
                 console.log('[UserProvider] Ensuring user defaults exist...');
-                await supabase.functions.invoke('initializeUserData', {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: {},
-                });
+                const initResult = await Promise.race([
+                    supabase.functions.invoke('initializeUserData', {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: {},
+                    }),
+                    new Promise((_, reject) => setTimeout(() => reject(new Error('initializeUserData timeout')), 10000))
+                ]);
+                console.log('[UserProvider] initializeUserData result:', initResult);
             } catch (seedError) {
                 console.warn('[UserProvider] initializeUserData failed (continuing):', seedError);
             }
 
-            // Call backend function to get all user data at once
-            const { data: context, error: contextError } = await supabase.functions.invoke(
-                'getUserContext',
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            // Call backend function to get all user data at once with timeout
+            console.log('[UserProvider] Calling getUserContext...');
+            let context, contextError;
+
+            try {
+                const result = await Promise.race([
+                    supabase.functions.invoke('getUserContext', {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }),
+                    new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error('getUserContext timeout after 10 seconds')), 10000)
+                    )
+                ]);
+
+                context = result.data;
+                contextError = result.error;
+                console.log('[UserProvider] getUserContext completed:', { hasData: !!context, hasError: !!contextError });
+            } catch (timeoutError) {
+                console.error('[UserProvider] getUserContext timed out:', timeoutError);
+                throw new Error('Failed to load user data: Request timed out. Please check your connection.');
+            }
 
             if (contextError) {
                 console.error('[UserProvider] getUserContext error:', contextError);
@@ -186,9 +214,16 @@ export default function UserProvider({ children }) {
 
         } catch (err) {
             console.error("[UserProvider] Critical error in fetchUserData:", err);
+            console.error("[UserProvider] Error details:", {
+                message: err.message,
+                stack: err.stack,
+                name: err.name
+            });
             setError("Unable to load your data. Please refresh the page or contact support if the issue persists.");
         } finally {
+            clearTimeout(timeoutId);
             setLoading(false);
+            console.log('[UserProvider] fetchUserData completed, loading set to false');
         }
     }, [clerkUser, isClerkLoaded, getToken]);
 

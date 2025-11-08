@@ -1,9 +1,77 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { validateClerkTokenWithJose } from '../_shared/clerkAuth.ts';
 
+type LogLevel = 'log' | 'warn' | 'error';
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
+const withCors = (status: number, body: Record<string, unknown>) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  });
+
+const log = (level: LogLevel, message: string, meta?: Record<string, unknown>) => {
+  const namespace = '[getUserContext]';
+  if (meta) {
+    console[level](`${namespace} ${message}`, meta);
+  } else {
+    console[level](`${namespace} ${message}`);
+  }
+};
+
+class HttpError extends Error {
+  status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
+type QueryResult<T> = Promise<{ data: T | null; error: { message: string } | null }>;
+
+type QueryRunner<T> = () => QueryResult<T>;
+
+const ensureEnv = (key: string) => {
+  const value = Deno.env.get(key);
+  if (!value) {
+    throw new HttpError(500, `Missing required environment variable: ${key}`);
+  }
+  return value;
+};
+
+const fetchRequired = async <T>(label: string, run: QueryRunner<T>): Promise<T> => {
+  const { data, error } = await run();
+  if (error) {
+    log('error', `${label} query failed`, { message: error.message });
+    throw new HttpError(500, `Failed to load ${label}`);
+  }
+  if (data === null) {
+    log('warn', `${label} missing`);
+    throw new HttpError(404, `${label} not found`);
+  }
+  return data;
+};
+
+const fetchOptional = async <T>(label: string, run: QueryRunner<T>): Promise<T | null> => {
+  const { data, error } = await run();
+  if (error) {
+    log('warn', `${label} query failed`, { message: error.message });
+    return null;
+  }
+  return data;
+};
+
+const fetchCollection = async <T>(label: string, run: QueryRunner<T[]>): Promise<T[]> => {
+  const { data, error } = await run();
+  if (error) {
+    log('warn', `${label} query failed`, { message: error.message });
+    return [];
+  }
+  return data ?? [];
 };
 
 Deno.serve(async (req) => {
@@ -14,104 +82,92 @@ Deno.serve(async (req) => {
   try {
     const authHeader = req.headers.get('Authorization');
     if (!authHeader?.startsWith('Bearer ')) {
-      return new Response(JSON.stringify({ error: 'Missing Authorization header' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      throw new HttpError(401, 'Missing or invalid Authorization header');
     }
 
     const token = authHeader.substring(7);
-    const userId: string = await validateClerkTokenWithJose(token);
-
-    console.log('[getUserContext] Fetching context for user:', userId);
-
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    // Fetch all user data in parallel using service role
-    const [
-      profileResult,
-      onboardingResult,
-      marketConfigResult,
-      preferencesResult,
-      actionsResult,
-      agentConfigResult,
-      userAgentSubResult,
-      goalsResult,
-      businessPlanResult,
-      pulseScoresResult,
-      pulseConfigResult,
-      agentIntelligenceResult,
-    ] = await Promise.all([
-      supabase.from('profiles').select('*').eq('id', userId).single(),
-      supabase.from('user_onboarding').select('*').eq('user_id', userId).maybeSingle(),
-      supabase.from('market_config').select('*').eq('user_id', userId).maybeSingle(),
-      supabase.from('user_preferences').select('*').eq('user_id', userId).maybeSingle(),
-      supabase.from('daily_actions').select('*').eq('user_id', userId).order('due_date', { ascending: false }).limit(50),
-      supabase.from('agent_config').select('*').eq('user_id', userId).maybeSingle(),
-      supabase.from('user_agent_subscription').select('*').eq('user_id', userId).maybeSingle(),
-      supabase.from('goals').select('*').eq('user_id', userId),
-      supabase.from('business_plans').select('*').eq('user_id', userId).maybeSingle(),
-      supabase.from('pulse_scores').select('*').eq('user_id', userId).order('date', { ascending: false }).limit(30),
-      supabase.from('pulse_config').select('*').eq('user_id', userId).maybeSingle(),
-      supabase.from('agent_intelligence_profiles').select('*').eq('user_id', userId).maybeSingle(),
-    ]);
-
-    // Check for profile fetch error (critical)
-    if (profileResult.error) {
-      console.error('[getUserContext] Profile fetch error:', profileResult.error);
-      throw new Error('Failed to fetch user profile');
+    let userId: string;
+    try {
+      userId = await validateClerkTokenWithJose(token);
+    } catch (error) {
+      log('warn', 'Token validation failed', { error: error instanceof Error ? error.message : String(error) });
+      throw new HttpError(401, 'Invalid or expired token');
     }
 
-    // Log any non-critical errors but don't fail the request
-    if (onboardingResult.error) console.warn('[getUserContext] Onboarding error:', onboardingResult.error);
-    if (marketConfigResult.error) console.warn('[getUserContext] Market config error:', marketConfigResult.error);
-    if (preferencesResult.error) console.warn('[getUserContext] Preferences error:', preferencesResult.error);
-    if (actionsResult.error) console.warn('[getUserContext] Actions error:', actionsResult.error);
-    if (agentConfigResult.error) console.warn('[getUserContext] Agent config error:', agentConfigResult.error);
-    if (userAgentSubResult.error) console.warn('[getUserContext] User agent sub error:', userAgentSubResult.error);
-    if (goalsResult.error) console.warn('[getUserContext] Goals error:', goalsResult.error);
-    if (businessPlanResult.error) console.warn('[getUserContext] Business plan error:', businessPlanResult.error);
-    if (pulseScoresResult.error) console.warn('[getUserContext] Pulse scores error:', pulseScoresResult.error);
-    if (pulseConfigResult.error) console.warn('[getUserContext] Pulse config error:', pulseConfigResult.error);
-    if (agentIntelligenceResult.error) console.warn('[getUserContext] Agent intelligence error:', agentIntelligenceResult.error);
+    const supabaseUrl = ensureEnv('SUPABASE_URL');
+    const supabaseKey = ensureEnv('SUPABASE_SERVICE_ROLE_KEY');
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Build complete user context
-    const context = {
-      user: profileResult.data,
-      onboarding: onboardingResult.data || null,
-      marketConfig: marketConfigResult.data || null,
-      preferences: preferencesResult.data || null,
-      actions: actionsResult.data || [],
-      agentConfig: agentConfigResult.data || null,
-      userAgentSubscription: userAgentSubResult.data || null,
-      goals: goalsResult.data || [],
-      businessPlan: businessPlanResult.data || null,
-      pulseHistory: pulseScoresResult.data || [],
-      pulseConfig: pulseConfigResult.data || null,
-      agentProfile: agentIntelligenceResult.data || null,
-    };
+    log('log', 'Fetching user context', { userId });
 
-    console.log('[getUserContext] ✓ Context fetched successfully');
+    const [
+      profile,
+      onboarding,
+      marketConfig,
+      preferences,
+      actions,
+      agentConfig,
+      agentSubscription,
+      goals,
+      businessPlan,
+      pulseHistory,
+      pulseConfig,
+      agentProfile,
+    ] = await Promise.all([
+      fetchRequired('profile', () => supabase.from('profiles').select('*').eq('id', userId).maybeSingle()),
+      fetchOptional('onboarding', () => supabase.from('user_onboarding').select('*').eq('user_id', userId).maybeSingle()),
+      fetchOptional('market_config', () => supabase.from('market_config').select('*').eq('user_id', userId).maybeSingle()),
+      fetchOptional('user_preferences', () => supabase.from('user_preferences').select('*').eq('user_id', userId).maybeSingle()),
+      fetchCollection('daily_actions', () =>
+        supabase
+          .from('daily_actions')
+          .select('*')
+          .eq('user_id', userId)
+          .order('due_date', { ascending: false })
+          .limit(50)
+      ),
+      fetchOptional('agent_config', () => supabase.from('agent_config').select('*').eq('user_id', userId).maybeSingle()),
+      fetchOptional('user_agent_subscription', () =>
+        supabase.from('user_agent_subscription').select('*').eq('user_id', userId).maybeSingle()
+      ),
+      fetchCollection('goals', () => supabase.from('goals').select('*').eq('user_id', userId)),
+      fetchOptional('business_plans', () => supabase.from('business_plans').select('*').eq('user_id', userId).maybeSingle()),
+      fetchCollection('pulse_scores', () =>
+        supabase
+          .from('pulse_scores')
+          .select('*')
+          .eq('user_id', userId)
+          .order('date', { ascending: false })
+          .limit(30)
+      ),
+      fetchOptional('pulse_config', () => supabase.from('pulse_config').select('*').eq('user_id', userId).maybeSingle()),
+      fetchOptional('agent_intelligence_profiles', () =>
+        supabase.from('agent_intelligence_profiles').select('*').eq('user_id', userId).maybeSingle()
+      ),
+    ]);
 
-    return new Response(
-      JSON.stringify(context),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      }
-    );
+    log('log', 'User context fetched successfully', { userId });
+
+    return withCors(200, {
+      user: profile,
+      onboarding,
+      marketConfig,
+      preferences,
+      actions,
+      agentConfig,
+      userAgentSubscription: agentSubscription,
+      goals,
+      businessPlan,
+      pulseHistory,
+      pulseConfig,
+      agentProfile,
+    });
   } catch (error) {
-    console.error('[getUserContext] Error:', error);
-    return new Response(
-      JSON.stringify({ 
-        error: error instanceof Error ? error.message : 'Internal server error',
-      }),
-      { 
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
-    );
+    if (error instanceof HttpError) {
+      return withCors(error.status, { error: error.message });
+    }
+
+    log('error', 'Unexpected failure', { error: error instanceof Error ? error.message : String(error) });
+    return withCors(500, { error: 'Internal server error' });
   }
 });

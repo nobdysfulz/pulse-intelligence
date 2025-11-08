@@ -15,8 +15,6 @@ export default function ClerkSupabaseSync() {
   useEffect(() => {
     console.log('[ClerkSync] Environment check:');
     console.log('  - Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
-    console.log('  - Expected: https://gzdzmqpkbgvkuulykjml.supabase.co');
-    console.log('  - Match:', process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://gzdzmqpkbgvkuulykjml.supabase.co');
   }, []);
 
   useEffect(() => {

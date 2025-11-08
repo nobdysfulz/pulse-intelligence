@@ -3,9 +3,80 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 import { validateClerkTokenWithJose } from '../_shared/clerkAuth.ts';
 
+type LogLevel = 'log' | 'warn' | 'error';
+
+type JsonRecord = Record<string, unknown>;
+
+type QueryArrayResponse<T> = Promise<{ data: T[] | null; error: { message: string } | null }>;
+
+class HttpError extends Error {
+  status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
+const withCors = (status: number, body: JsonRecord) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  });
+
+const log = (level: LogLevel, message: string, meta?: JsonRecord) => {
+  const namespace = '[initializeUserData]';
+  if (meta) {
+    console[level](`${namespace} ${message}`, meta);
+  } else {
+    console[level](`${namespace} ${message}`);
+  }
+};
+
+const requireEnv = (key: string) => {
+  const value = Deno.env.get(key);
+  if (!value) {
+    throw new HttpError(500, `Missing required environment variable: ${key}`);
+  }
+  return value;
+};
+
+const ensureAbsent = async (label: string, query: QueryArrayResponse<{ id: string }>) => {
+  const { data, error } = await query;
+  if (error) {
+    log('error', `${label} existence check failed`, { message: error.message });
+    throw new HttpError(500, `Unable to verify existing ${label}`);
+  }
+  return !data || data.length === 0;
+};
+
+const insertSingle = async (
+  supabase: ReturnType<typeof createClient>,
+  table: string,
+  payload: JsonRecord,
+) => {
+  const { error } = await supabase.from(table).insert(payload);
+  if (error) {
+    log('error', `${table} insert failed`, { message: error.message });
+    throw new HttpError(500, `Failed to seed ${table}`);
+  }
+};
+
+const insertMany = async (
+  supabase: ReturnType<typeof createClient>,
+  table: string,
+  payload: JsonRecord[],
+) => {
+  if (payload.length === 0) return;
+  const { error } = await supabase.from(table).insert(payload);
+  if (error) {
+    log('error', `${table} bulk insert failed`, { message: error.message });
+    throw new HttpError(500, `Failed to seed ${table}`);
+  }
 };
 
 const formatDate = (date: Date) => date.toISOString().split('T')[0];
@@ -16,116 +87,85 @@ serve(async (req) => {
   }
 
   try {
-    const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
-    const SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-
-    if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
-      throw new Error('Missing required environment variables');
-    }
+    const supabaseUrl = requireEnv('SUPABASE_URL');
+    const serviceRoleKey = requireEnv('SUPABASE_SERVICE_ROLE_KEY');
 
     const authHeader = req.headers.get('Authorization');
     if (!authHeader?.startsWith('Bearer ')) {
-      return new Response(
-        JSON.stringify({ error: 'Missing or invalid Authorization header' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      throw new HttpError(401, 'Missing or invalid Authorization header');
     }
 
     const token = authHeader.substring(7);
-
     let userId: string;
     try {
       userId = await validateClerkTokenWithJose(token);
     } catch (error) {
-      console.error('[initializeUserData] JWT validation failed:', error);
-      return new Response(
-        JSON.stringify({ error: 'Invalid or expired JWT token' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      log('warn', 'JWT validation failed', { error: error instanceof Error ? error.message : String(error) });
+      throw new HttpError(401, 'Invalid or expired token');
     }
 
-    const supabaseAdmin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
+    const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey);
     const seededTables: string[] = [];
     const now = new Date();
 
-    const ensureSingleRecord = async (
-      table: string,
-      builder: () => Promise<Record<string, unknown> | null | undefined> | Record<string, unknown> | null | undefined,
-    ) => {
-      const { data, error } = await supabaseAdmin.from(table).select('id').eq('user_id', userId).limit(1);
-      if (error) {
-        throw new Error(`[${table}] select failed: ${error.message}`);
-      }
+    log('log', 'Seeding user data if necessary', { userId });
 
-      if (data && data.length > 0) {
-        return false;
+    const ensureSingleRecord = async (table: string, builder: () => JsonRecord | null | Promise<JsonRecord | null>) => {
+      const isMissing = await ensureAbsent(`${table} record`, supabaseAdmin.from(table).select('id').eq('user_id', userId).limit(1));
+      if (!isMissing) {
+        log('log', `${table} already seeded`, { userId });
+        return;
       }
 
       const payload = await builder();
       if (!payload) {
-        return false;
+        log('warn', `${table} builder returned nothing`, { userId });
+        return;
       }
 
-      const { error: insertError } = await supabaseAdmin
-        .from(table)
-        .insert({ user_id: userId, ...payload });
-
-      if (insertError) {
-        throw new Error(`[${table}] insert failed: ${insertError.message}`);
-      }
-
+      await insertSingle(supabaseAdmin, table, { user_id: userId, ...payload });
       seededTables.push(table);
-      return true;
     };
 
     const ensureMultipleRecords = async (
       table: string,
-      builder: () => Promise<Record<string, unknown>[] | null | undefined> | Record<string, unknown>[] | null | undefined,
+      builder: () => JsonRecord[] | Promise<JsonRecord[]>,
     ) => {
-      const { data, error } = await supabaseAdmin.from(table).select('id').eq('user_id', userId).limit(1);
-      if (error) {
-        throw new Error(`[${table}] select failed: ${error.message}`);
-      }
-
-      if (data && data.length > 0) {
+      const isMissing = await ensureAbsent(`${table} records`, supabaseAdmin.from(table).select('id').eq('user_id', userId).limit(1));
+      if (!isMissing) {
+        log('log', `${table} already seeded`, { userId });
         return 0;
       }
 
       const payload = await builder();
       if (!payload || payload.length === 0) {
+        log('warn', `${table} builder returned no records`, { userId });
         return 0;
       }
 
-      const normalized = payload.map((item) => ({
-        user_id: userId,
-        ...item,
-      }));
-
-      const { error: insertError } = await supabaseAdmin.from(table).insert(normalized);
-      if (insertError) {
-        throw new Error(`[${table}] insert failed: ${insertError.message}`);
-      }
-
+      await insertMany(
+        supabaseAdmin,
+        table,
+        payload.map((record) => ({ user_id: userId, ...record })),
+      );
       seededTables.push(table);
-      return normalized.length;
+      return payload.length;
     };
 
-    // Ensure a baseline business plan exists
     await ensureSingleRecord('business_plans', () => {
-      const monthlyBreakdown = Array.from({ length: 12 }).reduce((acc, _, index) => {
-        const month = (index + 1).toString().padStart(2, '0');
-        acc[month] = {
+      const monthlyBreakdown: Record<string, JsonRecord> = {};
+      for (let i = 1; i <= 12; i += 1) {
+        monthlyBreakdown[i.toString().padStart(2, '0')] = {
           conversations: 80,
           appointments: 12,
           closings: 2,
         };
-        return acc;
-      }, {} as Record<string, unknown>);
+      }
 
       return {
-        annual_gci_goal: 150000,
+        annual_gci_goal: 150_000,
         transactions_needed: 24,
-        average_commission: 7500,
+        average_commission: 7_500,
         lead_sources: {
           sphere: 0.4,
           past_clients: 0.3,
@@ -150,7 +190,7 @@ serve(async (req) => {
       {
         title: 'Annual GCI Goal',
         goal_type: 'production',
-        target_value: 150000,
+        target_value: 150_000,
         current_value: 0,
         unit: 'USD',
         timeframe: 'annual',
@@ -183,9 +223,7 @@ serve(async (req) => {
     ]);
 
     const templateLimit = 5;
-    let insertedDailyActions = 0;
-
-    insertedDailyActions = await ensureMultipleRecords('daily_actions', async () => {
+    const insertedDailyActions = await ensureMultipleRecords('daily_actions', async () => {
       const { data: templates, error: templateError } = await supabaseAdmin
         .from('task_templates')
         .select('title, description, category, priority')
@@ -194,7 +232,7 @@ serve(async (req) => {
         .limit(templateLimit);
 
       if (templateError) {
-        console.warn('[initializeUserData] Failed to load task templates:', templateError.message);
+        log('warn', 'Failed to load task templates', { message: templateError.message });
       }
 
       const fallbackActions = [
@@ -230,12 +268,11 @@ serve(async (req) => {
         },
       ];
 
-      const tasksToUse = (templates && templates.length > 0 ? templates : fallbackActions).slice(0, templateLimit);
+      const source = templates && templates.length > 0 ? templates : fallbackActions;
 
-      return tasksToUse.map((task, index) => {
+      return source.slice(0, templateLimit).map((task, index) => {
         const dueDate = new Date(now);
         dueDate.setDate(now.getDate() + index);
-
         return {
           title: task.title ?? fallbackActions[index]?.title ?? 'Daily Focus Task',
           description: task.description ?? fallbackActions[index]?.description ?? '',
@@ -271,26 +308,21 @@ serve(async (req) => {
       enabled: true,
     }));
 
-    await ensureSingleRecord('user_agent_subscriptions', () => ({
+    await ensureSingleRecord('user_agent_subscription', () => ({
       agent_type: 'executive_assistant',
       subscription_tier: 'starter',
       is_active: true,
     }));
 
-    console.log('[initializeUserData] Seeded tables:', seededTables);
+    log('log', 'Seeding complete', { userId, seededTables });
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        seededTables,
-      }),
-      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    return withCors(200, { success: true, seededTables });
   } catch (error) {
-    console.error('[initializeUserData] Error:', error);
-    return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Internal server error' }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    if (error instanceof HttpError) {
+      return withCors(error.status, { error: error.message });
+    }
+
+    log('error', 'Unexpected failure', { error: error instanceof Error ? error.message : String(error) });
+    return withCors(500, { error: 'Internal server error' });
   }
 });

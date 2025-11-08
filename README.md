@@ -72,7 +72,7 @@ Create a `.env` file in the project root and populate the following keys:
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | Supabase anon (publishable) key for the client SDK. |
 | `VITE_SUPABASE_PROJECT_ID` | Project ID used by Supabase tooling. |
 
-The active Supabase project reference for Pulse AI is `pdbggzsmgcrguhscynnk`. Copy `.env` from the root of this repository and
+The active Supabase project reference for Pulse AI is `jeukrohcgbnyquzrqvqr`. Copy `.env` from the root of this repository and
 ensure the Supabase values match that project. Supabase Edge Functions and CLI commands can read matching credentials from
 `supabase/.env`; use the provided [`supabase/.env.example`](./supabase/.env.example) as a starting point and keep the
 `SUPABASE_SERVICE_ROLE_KEY` value in your local file (do not commit it).
@@ -97,7 +97,7 @@ supabase functions serve computePulse --env-file supabase/.env
 Before serving or deploying functions, link your Supabase CLI to the production project:
 
 ```bash
-supabase link --project-ref pdbggzsmgcrguhscynnk
+supabase link --project-ref jeukrohcgbnyquzrqvqr
 ```
 
 When serving functions locally you must provide all required secrets (service role key, Lovable API key, Twilio credentials, etc.) via an `.env` file or the Supabase secrets store. Many functions enforce JWT verification, so authenticate with `supabase login` and run `supabase start` to boot a local stack before invoking them.
@@ -110,22 +110,22 @@ supabase functions deploy <function-name>
 
 ### Clerk → Supabase synchronization checklist
 
-Use the following steps to connect Clerk authentication with the `pdbggzsmgcrguhscynnk` Supabase project and keep Lovable in sync:
+Use the following steps to connect Clerk authentication with the `jeukrohcgbnyquzrqvqr` Supabase project and keep Lovable in sync:
 
 1. **Confirm environment variables** – ensure your Lovable environment (local `.env`, Vercel, etc.) includes:
-   - `VITE_SUPABASE_URL=https://pdbggzsmgcrguhscynnk.supabase.co`
+   - `VITE_SUPABASE_URL=https://jeukrohcgbnyquzrqvqr.supabase.co`
    - `VITE_SUPABASE_PUBLISHABLE_KEY=<anon-key from the project>`
-   - `VITE_SUPABASE_PROJECT_ID=pdbggzsmgcrguhscynnk`
+   - `VITE_SUPABASE_PROJECT_ID=jeukrohcgbnyquzrqvqr`
 2. **Store the Clerk signing secret** in Supabase so the webhook can verify inbound requests:
    ```bash
-   supabase secrets set CLERK_WEBHOOK_SECRET=sk_live_or_test_value --project-ref pdbggzsmgcrguhscynnk
-   supabase secrets set SUPABASE_SERVICE_ROLE_KEY=<service-role-key> --project-ref pdbggzsmgcrguhscynnk
+   supabase secrets set CLERK_WEBHOOK_SECRET=sk_live_or_test_value --project-ref jeukrohcgbnyquzrqvqr
+   supabase secrets set SUPABASE_SERVICE_ROLE_KEY=<service-role-key> --project-ref jeukrohcgbnyquzrqvqr
    ```
 3. **Deploy the edge function** that syncs Clerk users into Supabase:
    ```bash
    npm run deploy:clerk-webhook
    ```
-   The script automatically targets the `pdbggzsmgcrguhscynnk` project unless you override `SUPABASE_PROJECT_REF`.
+   The script automatically targets the `jeukrohcgbnyquzrqvqr` project unless you override `SUPABASE_PROJECT_REF`.
 4. **Register the webhook endpoint** in Clerk with the deployed function URL (e.g., `https://<supabase-project>.functions.supabase.co/clerkWebhook`).
 5. **Test the flow** – create a new user in Clerk and verify a matching record appears in the `profiles` table inside Supabase and that you can sign in to the Lovable app with those credentials.
 

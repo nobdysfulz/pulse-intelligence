@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { CheckCircle, AlertCircle, Clock, RefreshCw, Activity } from 'lucide-react';
 import { toast } from 'sonner';
 import LoadingIndicator from '../../../src/components/ui/LoadingIndicator';

@@ -7,7 +7,7 @@ import { Label } from '../../../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectValue, SelectTrigger } from '../../../components/ui/select';
 import { Loader2, Upload, FileText, X } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { UserContext } from '../context/UserContext';
 
 const callTypes = [

@@ -3,7 +3,7 @@ import { UserContext } from '../context/UserContext';
 import { Button } from '../../components/ui/button';
 import { Loader2, Send, X } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import ReactMarkdown from 'react-markdown';
 import { useQueryClient } from '@tanstack/react-query';
 import AITypingIndicator from '../../../src/components/ui/AITypingIndicator';

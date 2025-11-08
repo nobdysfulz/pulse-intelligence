@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
 import { Loader2, Download, Trash2, MessageSquare } from 'lucide-react';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { CallLog } from '@/api/entities';
 import { format } from 'date-fns';
 import {

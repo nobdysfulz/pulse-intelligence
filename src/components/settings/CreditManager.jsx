@@ -5,7 +5,7 @@ import { Label } from '../../../components/ui/label';
 import { Card, CardContent } from '../../../components/ui/card';
 import { Loader2, Plus, Minus, Search } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function CreditManager() {
   const [users, setUsers] = useState([]);

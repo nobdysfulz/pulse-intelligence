@@ -7,7 +7,7 @@ import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Switch } from '../ui/switch';
 import { Mic, MicOff, Square, Send, Loader2, Brain, ArrowLeft, Clock, MessageCircle, AlertTriangle } from 'lucide-react';
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { cn } from "@/lib/utils";
 import AudioPermissionFlow from './AudioPermissionFlow';

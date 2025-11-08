@@ -3,7 +3,7 @@ import { UserContext } from '../../../context/UserContext';
 import { Button } from '../../../ui/button';
 import { Check, Loader2, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '../../../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { ExternalServiceConnection } from '../../../../api/entities';
 
 export default function GoogleWorkspaceSetup({ data, onNext, onBack }) {

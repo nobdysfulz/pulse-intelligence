@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ContentPack } from '../../api/entities';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label'; // Keeping Label as it might be useful for new elements or future extensions

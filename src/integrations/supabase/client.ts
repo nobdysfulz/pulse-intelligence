@@ -14,7 +14,7 @@ if (!SUPABASE_PUBLISHABLE_KEY) {
 }
 
 // Import the supabase client like this:
-// import { supabase } from "../../integrations/supabase/client";
+// import { supabase } from '@/integrations/supabase/client';
 
 // Custom storage that works with SSR
 const customStorageAdapter = {

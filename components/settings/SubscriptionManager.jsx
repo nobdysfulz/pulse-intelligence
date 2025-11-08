@@ -9,7 +9,7 @@ import { User } from '../../src/api/entities'; // Assuming User entity is from t
 import { UserCredit } from '../../src/api/entities'; // Assuming UserCredit entity is from this path
 import { Search, Edit, Save, X, UserCog, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function SubscriptionManager() {
     const [allUsers, setAllUsers] = useState([]);

@@ -7,7 +7,7 @@ import { Label } from '../../components/ui/label';
 import { Checkbox } from '../../components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '../../components/ui/radio-group';
 import { Loader2, Sparkles, Copy } from 'lucide-react';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { GeneratedContent } from '../../api/entities';
 import { toast } from "sonner";
 import { UserContext } from '@/context/UserContext';

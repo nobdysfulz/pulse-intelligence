@@ -7,7 +7,7 @@ import { RefreshCw } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
 import { DailyAction } from '../../src/api/entities';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
 const TaskItem = ({ task, onToggle }) =>

@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Card, CardContent } from '../../components/ui/card';
 import { Loader2, Search } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { UserAgentSubscription } from '../../src/api/entities';
 
 export default function ManualSubscriptionManager() {

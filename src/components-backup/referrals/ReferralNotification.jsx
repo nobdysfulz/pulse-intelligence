@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { toast } from "sonner";
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { createPageUrl } from "@/utils";
 
 export default function ReferralNotification({ user }) {

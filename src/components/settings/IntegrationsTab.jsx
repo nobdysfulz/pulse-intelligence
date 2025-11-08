@@ -7,7 +7,7 @@ import { Label } from '../ui/label';
 import { CheckCircle, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
 import { UserContext } from '../context/UserContext';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import LoadingIndicator, { InlineLoadingIndicator } from '../../../src/components/ui/LoadingIndicator';
 import { ConnectionOperations } from '../../api/entities';
 

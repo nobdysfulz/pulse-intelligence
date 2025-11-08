@@ -6,7 +6,7 @@ import { Label } from '../../components/ui/label';
 import { RadioGroup, RadioGroupItem } from '../../components/ui/radio-group';
 import { Loader2, Sparkles, Copy, Download } from 'lucide-react';
 import { toast } from "sonner";
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import ReactMarkdown from 'react-markdown';
 
 const cleanAIResponse = (response) => {

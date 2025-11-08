@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { User } from '../../src/api/entities';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';

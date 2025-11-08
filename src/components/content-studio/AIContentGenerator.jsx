@@ -7,7 +7,7 @@ import { Textarea } from '../ui/textarea';
 import { Label } from '../ui/label';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { AiPromptConfig, CreditOperations } from '../../api/entities';
 import ContentGeneratingIndicator from '../ui/ContentGeneratingIndicator';
 import { InlineLoadingIndicator } from '../ui/LoadingIndicator';

@@ -3,7 +3,7 @@ import { UserContext } from '../context/UserContext';
 import { Button } from '../../../components/ui/button';
 import { Loader2, Send } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { AiAgentConversation } from '@/api/entities';
 import ReactMarkdown from 'react-markdown';
 import AITypingIndicator from '../../../src/components/ui/AITypingIndicator';

@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from '../ui/dialog';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import BulkImportModal from '../admin/BulkImportModal';
 
 const SCENARIO_CSV_SAMPLE = `name,description,category,difficulty_level,initial_context,client_persona,passing_threshold

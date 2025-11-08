@@ -1,0 +1,75 @@
+
+> pulse-intelligence@0.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (176kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/42) ...
+   Generating static pages (10/42) 
+   Generating static pages (20/42) 
+🔐 DEBUG - TierAwareOnboarding component loaded
+   Generating static pages (31/42) 
+ ✓ Generating static pages (42/42)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ƒ /                                    183 B          97.7 kB
+├ ƒ /_not-found                          152 B          88.9 kB
+├ ƒ /admin/content-config                12.9 kB         181 kB
+├ ƒ /admin/platform-import               3.77 kB         155 kB
+├ ƒ /admin/task-templates                11.7 kB         196 kB
+├ ƒ /admin/user-repair                   3.85 kB         160 kB
+├ ƒ /agents                              26.3 kB         261 kB
+├ ƒ /api/pulse/score                     0 B                0 B
+├ ƒ /api/pulse/test-data                 0 B                0 B
+├ ○ /api/test                            0 B                0 B
+├ ƒ /contacts                            4.61 kB         184 kB
+├ ƒ /content-studio                      17.3 kB         258 kB
+├ ƒ /dashboard                           8.97 kB         204 kB
+├ ƒ /goals                               20.6 kB         457 kB
+├ ƒ /intelligence                        7.14 kB         191 kB
+├ ƒ /intelligence-survey                 7.31 kB         191 kB
+├ ƒ /knowledge                           390 B          89.2 kB
+├ ƒ /market                              7.64 kB         368 kB
+├ ƒ /metrics                             7.57 kB         292 kB
+├ ƒ /my-market-pack                      6.02 kB         198 kB
+├ ƒ /oauth/facebook/callback             1.79 kB         148 kB
+├ ƒ /oauth/google-workspace/callback     2 kB            148 kB
+├ ƒ /oauth/google/callback               1.8 kB          148 kB
+├ ƒ /oauth/instagram/callback            1.79 kB         148 kB
+├ ƒ /oauth/linkedin/callback             1.79 kB         148 kB
+├ ƒ /oauth/microsoft/callback            1.79 kB         148 kB
+├ ƒ /oauth/zoom/callback                 1.78 kB         148 kB
+├ ƒ /objections                          6.79 kB         200 kB
+├ ƒ /onboarding                          14.6 kB         206 kB
+├ ƒ /personaladvisor                     6.32 kB         220 kB
+├ ƒ /plans                               5.58 kB         185 kB
+├ ƒ /role-play                           10.9 kB         333 kB
+├ ƒ /role-play/results                   5.89 kB         168 kB
+├ ƒ /role-play/session                   7.03 kB         161 kB
+├ ƒ /settings                            17.5 kB         229 kB
+├ ƒ /sign-in/[[...sign-in]]              1.38 kB         126 kB
+├ ƒ /sign-up/[[...sign-up]]              1.38 kB         126 kB
+├ ƒ /simple                              152 B          88.9 kB
+├ ƒ /support                             6.84 kB         220 kB
+├ ƒ /to-do                               12 kB           356 kB
+├ ƒ /tts                                 6.73 kB         108 kB
+└ ƒ /usage                               2.77 kB         168 kB
++ First Load JS shared by all            88.8 kB
+  ├ chunks/2117-176d659c2b1a5a6a.js      31.9 kB
+  ├ chunks/fd9d1056-e4fd97a7c8c637cb.js  53.6 kB
+  └ other shared chunks (total)          3.24 kB
+
+
+ƒ Middleware                             73 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

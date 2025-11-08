@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { createPageUrl } from "../../utils";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from "@clerk/clerk-react";
 import { UserOnboarding } from "@/api/entities";
 import OnboardingSidebar from "./OnboardingSidebar";

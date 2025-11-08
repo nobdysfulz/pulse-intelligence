@@ -3,7 +3,7 @@ import { UserContext } from '../../../context/UserContext';
 import { Button } from '../../components/ui/button';
 import { Check, ExternalLink, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { ExternalServiceConnection } from '../../api/entities';
 import { useAuth } from '@clerk/clerk-react';
 

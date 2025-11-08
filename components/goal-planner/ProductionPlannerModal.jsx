@@ -14,7 +14,7 @@ import {
   getDefaultConversionRates,
   initializeExpenseCategories,
 } from './calculations';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 
 const createInitialPlanData = () => {
   const currentYear = new Date().getFullYear();

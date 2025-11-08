@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '../../components/ui/button';
 import { CheckCircle, ArrowRight } from 'lucide-react';
-import { supabase } from '../../integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 import { UserOnboarding } from '../../src/api/entities';
 import { useUser } from '@clerk/clerk-react';
 import { toast } from 'sonner';

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
 
-const FALLBACK_PROJECT_REF = 'pdbggzsmgcrguhscynnk';
+const FALLBACK_PROJECT_REF = 'jeukrohcgbnyquzrqvqr';
 const projectRef = process.env.SUPABASE_PROJECT_REF || process.env.VITE_SUPABASE_PROJECT_ID || FALLBACK_PROJECT_REF;
 
 const deployArgs = ['functions', 'deploy', 'clerkWebhook', '--project-ref', projectRef];

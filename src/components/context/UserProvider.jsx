@@ -63,9 +63,6 @@ export default function UserProvider({ children }) {
                 console.log('[UserProvider] Ensuring user defaults exist...');
                 const initResult = await Promise.race([
                     invokeFunction('initializeUserData', {
-                        headers: {
-                            'x-clerk-auth': token,
-                        },
                         body: {},
                     }),
                     new Promise((_, reject) => setTimeout(() => reject(new Error('initializeUserData timeout')), 10000))
@@ -81,11 +78,7 @@ export default function UserProvider({ children }) {
 
             try {
                 const result = await Promise.race([
-                    invokeFunction('getUserContext', {
-                        headers: {
-                            'x-clerk-auth': token,
-                        },
-                    }),
+                    invokeFunction('getUserContext'),
                     new Promise((_, reject) =>
                         setTimeout(() => reject(new Error('getUserContext timeout after 10 seconds')), 10000)
                     )
@@ -115,9 +108,6 @@ export default function UserProvider({ children }) {
                             try {
                                 console.log('[UserProvider] Re-running initializeUserData with fresh token...');
                                 await invokeFunction('initializeUserData', {
-                                    headers: {
-                                        'x-clerk-auth': newToken,
-                                    },
                                     body: {},
                                 });
                             } catch (seedRetryError) {
@@ -125,12 +115,7 @@ export default function UserProvider({ children }) {
                             }
 
                             // Retry with fresh token
-                            const { data: retryContext, error: retryError } = await invokeFunction('getUserContext', {
-                                    headers: {
-                                        'x-clerk-auth': newToken,
-                                    },
-                                }
-                            );
+                            const { data: retryContext, error: retryError } = await invokeFunction('getUserContext');
                             
                             if (!retryError && retryContext) {
                                 console.log('[UserProvider] Retry successful with fresh token');

@@ -108,6 +108,7 @@ export default function UserProvider({ children }) {
                             }
 
                             // Retry with fresh token (useInvokeFunction will get the refreshed token from Clerk)
+                            // Retry with fresh token
                             const { data: retryContext, error: retryError } = await invokeFunction('getUserContext');
                             
                             if (!retryError && retryContext) {

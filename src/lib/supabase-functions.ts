@@ -37,8 +37,19 @@ export async function invokeWithAuth(
     throw new Error('Authentication token not available. Please sign in.');
   }
 
-  // Merge custom headers with auth header
+  // Get Supabase anon key from environment
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseAnonKey) {
+    console.error('[invokeWithAuth] Missing NEXT_PUBLIC_SUPABASE_ANON_KEY');
+    throw new Error('Supabase configuration error');
+  }
+
+  // Merge custom headers with auth header and apikey
+  // The apikey header is required by Supabase even with verify_jwt=false
   const headers = {
+    'apikey': supabaseAnonKey,
+    'Authorization': `Bearer ${supabaseAnonKey}`,
     'x-clerk-auth': token,
     'Content-Type': 'application/json',
     ...options.headers,
@@ -96,8 +107,19 @@ export function useInvokeFunction() {
       throw new Error('Authentication token not available. Please sign in.');
     }
 
-    // Merge custom headers with auth header
+    // Get Supabase anon key from environment
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    if (!supabaseAnonKey) {
+      console.error('[useInvokeFunction] Missing NEXT_PUBLIC_SUPABASE_ANON_KEY');
+      throw new Error('Supabase configuration error');
+    }
+
+    // Merge custom headers with auth header and apikey
+    // The apikey header is required by Supabase even with verify_jwt=false
     const headers = {
+      'apikey': supabaseAnonKey,
+      'Authorization': `Bearer ${supabaseAnonKey}`,
       'x-clerk-auth': token,
       'Content-Type': 'application/json',
       ...options.headers,

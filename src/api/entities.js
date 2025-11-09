@@ -2,13 +2,15 @@
 import { useAuth } from '@clerk/nextjs';
 import { useInvokeFunction } from '@/lib/supabase-functions';
 
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+
 // Helper to get Clerk token with optional token parameter
 const getClerkToken = async (providedToken) => {
   // If token is provided directly, use it
   if (providedToken) {
     return providedToken;
   }
-  
+
   // Otherwise try to get from global reference (fallback for legacy code)
   if (window.__clerkGetToken) {
     try {
@@ -18,8 +20,50 @@ const getClerkToken = async (providedToken) => {
       throw new Error('Failed to retrieve authentication token. Please log in again.');
     }
   }
-  
+
   throw new Error('No authentication token available. Please pass token to entity methods or ensure UserProvider is initialized.');
+};
+
+/**
+ * Standalone function to invoke Supabase Edge Functions with Clerk auth
+ * This is NOT a React hook and can be called from anywhere
+ */
+const invokeFunction = async (functionName, options = {}) => {
+  const token = await getClerkToken(options.token);
+
+  if (!token) {
+    console.error('[invokeFunction] No Clerk token available');
+    throw new Error('Authentication token not available. Please sign in.');
+  }
+
+  // Merge custom headers with auth header
+  const headers = {
+    'x-clerk-auth': token,
+    'Content-Type': 'application/json',
+    ...options.headers,
+  };
+
+  console.log(`[invokeFunction] Calling ${functionName} with Clerk auth`);
+
+  try {
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/${functionName}`, {
+      method: 'POST',
+      headers,
+      body: options.body ? JSON.stringify(options.body) : undefined,
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error(`[invokeFunction] ${functionName} error:`, data);
+      return { data: null, error: data };
+    }
+
+    return { data, error: null };
+  } catch (error) {
+    console.error(`[invokeFunction] ${functionName} fetch error:`, error);
+    return { data: null, error };
+  }
 };
 
 // Helper to convert camelCase to snake_case
@@ -30,11 +74,9 @@ const toCamelCase = (str) => str.replace(/_([a-z])/g, (_, letter) => letter.toUp
 
 // Convert object keys from camelCase to snake_case
 const objectToSnakeCase = (obj) => {
-  const invokeFunction = useInvokeFunction();
-
   if (!obj || typeof obj !== 'object') return obj;
   if (Array.isArray(obj)) return obj.map(objectToSnakeCase);
-  
+
   return Object.keys(obj).reduce((acc, key) => {
     const snakeKey = toSnakeCase(key);
     acc[snakeKey] = obj[key];
@@ -127,12 +169,12 @@ const addResponseAliases = (tableName, obj) => {
 const createEntity = (tableName) => ({
   list: async (orderBy = '-created_at', token = null) => {
     try {
-      const authToken = await getClerkToken(token);
       const normalizedOrder = normalizeOrder(orderBy);
       const isDescending = normalizedOrder.startsWith('-');
       const column = normalizedOrder.replace('-', '');
 
       const { data, error } = await invokeFunction('entityOperations', {
+        token,
         body: {
           table: tableName,
           operation: 'list',
@@ -140,9 +182,6 @@ const createEntity = (tableName) => ({
             order: column,
             ascending: !isDescending,
           },
-        },
-        headers: {
-          'x-clerk-auth': authToken,
         },
       });
 
@@ -157,16 +196,14 @@ const createEntity = (tableName) => ({
   filter: async (filters = {}, orderBy = '-created_at', token = null) => {
     try {
       console.log('🔐 Entity.filter - Input token provided:', !!token);
-      const authToken = await getClerkToken(token);
-      console.log('🔐 Entity.filter - Using authToken:', !!authToken, 'Length:', authToken?.length);
-      console.log('🔐 Entity.filter - Token preview:', authToken?.substring(0, 50) + '...');
-      
+
       const normalizedFilters = normalizeFilters(tableName, filters);
       const normalizedOrder = normalizeOrder(orderBy);
       const isDescending = normalizedOrder.startsWith('-');
       const column = normalizedOrder.replace('-', '');
 
       const { data, error } = await invokeFunction('entityOperations', {
+        token,
         body: {
           table: tableName,
           operation: 'filter',
@@ -175,9 +212,6 @@ const createEntity = (tableName) => ({
             order: column,
             ascending: !isDescending,
           },
-        },
-        headers: {
-          'x-clerk-auth': authToken,
         },
       });
 
@@ -191,16 +225,12 @@ const createEntity = (tableName) => ({
 
   get: async (id, token = null) => {
     try {
-      const authToken = await getClerkToken(token);
-
       const { data, error } = await invokeFunction('entityOperations', {
+        token,
         body: {
           table: tableName,
           operation: 'get',
           id,
-        },
-        headers: {
-          'x-clerk-auth': authToken,
         },
       });
 
@@ -214,8 +244,6 @@ const createEntity = (tableName) => ({
 
   create: async (payload, token = null) => {
     try {
-      const authToken = await getClerkToken(token);
-
       // Handle agent_voices special case: store extra fields in voice_settings
       let finalPayload = { ...payload };
       if (tableName === 'agent_voices') {
@@ -232,13 +260,11 @@ const createEntity = (tableName) => ({
       const snakePayload = objectToSnakeCase(finalPayload);
 
       const { data, error } = await invokeFunction('entityOperations', {
+        token,
         body: {
           table: tableName,
           operation: 'create',
           data: snakePayload,
-        },
-        headers: {
-          'x-clerk-auth': authToken,
         },
       });
 
@@ -252,8 +278,6 @@ const createEntity = (tableName) => ({
 
   update: async (id, payload, token = null) => {
     try {
-      const authToken = await getClerkToken(token);
-
       // Handle agent_voices special case
       let finalPayload = { ...payload };
       if (tableName === 'agent_voices') {
@@ -270,14 +294,12 @@ const createEntity = (tableName) => ({
       const snakePayload = objectToSnakeCase(finalPayload);
 
       const { data, error } = await invokeFunction('entityOperations', {
+        token,
         body: {
           table: tableName,
           operation: 'update',
           id,
           data: snakePayload,
-        },
-        headers: {
-          'x-clerk-auth': authToken,
         },
       });
 
@@ -291,16 +313,12 @@ const createEntity = (tableName) => ({
 
   delete: async (id, token = null) => {
     try {
-      const authToken = await getClerkToken(token);
-
       const { data, error } = await invokeFunction('entityOperations', {
+        token,
         body: {
           table: tableName,
           operation: 'delete',
           id,
-        },
-        headers: {
-          'x-clerk-auth': authToken,
         },
       });
 
@@ -635,10 +653,8 @@ export const User = {
 export const TaskOperations = {
   updateStatus: async (taskId, status) => {
     try {
-      const token = await getClerkToken();
       const { data, error } = await invokeFunction('updateTaskStatus', {
         body: { taskId, status },
-        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -650,10 +666,8 @@ export const TaskOperations = {
 
   create: async (taskData) => {
     try {
-      const token = await getClerkToken();
       const { data, error } = await invokeFunction('createTask', {
         body: taskData,
-        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -667,10 +681,8 @@ export const TaskOperations = {
 export const CreditOperations = {
   deduct: async (amount, description, metadata = {}) => {
     try {
-      const token = await getClerkToken();
       const { data, error } = await invokeFunction('manageCredits', {
         body: { operation: 'deduct', amount, description, metadata },
-        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -682,10 +694,8 @@ export const CreditOperations = {
 
   add: async (amount, description, metadata = {}) => {
     try {
-      const token = await getClerkToken();
       const { data, error } = await invokeFunction('manageCredits', {
         body: { operation: 'add', amount, description, metadata },
-        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -697,10 +707,8 @@ export const CreditOperations = {
 
   set: async (amount, description, metadata = {}) => {
     try {
-      const token = await getClerkToken();
       const { data, error } = await invokeFunction('manageCredits', {
         body: { operation: 'set', amount, description, metadata },
-        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -714,10 +722,8 @@ export const CreditOperations = {
 export const GoalOperations = {
   create: async (goalData) => {
     try {
-      const token = await getClerkToken();
       const { data, error } = await invokeFunction('manageGoal', {
         body: { operation: 'create', goalData },
-        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -729,10 +735,8 @@ export const GoalOperations = {
 
   update: async (goalId, goalData) => {
     try {
-      const token = await getClerkToken();
       const { data, error } = await invokeFunction('manageGoal', {
         body: { operation: 'update', goalId, goalData },
-        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -744,10 +748,8 @@ export const GoalOperations = {
 
   delete: async (goalId) => {
     try {
-      const token = await getClerkToken();
       const { data, error } = await invokeFunction('manageGoal', {
         body: { operation: 'delete', goalId },
-        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -761,10 +763,7 @@ export const GoalOperations = {
 export const ConnectionOperations = {
   fetchAll: async () => {
     try {
-      const token = await getClerkToken();
-      const { data, error } = await invokeFunction('fetchUserConnections', {
-        headers: { 'x-clerk-auth': token },
-      });
+      const { data, error } = await invokeFunction('fetchUserConnections', {});
       if (error) throw error;
       return data?.data || { crm: [], external: [] };
     } catch (error) {
@@ -772,7 +771,7 @@ export const ConnectionOperations = {
       throw error;
     }
   },
-  
+
   // Alias for compatibility
   fetchUserConnections: async () => {
     return ConnectionOperations.fetchAll();

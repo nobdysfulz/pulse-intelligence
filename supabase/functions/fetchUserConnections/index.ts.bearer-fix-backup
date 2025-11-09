@@ -21,7 +21,7 @@ serve(async (req) => {
     }
 
     const authHeader = req.headers.get('x-clerk-auth') || req.headers.get('Authorization');
-    if (!authHeader) {
+    if (!authHeader?.startsWith('Bearer ')) {
       return new Response(
         JSON.stringify({ error: 'Missing or invalid Authorization header' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -37,51 +37,46 @@ serve(async (req) => {
     const payload = JSON.parse(atob(parts[1]));
     const userId = payload.sub;
 
-    const body = await req.json();
-    const { title, description, category, dueDate, priority, scheduledTime, durationMinutes } = body;
-
-    if (!title || !category || !dueDate) {
-      return new Response(
-        JSON.stringify({ error: 'Missing required fields: title, category, dueDate' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    console.log('[createTask] Creating task for user:', userId);
+    console.log('[fetchUserConnections] Fetching connections for user:', userId);
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
-    const taskData = {
-      user_id: userId,
-      title,
-      description: description || null,
-      category,
-      due_date: dueDate,
-      priority: priority || 'medium',
-      scheduled_time: scheduledTime || null,
-      duration_minutes: durationMinutes || null,
-      status: 'pending',
+    // Fetch all user connections in parallel
+    const [crmResult, externalResult] = await Promise.all([
+      supabase
+        .from('crm_connections')
+        .select('*')
+        .eq('user_id', userId),
+      supabase
+        .from('external_service_connections')
+        .select('*')
+        .eq('user_id', userId),
+    ]);
+
+    if (crmResult.error) {
+      console.warn('[fetchUserConnections] CRM connections error:', crmResult.error);
+    }
+
+    if (externalResult.error) {
+      console.warn('[fetchUserConnections] External connections error:', externalResult.error);
+    }
+
+    const connections = {
+      crm: crmResult.data || [],
+      external: externalResult.data || [],
     };
 
-    const { data, error } = await supabase
-      .from('daily_actions')
-      .insert(taskData)
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    console.log('[createTask] ✓ Task created successfully');
+    console.log('[fetchUserConnections] ✓ Connections fetched successfully');
 
     return new Response(
-      JSON.stringify({ success: true, data }),
+      JSON.stringify({ success: true, data: connections }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200,
       }
     );
   } catch (error) {
-    console.error('[createTask] Error:', error);
+    console.error('[fetchUserConnections] Error:', error);
     return new Response(
       JSON.stringify({ 
         error: error instanceof Error ? error.message : 'Internal server error',

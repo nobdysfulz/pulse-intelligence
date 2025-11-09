@@ -40,7 +40,7 @@ export default function ClerkSupabaseSync() {
             {
               method: 'POST',
               headers: {
-                'Authorization': `Bearer ${token}`,
+                'x-clerk-auth': token,
                 'Content-Type': 'application/json',
               },
             }

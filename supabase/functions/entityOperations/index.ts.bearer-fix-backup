@@ -64,7 +64,7 @@ serve(async (req) => {
       timestamp: new Date().toISOString()
     });
 
-    if (!authHeader) {
+    if (!authHeader?.startsWith('Bearer ')) {
       console.error(`🚨 [${ERROR_CODES.AUTH_VALIDATION_FAILED}] Missing or invalid Authorization header`);
       return new Response(
         JSON.stringify({ error: 'Missing or invalid Authorization header', code: ERROR_CODES.AUTH_VALIDATION_FAILED }),

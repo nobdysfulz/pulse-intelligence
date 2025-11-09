@@ -21,7 +21,7 @@ serve(async (req) => {
     }
 
     const authHeader = req.headers.get('x-clerk-auth') || req.headers.get('Authorization');
-    if (!authHeader) {
+    if (!authHeader?.startsWith('Bearer ')) {
       return new Response(
         JSON.stringify({ error: 'Missing or invalid Authorization header' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -38,40 +38,42 @@ serve(async (req) => {
     const userId = payload.sub;
 
     const body = await req.json();
-    const { title, description, category, dueDate, priority, scheduledTime, durationMinutes } = body;
+    const { taskId, status } = body;
 
-    if (!title || !category || !dueDate) {
+    if (!taskId || !status) {
       return new Response(
-        JSON.stringify({ error: 'Missing required fields: title, category, dueDate' }),
+        JSON.stringify({ error: 'Missing taskId or status' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('[createTask] Creating task for user:', userId);
+    console.log('[updateTaskStatus] Updating task', taskId, 'to status', status);
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
-    const taskData = {
-      user_id: userId,
-      title,
-      description: description || null,
-      category,
-      due_date: dueDate,
-      priority: priority || 'medium',
-      scheduled_time: scheduledTime || null,
-      duration_minutes: durationMinutes || null,
-      status: 'pending',
+    // Update task with completed_at timestamp if completing
+    const updateData: any = { 
+      status,
+      updated_at: new Date().toISOString() 
     };
+
+    if (status === 'completed') {
+      updateData.completed_at = new Date().toISOString();
+    } else if (status === 'pending') {
+      updateData.completed_at = null;
+    }
 
     const { data, error } = await supabase
       .from('daily_actions')
-      .insert(taskData)
+      .update(updateData)
+      .eq('id', taskId)
+      .eq('user_id', userId)
       .select()
       .single();
 
     if (error) throw error;
 
-    console.log('[createTask] ✓ Task created successfully');
+    console.log('[updateTaskStatus] ✓ Task updated successfully');
 
     return new Response(
       JSON.stringify({ success: true, data }),
@@ -81,7 +83,7 @@ serve(async (req) => {
       }
     );
   } catch (error) {
-    console.error('[createTask] Error:', error);
+    console.error('[updateTaskStatus] Error:', error);
     return new Response(
       JSON.stringify({ 
         error: error instanceof Error ? error.message : 'Internal server error',

@@ -21,7 +21,7 @@ serve(async (req) => {
     }
 
     const authHeader = req.headers.get('x-clerk-auth') || req.headers.get('Authorization');
-    if (!authHeader?.startsWith('Bearer ')) {
+    if (!authHeader) {
       return new Response(
         JSON.stringify({ error: 'Missing or invalid Authorization header' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

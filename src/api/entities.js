@@ -140,7 +140,7 @@ const createEntity = (tableName) => ({
           },
         },
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          'x-clerk-auth': authToken,
         },
       });
 
@@ -175,7 +175,7 @@ const createEntity = (tableName) => ({
           },
         },
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          'x-clerk-auth': authToken,
         },
       });
 
@@ -198,7 +198,7 @@ const createEntity = (tableName) => ({
           id,
         },
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          'x-clerk-auth': authToken,
         },
       });
 
@@ -236,7 +236,7 @@ const createEntity = (tableName) => ({
           data: snakePayload,
         },
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          'x-clerk-auth': authToken,
         },
       });
 
@@ -275,7 +275,7 @@ const createEntity = (tableName) => ({
           data: snakePayload,
         },
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          'x-clerk-auth': authToken,
         },
       });
 
@@ -298,7 +298,7 @@ const createEntity = (tableName) => ({
           id,
         },
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          'x-clerk-auth': authToken,
         },
       });
 
@@ -636,7 +636,7 @@ export const TaskOperations = {
       const token = await getClerkToken();
       const { data, error } = await supabase.functions.invoke('updateTaskStatus', {
         body: { taskId, status },
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -651,7 +651,7 @@ export const TaskOperations = {
       const token = await getClerkToken();
       const { data, error } = await supabase.functions.invoke('createTask', {
         body: taskData,
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -668,7 +668,7 @@ export const CreditOperations = {
       const token = await getClerkToken();
       const { data, error } = await supabase.functions.invoke('manageCredits', {
         body: { operation: 'deduct', amount, description, metadata },
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -683,7 +683,7 @@ export const CreditOperations = {
       const token = await getClerkToken();
       const { data, error } = await supabase.functions.invoke('manageCredits', {
         body: { operation: 'add', amount, description, metadata },
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -698,7 +698,7 @@ export const CreditOperations = {
       const token = await getClerkToken();
       const { data, error } = await supabase.functions.invoke('manageCredits', {
         body: { operation: 'set', amount, description, metadata },
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -715,7 +715,7 @@ export const GoalOperations = {
       const token = await getClerkToken();
       const { data, error } = await supabase.functions.invoke('manageGoal', {
         body: { operation: 'create', goalData },
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -730,7 +730,7 @@ export const GoalOperations = {
       const token = await getClerkToken();
       const { data, error } = await supabase.functions.invoke('manageGoal', {
         body: { operation: 'update', goalId, goalData },
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -745,7 +745,7 @@ export const GoalOperations = {
       const token = await getClerkToken();
       const { data, error } = await supabase.functions.invoke('manageGoal', {
         body: { operation: 'delete', goalId },
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data;
@@ -761,7 +761,7 @@ export const ConnectionOperations = {
     try {
       const token = await getClerkToken();
       const { data, error } = await supabase.functions.invoke('fetchUserConnections', {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;
       return data?.data || { crm: [], external: [] };

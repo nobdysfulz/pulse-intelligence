@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { Button } from '../../components/ui/button';
 import { supabase } from '../../integrations/supabase/client';
 import { createPageUrl } from '@/utils';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const KPICard = ({ title, value, subtitle, icon: Icon }) => (
   <Card className="bg-white shadow-sm">
@@ -54,6 +55,7 @@ const SectionHeader = ({ title, description }) => (
 );
 
 export default function SessionResults() {
+  const invokeFunction = useInvokeFunction();
   const [user, setUser] = useState(null);
   const [sessions, setSessions] = useState([]);
   const [scenarios, setScenarios] = useState({});
@@ -104,7 +106,7 @@ export default function SessionResults() {
     setAudioLoading(true);
     setAudioUrl(null);
     try {
-      const { data, error } = await supabase.functions.invoke('getSignedAudioUrl', {
+      const { data, error } = await invokeFunction('getSignedAudioUrl', {
         body: { file_uri: fileUri }
       });
       if (error) throw error;

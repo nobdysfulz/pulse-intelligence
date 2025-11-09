@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/ca
 import { toast } from 'sonner';
 import { Loader2, Image as ImageIcon, Video, FileText, Sparkles, AlertTriangle } from 'lucide-react';
 import { ImageResult, ScriptResult, BlogResult } from '../../src/components/content-studio/renderers';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const GenerationCard = ({ title, icon: Icon, isLoading, error, children }) => (
   <Card className="shadow-lg border-0 bg-white">
@@ -35,6 +36,7 @@ const GenerationCard = ({ title, icon: Icon, isLoading, error, children }) => (
 );
 
 export default function MyMarketPackPage() {
+  const invokeFunction = useInvokeFunction();
   const [isLoading, setIsLoading] = useState(true);
   const [generatedContent, setGeneratedContent] = useState({ graphic: null, script: null, blog: null });
   const [errors, setErrors] = useState({ graphic: null, script: null, blog: null });
@@ -95,9 +97,9 @@ export default function MyMarketPackPage() {
 
       // 3. Make API calls concurrently
       const results = await Promise.allSettled([
-        supabase.functions.invoke('generateImage', { body: { prompt: imagePrompt, style: "vibrant", aspect_ratio: "1:1" }}),
-        supabase.functions.invoke('openaiChat', { body: { messages: [{ role: 'user', content: videoScriptPrompt }], model: 'google/gemini-2.5-flash', response_format: { type: 'json_schema', json_schema: { name: 'video_script', schema: videoScriptSchema } } } }),
-        supabase.functions.invoke('openaiChat', { body: { messages: [{ role: 'user', content: blogPostPrompt }], model: 'google/gemini-2.5-flash', max_tokens: 2000 } })
+        invokeFunction('generateImage', { body: { prompt: imagePrompt, style: "vibrant", aspect_ratio: "1:1" }}),
+        invokeFunction('openaiChat', { body: { messages: [{ role: 'user', content: videoScriptPrompt }], model: 'google/gemini-2.5-flash', response_format: { type: 'json_schema', json_schema: { name: 'video_script', schema: videoScriptSchema } } } }),
+        invokeFunction('openaiChat', { body: { messages: [{ role: 'user', content: blogPostPrompt }], model: 'google/gemini-2.5-flash', max_tokens: 2000 } })
       ]);
 
       const [graphicResult, scriptResult, blogResult] = results;

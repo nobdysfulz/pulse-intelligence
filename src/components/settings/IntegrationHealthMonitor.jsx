@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
-import { supabase } from '@/integrations/supabase/client';
 import { CheckCircle, AlertCircle, Clock, RefreshCw, Activity } from 'lucide-react';
 import { toast } from 'sonner';
 import LoadingIndicator from '../../../src/components/ui/LoadingIndicator';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const IntegrationCard = ({ name, status, lastChecked, responseTime, errorMessage }) => (
   <Card className="hover:shadow-md transition-shadow">
@@ -57,6 +57,8 @@ const IntegrationCard = ({ name, status, lastChecked, responseTime, errorMessage
 );
 
 export default function IntegrationHealthMonitor() {
+  const invokeFunction = useInvokeFunction();
+
   const [healthStatus, setHealthStatus] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -73,7 +75,7 @@ export default function IntegrationHealthMonitor() {
     else setRefreshing(true);
 
     try {
-      const response = await supabase.functions.invoke('checkIntegrationStatus', { body: {} });
+      const response = await invokeFunction('checkIntegrationStatus', { body: {} });
       if (response.data) {
         setHealthStatus(response.data);
       }

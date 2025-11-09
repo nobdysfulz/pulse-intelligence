@@ -7,8 +7,8 @@ import { RefreshCw } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { DailyAction } from "@/api/entities";
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const TaskItem = ({ task, onToggle }) =>
 <div className="bg-slate-50 p-3 flex items-center gap-4 rounded-lg shadow-s border border-slate-100">
@@ -32,6 +32,8 @@ const TaskItem = ({ task, onToggle }) =>
 
 
 export default function TodaysFocus({ actions, onToggleAction, onRefresh }) {
+  const invokeFunction = useInvokeFunction();
+
   const incompleteActions = actions.filter((a) => a.status !== 'completed').slice(0, 3);
 
   const handleToggle = async (actionId, isCompleted) => {
@@ -45,7 +47,7 @@ export default function TodaysFocus({ actions, onToggleAction, onRefresh }) {
       // If task is from Lofty and being marked complete, sync back to Lofty
       if (isCompleted && action.loftyTaskId) {
         try {
-          await supabase.functions.invoke('loftySync', {
+          await invokeFunction('loftySync', {
             body: {
               action: 'markTaskComplete',
               data: { loftyTaskId: action.loftyTaskId }

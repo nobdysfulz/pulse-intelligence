@@ -5,8 +5,11 @@ import { supabase } from '../../integrations/supabase/client';
 import { toast } from 'sonner';
 import { Upload, Loader2, CheckCircle, XCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '../../components/ui/alert';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function AdminPlatformImport() {
+  const invokeFunction = useInvokeFunction();
+
   const [importing, setImporting] = useState(false);
   const [results, setResults] = useState(null);
   const [syncing, setSyncing] = useState(false);
@@ -17,7 +20,7 @@ export default function AdminPlatformImport() {
     setResults(null);
 
     try {
-      const { data, error } = await supabase.functions.invoke('importPlatformData', {
+      const { data, error } = await invokeFunction('importPlatformData', {
         body: {}
       });
 
@@ -42,7 +45,7 @@ export default function AdminPlatformImport() {
     setSyncResults(null);
 
     try {
-      const { data, error } = await supabase.functions.invoke('syncExternalPlatformData', {
+      const { data, error } = await invokeFunction('syncExternalPlatformData', {
         body: { dryRun }
       });
 

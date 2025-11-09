@@ -4,9 +4,11 @@ import { MessageCircle, X, Send } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { Textarea } from '../../../components/ui/textarea';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function SupportChatWidget() {
+  const invokeFunction = useInvokeFunction();
+
   const { isSupportChatOpen, setSupportChatOpen } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
@@ -16,7 +18,7 @@ export default function SupportChatWidget() {
 
     setSending(true);
     try {
-      const { data, error } = await supabase.functions.invoke('sendEmail', {
+      const { data, error } = await invokeFunction('sendEmail', {
         body: {
           to: 'support@pulseai.com',
           subject: 'Support Request from Widget',

@@ -7,12 +7,13 @@ import { Textarea } from '../ui/textarea';
 import { Label } from '../ui/label';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import { AiPromptConfig, CreditOperations } from '../../api/entities';
 import ContentGeneratingIndicator from '../ui/ContentGeneratingIndicator';
 import { InlineLoadingIndicator } from '../ui/LoadingIndicator';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function AIContentGenerator({ userCredits, isSubscriber, marketConfig, onContentGenerated, onCreditError, marketIntelligence, promptConfigs, preferences, currentUser }) {
+  const invokeFunction = useInvokeFunction();
   const [contentType, setContentType] = useState('social_post');
   const [platform, setPlatform] = useState('instagram');
   const [topic, setTopic] = useState('');
@@ -140,7 +141,7 @@ export default function AIContentGenerator({ userCredits, isSubscriber, marketCo
     const aiParams = getAIParams(contentType);
 
     try {
-      const { data } = await supabase.functions.invoke('openaiChat', {
+      const { data } = await invokeFunction('openaiChat', {
         body: {
           messages: [{ role: 'user', content: finalUserPrompt }],
           systemPrompt: finalSystemPrompt,

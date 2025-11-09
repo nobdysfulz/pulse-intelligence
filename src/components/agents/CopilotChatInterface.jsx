@@ -3,10 +3,10 @@ import { UserContext } from '../context/UserContext';
 import { Button } from '../../../components/ui/button';
 import { Loader2, Send, X } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import ReactMarkdown from 'react-markdown';
 import { useQueryClient } from '@tanstack/react-query';
 import AITypingIndicator from '../../../src/components/ui/AITypingIndicator';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const TypingBubble = ({ text, onTypingComplete }) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -38,6 +38,7 @@ export default function CopilotChatInterface({
   conversationId: externalConversationId,
   onConversationCreated
 }) {
+  const invokeFunction = useInvokeFunction();
   const { user, marketConfig, goals, actions } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -102,7 +103,7 @@ export default function CopilotChatInterface({
         }
       };
 
-      const { data, error } = await supabase.functions.invoke('copilotChat', {
+      const { data, error } = await invokeFunction('copilotChat', {
         body: {
           userPrompt: messageText,
           conversationId: internalConversationId,

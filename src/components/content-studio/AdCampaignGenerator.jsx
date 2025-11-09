@@ -6,7 +6,7 @@ import { RadioGroup, RadioGroupItem } from '../../../components/ui/radio-group';
 import { Badge } from '../../../components/ui/badge';
 import { Loader2, Sparkles, Copy, Target, TrendingUp } from 'lucide-react';
 import { toast } from "sonner";
-import { supabase } from '@/integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 // AI Response Cleaning Function
 const cleanAIResponse = (response) => {
@@ -20,6 +20,8 @@ const cleanAIResponse = (response) => {
 };
 
 export default function AdCampaignGenerator({ user, marketConfig, userCredits, onGenerationComplete }) {
+  const invokeFunction = useInvokeFunction();
+
   const [isLoading, setIsLoading] = useState(false);
   const [generatedCampaign, setGeneratedCampaign] = useState(null);
   const [campaignType, setCampaignType] = useState('lead_magnet');
@@ -79,7 +81,7 @@ For ${adPlatform === 'facebook' ? 'Facebook/Instagram' : 'Google Ads'}, provide:
 - Targeting recommendations`;
 
     try {
-      const { data: response, error } = await supabase.functions.invoke('openaiChat', {
+      const { data: response, error } = await invokeFunction('openaiChat', {
         body: {
           messages: [{
             role: 'user',

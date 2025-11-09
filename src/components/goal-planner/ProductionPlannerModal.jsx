@@ -14,7 +14,7 @@ import {
   getDefaultConversionRates,
   initializeExpenseCategories,
 } from './calculations';
-import { supabase } from '@/integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const createInitialPlanData = () => {
   const currentYear = new Date().getFullYear();
@@ -104,6 +104,7 @@ const mergeSavedPlan = (savedPlan) => {
 };
 
 export default function ProductionPlannerModal({ isOpen, onClose, onPlanSaved }) {
+  const invokeFunction = useInvokeFunction();
   const { user, businessPlan, refreshUserData } = useContext(UserContext);
   const [currentStep, setCurrentStep] = useState(1);
   const [activating, setActivating] = useState(false);
@@ -190,7 +191,7 @@ const closeModal = () => {
         userId: user.id,
       };
 
-      const { data, error } = await supabase.functions.invoke('activateProductionPlan', { body: payload });
+      const { data, error } = await invokeFunction('activateProductionPlan', { body: payload });
 
       console.log('Edge function response:', { data, error });
       console.log('Goals created:', data?.goalsCreated, 'Goals updated:', data?.goalsUpdated);

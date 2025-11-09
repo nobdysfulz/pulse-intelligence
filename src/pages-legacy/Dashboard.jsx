@@ -19,8 +19,10 @@ import { calculatePulseScore } from "../components/pulse/pulseScoring";
 import AddActionModal from "../components/actions/AddActionModal";
 import OnboardingReminder from "../components/onboarding/OnboardingReminder";
 import { getOnboardingJourneyState, buildReminderStatus } from "../../components/onboarding/onboardingLogic";
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function DashboardPage() {
+  const invokeFunction = useInvokeFunction();
   const {
     user,
     preferences,
@@ -165,7 +167,7 @@ export default function DashboardPage() {
     const fetchIntelligence = async (retryAttempt = 0) => {
       setIntelligenceLoading(true);
       try {
-        const { data, error } = await supabase.functions.invoke('buildGraphContext', {
+        const { data, error } = await invokeFunction('buildGraphContext', {
           body: { userId: user.id, fresh: false }
         });
         

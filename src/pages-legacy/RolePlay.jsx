@@ -19,6 +19,7 @@ import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../components/ui/accordion';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const formatDuration = (seconds) => {
   if (!seconds || Number.isNaN(seconds)) return '0s';
@@ -509,7 +510,7 @@ const SessionResultsSidebar = ({ sessionLog, scenario, analysis, onDelete }) => 
     const loadAudio = async () => {
       try {
         setAudioLoading(true);
-        const { data, error } = await supabase.functions.invoke('getSignedAudioUrl', {
+        const { data, error } = await invokeFunction('getSignedAudioUrl', {
           body: { file_uri: recordingUrl }
         });
         if (error) throw error;
@@ -848,6 +849,7 @@ const ScriptsSidebar = () => {
   );
 };
 export default function RolePlayPage() {
+  const invokeFunction = useInvokeFunction();
   const { user, loading: contextLoading } = useContext(UserContext);
   const { deductCredits, hasSufficientCredits } = useCredits();
   const navigate = useRouter();
@@ -963,7 +965,7 @@ export default function RolePlayPage() {
         return;
       }
 
-      const { data, error } = await supabase.functions.invoke('initiateRolePlayCall', {
+      const { data, error } = await invokeFunction('initiateRolePlayCall', {
         body: {
           scenario_id: scenario.id,
           scenario_name: scenario.name,

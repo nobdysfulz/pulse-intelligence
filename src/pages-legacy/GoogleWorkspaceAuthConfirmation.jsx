@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../integrations/supabase/client';
 import LoadingIndicator from '../../src/components/ui/LoadingIndicator';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function GoogleWorkspaceAuthConfirmation() {
+  const invokeFunction = useInvokeFunction();
+
     const [status, setStatus] = useState('processing');
     const [message, setMessage] = useState('Completing Google Workspace connection...');
 
@@ -35,7 +38,7 @@ export default function GoogleWorkspaceAuthConfirmation() {
                 }
 
                 // Call the backend to complete the OAuth flow
-                const { data } = await supabase.functions.invoke('handleGoogleWorkspaceCallback', {
+                const { data } = await invokeFunction('handleGoogleWorkspaceCallback', {
                     body: {
                         code,
                         state

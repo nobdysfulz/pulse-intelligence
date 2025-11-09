@@ -5,7 +5,7 @@ import { Label } from '../../../components/ui/label';
 import { RadioGroup, RadioGroupItem } from '../../../components/ui/radio-group';
 import { Loader2, Sparkles, Copy } from 'lucide-react';
 import { toast } from "sonner";
-import { supabase } from '@/integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 // AI Response Cleaning Function
 const cleanAIResponse = (response) => {
@@ -19,6 +19,8 @@ const cleanAIResponse = (response) => {
 };
 
 export default function LivePromptGenerator({ user, marketConfig, userCredits, onGenerationComplete }) {
+  const invokeFunction = useInvokeFunction();
+
   const [isLoading, setIsLoading] = useState(false);
   const [generatedPrompts, setGeneratedPrompts] = useState(null);
   const [promptCategory, setPromptCategory] = useState('market_monday');
@@ -59,7 +61,7 @@ Provide a compelling topic title, 3-5 specific talking points with local relevan
 Create content that would work well for Facebook Live, Instagram Live, or YouTube Live streaming.`;
 
     try {
-      const { data: response, error } = await supabase.functions.invoke('openaiChat', {
+      const { data: response, error } = await invokeFunction('openaiChat', {
         body: {
           messages: [{
             role: 'user',

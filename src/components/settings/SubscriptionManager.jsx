@@ -9,9 +9,11 @@ import { User } from '../../api/entities'; // Assuming User entity is from this 
 import { UserCredit } from '../../api/entities'; // Assuming UserCredit entity is from this path
 import { Search, Edit, Save, X, UserCog, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function SubscriptionManager() {
+  const invokeFunction = useInvokeFunction();
+
     const [allUsers, setAllUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -23,7 +25,7 @@ export default function SubscriptionManager() {
         const fetchAllUsers = async () => {
             setLoading(true);
             try {
-                const { data, error } = await supabase.functions.invoke('adminOperations', {
+                const { data, error } = await invokeFunction('adminOperations', {
                     body: { operation: 'getAllUsers' }
                 });
                 if (error) throw error;

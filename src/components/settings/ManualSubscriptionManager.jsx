@@ -6,10 +6,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Card, CardContent } from '../ui/card';
 import { Loader2, Search } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import { UserAgentSubscription } from '../../api/entities';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function ManualSubscriptionManager() {
+  const invokeFunction = useInvokeFunction();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,7 +31,7 @@ export default function ManualSubscriptionManager() {
   const loadUsers = async () => {
     setLoading(true);
     try {
-      const { data } = await supabase.functions.invoke('adminOperations', {
+      const { data } = await invokeFunction('adminOperations', {
         body: { operation: 'getUserSubscriptions' }
       });
       const allUsers = data?.users || [];

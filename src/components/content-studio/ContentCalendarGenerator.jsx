@@ -6,8 +6,8 @@ import { Label } from '../../../components/ui/label';
 import { RadioGroup, RadioGroupItem } from '../../../components/ui/radio-group';
 import { Loader2, Sparkles, Download } from 'lucide-react';
 import { toast } from "sonner";
-import { supabase } from '@/integrations/supabase/client';
 import { format, startOfMonth, eachDayOfInterval, endOfMonth } from 'date-fns';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const cleanAIResponse = (response) => {
   return response
@@ -20,6 +20,8 @@ const cleanAIResponse = (response) => {
 };
 
 export default function ContentCalendarGenerator({ user, marketConfig, userCredits, onGenerationComplete }) {
+  const invokeFunction = useInvokeFunction();
+
   const [isLoading, setIsLoading] = useState(false);
   const [generatedCalendar, setGeneratedCalendar] = useState(null);
   const [focus, setFocus] = useState('balanced');
@@ -55,7 +57,7 @@ For each day of the month, provide specific content ideas with:
 - Consider holidays and seasonal events for next month`;
 
     try {
-      const { data: response, error } = await supabase.functions.invoke('openaiChat', {
+      const { data: response, error } = await invokeFunction('openaiChat', {
         body: {
           messages: [{
             role: 'user',

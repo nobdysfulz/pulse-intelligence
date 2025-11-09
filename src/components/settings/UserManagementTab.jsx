@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import { User } from '../../api/entities';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -13,6 +12,7 @@ import { Badge } from '../ui/badge';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '../ui/dropdown-menu';
 import { format } from 'date-fns';
 import EditUserModal from './EditUserModal';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 import UserAutopilotManager from './UserAutopilotManager'; // Assuming this component can be passed user and manages its own visibility or opens a modal
 
 // Modified StatCard to handle optional icon prop
@@ -29,6 +29,7 @@ const StatCard = ({ title, value, icon: Icon }) => (
 );
 
 export default function UserManagementTab() {
+  const invokeFunction = useInvokeFunction();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -41,7 +42,7 @@ export default function UserManagementTab() {
     const loadUsers = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await supabase.functions.invoke('adminOperations', {
+            const response = await invokeFunction('adminOperations', {
                 body: { operation: 'getAllUsers' }
             });
             
@@ -132,7 +133,7 @@ export default function UserManagementTab() {
     
     const handleUpdateUser = async (userId, payload) => {
         try {
-            const { data } = await supabase.functions.invoke('adminEntityCRUD', {
+            const { data } = await invokeFunction('adminEntityCRUD', {
                 body: {
                     entityName: 'User',
                     operation: 'update',
@@ -157,7 +158,7 @@ export default function UserManagementTab() {
         if (!confirm(`Are you sure you want to delete user ${user.email}? This action cannot be undone.`)) return;
 
         try {
-            const { data } = await supabase.functions.invoke('adminEntityCRUD', {
+            const { data } = await invokeFunction('adminEntityCRUD', {
                 body: {
                     entityName: 'User',
                     operation: 'delete',

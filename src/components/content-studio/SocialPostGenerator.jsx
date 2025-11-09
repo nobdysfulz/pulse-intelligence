@@ -7,14 +7,16 @@ import { Label } from '../../../components/ui/label';
 import { Checkbox } from '../../../components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '../../../components/ui/radio-group';
 import { Loader2, Sparkles, Copy } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { GeneratedContent } from '../../../api/entities';
 import { toast } from "sonner";
 import { UserContext } from '@/context/UserContext';
 import { useCredits } from '../../hooks/useCredits';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 // No longer accepts props, uses useContext and useCredits
 export default function SocialPostGenerator() {
+  const invokeFunction = useInvokeFunction();
+
   const { user } = useContext(UserContext); // Get user from context
   const { checkAndDeductCredits } = useCredits(); // Use new credit hook
   
@@ -48,7 +50,7 @@ export default function SocialPostGenerator() {
     // Remove setError(null) as we use toasts now
 
     try {
-      const { data, error } = await supabase.functions.invoke('generateSocialPostTool', {
+      const { data, error } = await invokeFunction('generateSocialPostTool', {
         body: {
           topic,
           platform,

@@ -7,10 +7,10 @@ import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Switch } from '../ui/switch';
 import { Mic, MicOff, Square, Send, Loader2, Brain, ArrowLeft, Clock, MessageCircle, AlertTriangle } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { cn } from "@/lib/utils";
 import AudioPermissionFlow from './AudioPermissionFlow';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 // Helper to convert Blob to Base64
 const blobToBase64 = (blob) => new Promise((resolve, reject) => {
@@ -118,6 +118,7 @@ const formatTime = (seconds) => {
 };
 
 export default function RolePlaySession() {
+  const invokeFunction = useInvokeFunction();
     const location = usePathname();
     const navigate = useRouter();
     const { scenario } = location.state || {};
@@ -183,7 +184,7 @@ export default function RolePlaySession() {
         const startSession = async () => {
             setSessionState('processing');
             try {
-                const { data: initialResponse, error: rolePlayError } = await supabase.functions.invoke('openaiRolePlay', {
+                const { data: initialResponse, error: rolePlayError } = await invokeFunction('openaiRolePlay', {
                     body: { scenario: scenario.initialContext, clientPersona: scenario.clientPersona }
                 });
                 if (rolePlayError) throw rolePlayError;
@@ -193,7 +194,7 @@ export default function RolePlaySession() {
 
                 if (!isTextOnlyMode) {
                     try {
-                        const { data: audioResponse, error: ttsError } = await supabase.functions.invoke('elevenLabsTTS', {
+                        const { data: audioResponse, error: ttsError } = await invokeFunction('elevenLabsTTS', {
                             body: { text: initialText, persona: scenario.clientPersona }
                         });
                         if (ttsError) throw ttsError;
@@ -277,7 +278,7 @@ export default function RolePlaySession() {
 
             if (audioBlob && !textInput) {
                 const audioBase64 = await blobToBase64(audioBlob);
-                const { data: sttResponse, error: sttError } = await supabase.functions.invoke('whisperSTT', {
+                const { data: sttResponse, error: sttError } = await invokeFunction('whisperSTT', {
                     body: { audioBase64, mimeType: 'audio/webm' }
                 });
                 if (sttError) throw sttError;
@@ -295,7 +296,7 @@ export default function RolePlaySession() {
             const newTranscript = [...transcript, { speaker: 'Agent', text: agentText }];
             setTranscript(newTranscript);
 
-            const { data: rolePlayResponse, error: rolePlayError } = await supabase.functions.invoke('openaiRolePlay', {
+            const { data: rolePlayResponse, error: rolePlayError } = await invokeFunction('openaiRolePlay', {
                 body: {
                     scenario: scenario.initialContext,
                     clientPersona: scenario.clientPersona,
@@ -331,7 +332,7 @@ export default function RolePlaySession() {
 
             if (!isTextOnlyMode) {
                 try {
-                    const { data: ttsResponse, error: ttsError } = await supabase.functions.invoke('elevenLabsTTS', {
+                    const { data: ttsResponse, error: ttsError } = await invokeFunction('elevenLabsTTS', {
                         body: { text: clientResponse, persona: scenario.clientPersona }
                     });
                     if (ttsError) throw ttsError;

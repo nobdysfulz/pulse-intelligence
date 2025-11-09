@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { supabase } from '../../integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 import LoadingIndicator from '../../src/components/ui/LoadingIndicator'; // Ensure this path is correct
 
 export default function GoogleAuthConfirmation() {
+  const invokeFunction = useInvokeFunction();
   const location = usePathname();
 
   useEffect(() => {
@@ -15,7 +17,7 @@ export default function GoogleAuthConfirmation() {
       if (code && state) {
         try {
           // Invoke the backend function to handle the OAuth callback
-          const { data } = await supabase.functions.invoke('googleCalendarAuth', {
+          const { data } = await invokeFunction('googleCalendarAuth', {
             body: {
               action: 'handleCallback',
               payload: { code, state }

@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Loader2, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { supabase } from '../../integrations/supabase/client';
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const MetricCard = ({ title, value, subtitle, trend }) => (
     <Card className="border shadow-sm">
@@ -30,6 +31,7 @@ const MetricCard = ({ title, value, subtitle, trend }) => (
 );
 
 export default function PlatformMetrics() {
+  const invokeFunction = useInvokeFunction();
     const { user, loading: contextLoading } = useContext(UserContext);
     const [metrics, setMetrics] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -49,7 +51,7 @@ export default function PlatformMetrics() {
             if (filters.searchUser) params.append('searchUser', filters.searchUser);
             if (filters.region) params.append('region', filters.region);
 
-            const { data: response, error } = await supabase.functions.invoke('getPlatformMetrics', {
+            const { data: response, error } = await invokeFunction('getPlatformMetrics', {
                 body: Object.fromEntries(params)
             });
             

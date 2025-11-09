@@ -3,10 +3,12 @@ import { UserContext } from '../../../context/UserContext';
 import { Button } from '../../../ui/button';
 import { Check, Loader2, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import { ExternalServiceConnection } from '../../../../api/entities';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function GoogleWorkspaceSetup({ data, onNext, onBack }) {
+  const invokeFunction = useInvokeFunction();
+
   const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
   const [connected, setConnected] = useState(false);
@@ -35,7 +37,7 @@ export default function GoogleWorkspaceSetup({ data, onNext, onBack }) {
   const handleConnect = async () => {
     setConnecting(true);
     try {
-      const response = await supabase.functions.invoke('initiateGoogleWorkspaceOAuth', {
+      const response = await invokeFunction('initiateGoogleWorkspaceOAuth', {
         body: {
           redirectPath: '/onboarding'
         }

@@ -7,8 +7,8 @@ import { Label } from '../../../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import { UserContext } from '../context/UserContext';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const callTypes = [
     'New Buyer Lead', 
@@ -20,6 +20,8 @@ const callTypes = [
 const addressRequiredTypes = ['New Seller Lead', 'Expired Listing', 'For Sale By Owner'];
 
 export default function SingleCallModal({ isOpen, onClose, onCallStarted }) {
+  const invokeFunction = useInvokeFunction();
+
     const { user, marketConfig } = useContext(UserContext);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -77,7 +79,7 @@ export default function SingleCallModal({ isOpen, onClose, onCallStarted }) {
                 campaignName: `Single Call - ${callType}`
             });
 
-            const { data, error } = await supabase.functions.invoke('sendContactsToElevenLabs', {
+            const { data, error } = await invokeFunction('sendContactsToElevenLabs', {
                 body: {
                     contacts,
                     callType,

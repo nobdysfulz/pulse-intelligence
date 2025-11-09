@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
 import { Activity, Users, TrendingUp, TrendingDown, AlertCircle, CheckCircle, Clock, Zap } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { toast } from 'sonner';
 import LoadingIndicator from '../../../src/components/ui/LoadingIndicator';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const StatCard = ({ title, value, change, icon: Icon, trend }) => (
   <Card>
@@ -54,6 +54,8 @@ const StatusIndicator = ({ status, label }) => (
 );
 
 export default function SystemMonitoringDashboard() {
+  const invokeFunction = useInvokeFunction();
+
   const [metrics, setMetrics] = useState(null);
   const [loading, setLoading] = useState(true);
   const [lastRefresh, setLastRefresh] = useState(new Date());
@@ -66,7 +68,7 @@ export default function SystemMonitoringDashboard() {
 
   const loadMetrics = async () => {
     try {
-      const response = await supabase.functions.invoke('getPlatformMetrics', { body: {} });
+      const response = await invokeFunction('getPlatformMetrics', { body: {} });
       if (response.data) {
         setMetrics(response.data);
         setLastRefresh(new Date());

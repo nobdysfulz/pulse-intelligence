@@ -9,8 +9,10 @@ import { Loader2, Search, CheckCircle, AlertCircle, Wrench } from 'lucide-react'
 import { AgentConfig, UserAgentSubscription } from '../api/entities';
 import { toast } from 'sonner';
 import { supabase } from '../../integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function AdminUserRepair() {
+  const invokeFunction = useInvokeFunction();
     const [searchEmail, setSearchEmail] = useState('');
     const [selectedUser, setSelectedUser] = useState(null);
     const [agentConfig, setAgentConfig] = useState(null);
@@ -37,7 +39,7 @@ export default function AdminUserRepair() {
 
         try {
             // Use adminOperations function to fetch users
-            const { data, error } = await supabase.functions.invoke('adminOperations', {
+            const { data, error } = await invokeFunction('adminOperations', {
                 body: { operation: 'getAllUsers', limit: 1000 }
             });
             if (error) throw error;
@@ -99,7 +101,7 @@ export default function AdminUserRepair() {
         setRepairResult(null);
 
         try {
-            const { data, error } = await supabase.functions.invoke('adminOperations', {
+            const { data, error } = await invokeFunction('adminOperations', {
                 body: {
                     operation: 'repairAgentConfig',
                     userEmail: selectedUser.email,

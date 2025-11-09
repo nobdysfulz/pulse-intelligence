@@ -18,6 +18,7 @@ import { Label } from '../../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
 import LoadingIndicator, { InlineLoadingIndicator } from '../../src/components/ui/LoadingIndicator';
 import { getCacheItem, setCacheItem, CACHE_KEYS } from '../../lib/cache';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 import {
   ContentTopic,
   ContentPack,
@@ -139,6 +140,7 @@ const ContentItemCard = ({ title, description }) => {
 };
 
 export default function ContentStudioPage() {
+  const invokeFunction = useInvokeFunction();
   const { user, loading: contextLoading, marketConfig } = useContext(UserContext);
   const { userCredits, hasSufficientCredits, deductCredits } = useCredits();
   const [activeTab, setActiveTab] = useState('create');
@@ -409,7 +411,7 @@ export default function ContentStudioPage() {
     setGeneratingTaskId(template.id);
 
     try {
-      const { data } = await supabase.functions.invoke('openaiChat', {
+      const { data } = await invokeFunction('openaiChat', {
         body: {
           messages: [{ role: 'user', content: finalUserPrompt }],
           systemPrompt: finalSystemPrompt,

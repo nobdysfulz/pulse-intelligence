@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { useQueryClient } from '@tanstack/react-query';
 import AITypingIndicator from '../../src/components/ui/AITypingIndicator';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const TypingBubble = ({ text, onTypingComplete }) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -56,6 +57,7 @@ const GradientSparklesIcon = ({ className }) => (
 );
 
 export default function PersonalAdvisorPage() {
+  const invokeFunction = useInvokeFunction();
   const { user, loading: contextLoading } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -97,13 +99,13 @@ export default function PersonalAdvisorPage() {
     setLoading(true);
 
     try {
-        const { data: agentContext, error: contextError } = await supabase.functions.invoke('getAgentContext', { body: {} });
+        const { data: agentContext, error: contextError } = await invokeFunction('getAgentContext', { body: {} });
         if (contextError || agentContext?.error || !agentContext) {
             throw new Error(agentContext?.error || contextError?.message || "Could not retrieve agent context.");
         }
 
         // Call Copilot with tool use capability
-        const { data, error } = await supabase.functions.invoke('copilotChat', {
+        const { data, error } = await invokeFunction('copilotChat', {
             body: {
                 userPrompt: messageText,
                 conversationId: conversationId,

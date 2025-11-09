@@ -50,22 +50,12 @@ export default function UserProvider({ children }) {
         }, 15000);
 
         try {
-            // Get Clerk session token
-            const token = await getToken();
-            if (!token) {
-                clearTimeout(timeoutId);
-                throw new Error('Failed to get authentication token');
-            }
-
-            console.log('[UserProvider] Token obtained, calling backend functions...');
+            console.log('[UserProvider] Calling backend functions...');
 
             try {
                 console.log('[UserProvider] Ensuring user defaults exist...');
                 const initResult = await Promise.race([
                     invokeFunction('initializeUserData', {
-                        headers: {
-                            'x-clerk-auth': token,
-                        },
                         body: {},
                     }),
                     new Promise((_, reject) => setTimeout(() => reject(new Error('initializeUserData timeout')), 10000))
@@ -81,11 +71,7 @@ export default function UserProvider({ children }) {
 
             try {
                 const result = await Promise.race([
-                    invokeFunction('getUserContext', {
-                        headers: {
-                            'x-clerk-auth': token,
-                        },
-                    }),
+                    invokeFunction('getUserContext'),
                     new Promise((_, reject) =>
                         setTimeout(() => reject(new Error('getUserContext timeout after 10 seconds')), 10000)
                     )
@@ -108,29 +94,21 @@ export default function UserProvider({ children }) {
                     console.log('[UserProvider] Attempting to refresh token...');
                     try {
                         const newToken = await getToken({ skipCache: true });
-                        
-                        if (newToken && newToken !== token) {
-                            console.log('[UserProvider] Retrying with fresh token...');
+
+                        if (newToken) {
+                            console.log('[UserProvider] Retrying with refreshed token...');
 
                             try {
                                 console.log('[UserProvider] Re-running initializeUserData with fresh token...');
                                 await invokeFunction('initializeUserData', {
-                                    headers: {
-                                        'x-clerk-auth': newToken,
-                                    },
                                     body: {},
                                 });
                             } catch (seedRetryError) {
                                 console.warn('[UserProvider] initializeUserData retry failed (continuing):', seedRetryError);
                             }
 
-                            // Retry with fresh token
-                            const { data: retryContext, error: retryError } = await invokeFunction('getUserContext', {
-                                    headers: {
-                                        'x-clerk-auth': newToken,
-                                    },
-                                }
-                            );
+                            // Retry with fresh token (useInvokeFunction will get the refreshed token from Clerk)
+                            const { data: retryContext, error: retryError } = await invokeFunction('getUserContext');
                             
                             if (!retryError && retryContext) {
                                 console.log('[UserProvider] Retry successful with fresh token');

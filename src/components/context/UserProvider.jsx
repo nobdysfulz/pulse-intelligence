@@ -50,14 +50,7 @@ export default function UserProvider({ children }) {
         }, 15000);
 
         try {
-            // Get Clerk session token
-            const token = await getToken();
-            if (!token) {
-                clearTimeout(timeoutId);
-                throw new Error('Failed to get authentication token');
-            }
-
-            console.log('[UserProvider] Token obtained, calling backend functions...');
+            console.log('[UserProvider] Calling backend functions...');
 
             try {
                 console.log('[UserProvider] Ensuring user defaults exist...');
@@ -101,9 +94,9 @@ export default function UserProvider({ children }) {
                     console.log('[UserProvider] Attempting to refresh token...');
                     try {
                         const newToken = await getToken({ skipCache: true });
-                        
-                        if (newToken && newToken !== token) {
-                            console.log('[UserProvider] Retrying with fresh token...');
+
+                        if (newToken) {
+                            console.log('[UserProvider] Retrying with refreshed token...');
 
                             try {
                                 console.log('[UserProvider] Re-running initializeUserData with fresh token...');
@@ -114,6 +107,7 @@ export default function UserProvider({ children }) {
                                 console.warn('[UserProvider] initializeUserData retry failed (continuing):', seedRetryError);
                             }
 
+                            // Retry with fresh token (useInvokeFunction will get the refreshed token from Clerk)
                             // Retry with fresh token
                             const { data: retryContext, error: retryError } = await invokeFunction('getUserContext');
                             

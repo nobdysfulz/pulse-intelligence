@@ -15,6 +15,7 @@ import { Checkbox } from '../../components/ui/checkbox';
 import { Loader2, Phone, User as UserIcon, Calendar, CheckCircle, FileText } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '../../integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const StepIndicator = ({ currentStep }) => {
     const steps = ["Agent Details", "Calendar", "Phone Number", "Disclosure"];
@@ -34,6 +35,7 @@ const StepIndicator = ({ currentStep }) => {
 };
 
 export default function AgentOnboardingPage() {
+  const invokeFunction = useInvokeFunction();
     const [user, setUser] = useState(null);
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(true);
@@ -112,7 +114,7 @@ export default function AgentOnboardingPage() {
                     setStep(2);
                     setSaving(true);
                     toast.info("Connecting to Google Calendar...");
-                    const { error } = await supabase.functions.invoke('googleCalendarAuth', {
+                    const { error } = await invokeFunction('googleCalendarAuth', {
                         body: { action: 'handleCallback', payload: { code } }
                     });
                     if (error) throw error;
@@ -159,7 +161,7 @@ export default function AgentOnboardingPage() {
     const handleConnectCalendar = async () => {
         setSaving(true);
         try {
-            const { data, error } = await supabase.functions.invoke('googleCalendarAuth', {
+            const { data, error } = await invokeFunction('googleCalendarAuth', {
                 body: { action: 'getAuthUrl' }
             });
             if (error) throw error;
@@ -180,7 +182,7 @@ export default function AgentOnboardingPage() {
         setAvailableNumbers([]);
         setSelectedNumber('');
         try {
-            const { data, error } = await supabase.functions.invoke('twilioActions', {
+            const { data, error } = await invokeFunction('twilioActions', {
                 body: { action: 'searchNumbers', payload: { areaCode } }
             });
             if (error) throw error;
@@ -205,7 +207,7 @@ export default function AgentOnboardingPage() {
         }
         setSaving(true);
         try {
-            const { data, error } = await supabase.functions.invoke('twilioActions', {
+            const { data, error } = await invokeFunction('twilioActions', {
                 body: { action: 'purchaseNumber', payload: { numberToPurchase: selectedNumber } }
             });
             if (error) throw error;
@@ -228,7 +230,7 @@ export default function AgentOnboardingPage() {
         setIsFinishing(true);
         try {
             // Call the finalizeAgentOnboarding edge function
-            const { data, error } = await supabase.functions.invoke('finalizeAgentOnboarding');
+            const { data, error } = await invokeFunction('finalizeAgentOnboarding');
 
             if (error || !data?.success) {
                 throw new Error(data.error || 'Failed to finalize onboarding.');

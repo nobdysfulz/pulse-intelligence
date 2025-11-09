@@ -5,7 +5,7 @@ import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label';
 import { toast } from 'sonner';
 import { Upload, Download, Loader2 } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function BulkImportModal({ 
   isOpen, 
@@ -16,6 +16,8 @@ export default function BulkImportModal({
   columnMapping,
   onImportComplete
 }) {
+  const invokeFunction = useInvokeFunction();
+
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState(null);
@@ -66,7 +68,7 @@ export default function BulkImportModal({
     try {
       const csvText = await file.text();
 
-      const { data, error } = await supabase.functions.invoke('bulkImportData', {
+      const { data, error } = await invokeFunction('bulkImportData', {
         body: {
           entityType,
           csvData: csvText,

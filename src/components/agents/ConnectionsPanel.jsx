@@ -4,11 +4,12 @@ import { UserContext } from '../context/UserContext';
 import { Loader2, CheckCircle2, Circle, ExternalLink } from 'lucide-react';
 import { Button } from '../ui/button';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import { createPageUrl } from '../../utils';
 import { useRouter } from 'next/navigation';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function ConnectionsPanel({ agentType }) {
+  const invokeFunction = useInvokeFunction();
   const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
   const [integrationStatus, setIntegrationStatus] = useState(null);
@@ -23,7 +24,7 @@ export default function ConnectionsPanel({ agentType }) {
   const loadIntegrationStatus = async () => {
     setLoading(true);
     try {
-      const { data } = await supabase.functions.invoke('getIntegrationContext', {
+      const { data } = await invokeFunction('getIntegrationContext', {
         body: {
           userId: user.id
         }

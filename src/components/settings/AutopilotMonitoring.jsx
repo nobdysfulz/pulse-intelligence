@@ -3,12 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
 import { Switch } from '../../../components/ui/switch';
-import { supabase } from '@/integrations/supabase/client';
 import { Activity, CheckCircle, XCircle, Clock, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import LoadingIndicator from '../../../src/components/ui/LoadingIndicator';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function AutopilotMonitoring() {
+  const invokeFunction = useInvokeFunction();
+
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -20,7 +22,7 @@ export default function AutopilotMonitoring() {
   const loadAutopilotActivities = async () => {
     setLoading(true);
     try {
-      const response = await supabase.functions.invoke('getUserAutopilotActivity', {
+      const response = await invokeFunction('getUserAutopilotActivity', {
         body: {
           timeRange: '7d',
           limit: 100

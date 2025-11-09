@@ -3,7 +3,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
 import { Loader2, Download, Trash2, MessageSquare } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { CallLog } from '@/api/entities';
 import { format } from 'date-fns';
 import {
@@ -18,6 +17,7 @@ import {
   AlertDialogTrigger
 } from "../../../components/ui/alert-dialog";
 import { toast } from 'sonner';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const DetailItem = ({ label, value }) => (
   <div>
@@ -27,6 +27,7 @@ const DetailItem = ({ label, value }) => (
 );
 
 export default function CallDetailSidebar({ log, onBack, onDelete }) {
+  const invokeFunction = useInvokeFunction();
   const [activeTab, setActiveTab] = useState('details');
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -90,7 +91,7 @@ export default function CallDetailSidebar({ log, onBack, onDelete }) {
         if (log.recordingUrl) {
           setAudioLoading(true);
           try {
-            const { data } = await supabase.functions.invoke('getSignedAudioUrl', { body: { file_uri: log.recordingUrl } });
+            const { data } = await invokeFunction('getSignedAudioUrl', { body: { file_uri: log.recordingUrl } });
             if (data.signed_url) {
               setAudioUrl(data.signed_url);
             }

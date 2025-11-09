@@ -23,6 +23,7 @@ import LoadingIndicator from "../components/ui/LoadingIndicator";
 import { generateGoalsReportPdf } from "../components/goals/pdfGenerator";
 import { PageLoader, InlineLoader } from '../../src/components/ui/LoadingStates';
 import { ErrorBanner, EmptyState } from '../../src/components/ui/ErrorStates';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const formatCurrency = (value) => new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -48,6 +49,7 @@ const normalizeGoalRecord = (goal) => {
 };
 
 export default function GoalsPage() {
+  const invokeFunction = useInvokeFunction();
   const { user, goals: contextGoals, businessPlan, refreshUserData, preferences } = useContext(UserContext);
   
   // Create a batched refresh handler to reduce redundant calls
@@ -148,7 +150,7 @@ export default function GoalsPage() {
       const provider = crmConnected.service_name;
       const providerLabel = provider === 'follow_up_boss' ? 'Follow Up Boss' : 'Lofty';
 
-      const { data, error } = await supabase.functions.invoke('syncGoalProgressFromCrm', {
+      const { data, error } = await invokeFunction('syncGoalProgressFromCrm', {
         body: {
           provider,
         },

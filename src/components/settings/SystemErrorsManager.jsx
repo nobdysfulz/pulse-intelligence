@@ -5,11 +5,11 @@ import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
-import { supabase } from '@/integrations/supabase/client';
 import { AlertCircle, AlertTriangle, Info, Search, RefreshCw, Eye } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import LoadingIndicator from '../../../src/components/ui/LoadingIndicator';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 import {
   Dialog,
   DialogContent,
@@ -18,6 +18,8 @@ import {
 } from '../../../components/ui/dialog';
 
 export default function SystemErrorsManager() {
+  const invokeFunction = useInvokeFunction();
+
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -38,7 +40,7 @@ export default function SystemErrorsManager() {
     try {
       // This would fetch from a SystemError entity (you'll need to create this)
       // For now, we'll use a placeholder
-      const response = await supabase.functions.invoke('getSystemErrors', { body: {} });
+      const response = await invokeFunction('getSystemErrors', { body: {} });
       setErrors(response.data?.errors || []); // Updated to access 'errors' property
     } catch (error) {
       console.error('Error loading system errors:', error);

@@ -5,9 +5,10 @@ import { Label } from '../../../components/ui/label';
 import { Card, CardContent } from '../../../components/ui/card';
 import { Loader2, Plus, Minus, Search } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function CreditManager() {
+  const invokeFunction = useInvokeFunction();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,12 +23,12 @@ export default function CreditManager() {
   const loadUsers = async () => {
     setLoading(true);
     try {
-      const { data } = await supabase.functions.invoke('adminOperations', {
+      const { data } = await invokeFunction('adminOperations', {
         body: { operation: 'getAllUsers' }
       });
       const allUsers = data?.users || [];
       
-      const { data: creditData } = await supabase.functions.invoke('adminOperations', {
+      const { data: creditData } = await invokeFunction('adminOperations', {
         body: { operation: 'getUserCredits' }
       });
       const userCredits = creditData?.credits || [];
@@ -52,7 +53,7 @@ export default function CreditManager() {
   const handleAdjustCredits = async (userId, adjustment) => {
     setAdjusting(true);
     try {
-      await supabase.functions.invoke('adminOperations', {
+      await invokeFunction('adminOperations', {
         body: {
           operation: 'adjustCredits',
           userId,

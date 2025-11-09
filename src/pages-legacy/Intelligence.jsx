@@ -6,6 +6,7 @@ import { Loader2, TrendingUp, Brain, Globe, RefreshCw, CheckCircle, Plus, Trendi
 import { toast } from 'sonner';
 import { UserContext } from '../../components/context/UserContext';
 import { DailyAction, AiActionsLog } from '../api/entities';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const cleanJsonText = (value) =>
   typeof value === 'string' ? value.replace(/```json\s*|```/gi, '').trim() : value;
@@ -89,6 +90,7 @@ const normalizeInsights = (insights) => {
 };
 
 export default function IntelligencePage() {
+  const invokeFunction = useInvokeFunction();
   const [context, setContext] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -108,7 +110,7 @@ export default function IntelligencePage() {
 
       if (!currentUser?.id) throw new Error('Not authenticated');
 
-      const { data, error } = await supabase.functions.invoke('buildGraphContext', {
+      const { data, error } = await invokeFunction('buildGraphContext', {
         body: { userId: currentUser.id, fresh }
       });
 

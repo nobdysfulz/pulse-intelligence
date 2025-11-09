@@ -1,6 +1,6 @@
 // Entity API helpers - enhanced with compatibility layer
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@clerk/nextjs';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 // Helper to get Clerk token with optional token parameter
 const getClerkToken = async (providedToken) => {
@@ -30,6 +30,8 @@ const toCamelCase = (str) => str.replace(/_([a-z])/g, (_, letter) => letter.toUp
 
 // Convert object keys from camelCase to snake_case
 const objectToSnakeCase = (obj) => {
+  const invokeFunction = useInvokeFunction();
+
   if (!obj || typeof obj !== 'object') return obj;
   if (Array.isArray(obj)) return obj.map(objectToSnakeCase);
   
@@ -130,7 +132,7 @@ const createEntity = (tableName) => ({
       const isDescending = normalizedOrder.startsWith('-');
       const column = normalizedOrder.replace('-', '');
 
-      const { data, error } = await supabase.functions.invoke('entityOperations', {
+      const { data, error } = await invokeFunction('entityOperations', {
         body: {
           table: tableName,
           operation: 'list',
@@ -164,7 +166,7 @@ const createEntity = (tableName) => ({
       const isDescending = normalizedOrder.startsWith('-');
       const column = normalizedOrder.replace('-', '');
 
-      const { data, error } = await supabase.functions.invoke('entityOperations', {
+      const { data, error } = await invokeFunction('entityOperations', {
         body: {
           table: tableName,
           operation: 'filter',
@@ -191,7 +193,7 @@ const createEntity = (tableName) => ({
     try {
       const authToken = await getClerkToken(token);
 
-      const { data, error } = await supabase.functions.invoke('entityOperations', {
+      const { data, error } = await invokeFunction('entityOperations', {
         body: {
           table: tableName,
           operation: 'get',
@@ -229,7 +231,7 @@ const createEntity = (tableName) => ({
 
       const snakePayload = objectToSnakeCase(finalPayload);
 
-      const { data, error } = await supabase.functions.invoke('entityOperations', {
+      const { data, error } = await invokeFunction('entityOperations', {
         body: {
           table: tableName,
           operation: 'create',
@@ -267,7 +269,7 @@ const createEntity = (tableName) => ({
 
       const snakePayload = objectToSnakeCase(finalPayload);
 
-      const { data, error } = await supabase.functions.invoke('entityOperations', {
+      const { data, error } = await invokeFunction('entityOperations', {
         body: {
           table: tableName,
           operation: 'update',
@@ -291,7 +293,7 @@ const createEntity = (tableName) => ({
     try {
       const authToken = await getClerkToken(token);
 
-      const { data, error } = await supabase.functions.invoke('entityOperations', {
+      const { data, error } = await invokeFunction('entityOperations', {
         body: {
           table: tableName,
           operation: 'delete',
@@ -634,7 +636,7 @@ export const TaskOperations = {
   updateStatus: async (taskId, status) => {
     try {
       const token = await getClerkToken();
-      const { data, error } = await supabase.functions.invoke('updateTaskStatus', {
+      const { data, error } = await invokeFunction('updateTaskStatus', {
         body: { taskId, status },
         headers: { 'x-clerk-auth': token },
       });
@@ -649,7 +651,7 @@ export const TaskOperations = {
   create: async (taskData) => {
     try {
       const token = await getClerkToken();
-      const { data, error } = await supabase.functions.invoke('createTask', {
+      const { data, error } = await invokeFunction('createTask', {
         body: taskData,
         headers: { 'x-clerk-auth': token },
       });
@@ -666,7 +668,7 @@ export const CreditOperations = {
   deduct: async (amount, description, metadata = {}) => {
     try {
       const token = await getClerkToken();
-      const { data, error } = await supabase.functions.invoke('manageCredits', {
+      const { data, error } = await invokeFunction('manageCredits', {
         body: { operation: 'deduct', amount, description, metadata },
         headers: { 'x-clerk-auth': token },
       });
@@ -681,7 +683,7 @@ export const CreditOperations = {
   add: async (amount, description, metadata = {}) => {
     try {
       const token = await getClerkToken();
-      const { data, error } = await supabase.functions.invoke('manageCredits', {
+      const { data, error } = await invokeFunction('manageCredits', {
         body: { operation: 'add', amount, description, metadata },
         headers: { 'x-clerk-auth': token },
       });
@@ -696,7 +698,7 @@ export const CreditOperations = {
   set: async (amount, description, metadata = {}) => {
     try {
       const token = await getClerkToken();
-      const { data, error } = await supabase.functions.invoke('manageCredits', {
+      const { data, error } = await invokeFunction('manageCredits', {
         body: { operation: 'set', amount, description, metadata },
         headers: { 'x-clerk-auth': token },
       });
@@ -713,7 +715,7 @@ export const GoalOperations = {
   create: async (goalData) => {
     try {
       const token = await getClerkToken();
-      const { data, error } = await supabase.functions.invoke('manageGoal', {
+      const { data, error } = await invokeFunction('manageGoal', {
         body: { operation: 'create', goalData },
         headers: { 'x-clerk-auth': token },
       });
@@ -728,7 +730,7 @@ export const GoalOperations = {
   update: async (goalId, goalData) => {
     try {
       const token = await getClerkToken();
-      const { data, error } = await supabase.functions.invoke('manageGoal', {
+      const { data, error } = await invokeFunction('manageGoal', {
         body: { operation: 'update', goalId, goalData },
         headers: { 'x-clerk-auth': token },
       });
@@ -743,7 +745,7 @@ export const GoalOperations = {
   delete: async (goalId) => {
     try {
       const token = await getClerkToken();
-      const { data, error } = await supabase.functions.invoke('manageGoal', {
+      const { data, error } = await invokeFunction('manageGoal', {
         body: { operation: 'delete', goalId },
         headers: { 'x-clerk-auth': token },
       });
@@ -760,7 +762,7 @@ export const ConnectionOperations = {
   fetchAll: async () => {
     try {
       const token = await getClerkToken();
-      const { data, error } = await supabase.functions.invoke('fetchUserConnections', {
+      const { data, error } = await invokeFunction('fetchUserConnections', {
         headers: { 'x-clerk-auth': token },
       });
       if (error) throw error;

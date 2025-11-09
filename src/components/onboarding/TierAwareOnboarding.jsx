@@ -5,7 +5,6 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { createPageUrl } from "../../utils";
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from "@clerk/clerk-react";
 import { UserOnboarding } from "@/api/entities";
 import OnboardingSidebar from "./OnboardingSidebar";
@@ -29,6 +28,7 @@ import VoiceSelection from "./modules/callcenter/VoiceSelection";
 import CallerIdentitySetup from "./modules/callcenter/CallerIdentitySetup";
 import GoogleWorkspaceSetup from "./modules/callcenter/GoogleWorkspaceSetup";
 import CallCenterConfirmation from "./modules/callcenter/CallCenterConfirmation";
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 // Add this right after the imports
 console.log("🔐 DEBUG - TierAwareOnboarding component loaded");
@@ -287,7 +287,7 @@ function TierAwareOnboarding({ initialPhase = "core" }) {
           throw new Error("Failed to get authentication token");
         }
 
-        const { error } = await supabase.functions.invoke("saveOnboardingProgress", {
+        const { error } = await invokeFunction("saveOnboardingProgress", {
           headers: {
             'x-clerk-auth': token,
           },
@@ -392,7 +392,7 @@ function TierAwareOnboarding({ initialPhase = "core" }) {
       }
       // Note: callcenter completion is tracked via completed_steps only
 
-      const { error } = await supabase.functions.invoke("saveOnboardingProgress", {
+      const { error } = await invokeFunction("saveOnboardingProgress", {
         headers: {
           'x-clerk-auth': token,
         },
@@ -501,6 +501,8 @@ function TierAwareOnboarding({ initialPhase = "core" }) {
 }
 
 export default function OnboardingWithErrorBoundary(props) {
+  const invokeFunction = useInvokeFunction();
+
   return (
     <OnboardingErrorBoundary>
       <TierAwareOnboarding {...props} />

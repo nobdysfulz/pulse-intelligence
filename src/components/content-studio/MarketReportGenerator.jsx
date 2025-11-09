@@ -6,8 +6,8 @@ import { Label } from '../../../components/ui/label';
 import { RadioGroup, RadioGroupItem } from '../../../components/ui/radio-group';
 import { Loader2, Sparkles, Copy, Download } from 'lucide-react';
 import { toast } from "sonner";
-import { supabase } from '@/integrations/supabase/client';
 import ReactMarkdown from 'react-markdown';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const cleanAIResponse = (response) => {
   return response
@@ -20,6 +20,8 @@ const cleanAIResponse = (response) => {
 };
 
 export default function MarketReportGenerator({ user, marketConfig, userCredits, onGenerationComplete }) {
+  const invokeFunction = useInvokeFunction();
+
   const [isLoading, setIsLoading] = useState(false);
   const [generatedReport, setGeneratedReport] = useState(null);
   const [reportType, setReportType] = useState('neighborhood_analysis');
@@ -64,7 +66,7 @@ Create a well-structured report with:
 Use markdown formatting for professional presentation. Include specific data points and actionable insights that would be valuable for real estate professionals and their clients.`;
 
     try {
-      const { data: response, error } = await supabase.functions.invoke('openaiChat', {
+      const { data: response, error } = await invokeFunction('openaiChat', {
         body: {
           messages: [{
             role: 'user',

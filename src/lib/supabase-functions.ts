@@ -5,8 +5,9 @@
  * built-in JWT validation, allowing our custom Clerk JWT validation to work.
  */
 
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@clerk/nextjs';
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
 /**
  * Invoke a Supabase Edge Function with automatic Clerk token authentication
@@ -39,22 +40,32 @@ export async function invokeWithAuth(
   // Merge custom headers with auth header
   const headers = {
     'x-clerk-auth': token,
+    'Content-Type': 'application/json',
     ...options.headers,
   };
 
   console.log(`[invokeWithAuth] Calling ${functionName} with Clerk auth`);
 
-  // Call the function with auth header
-  const result = await supabase.functions.invoke(functionName, {
-    ...options,
-    headers,
-  });
+  try {
+    // Use direct fetch instead of supabase.functions.invoke
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/${functionName}`, {
+      method: 'POST',
+      headers,
+      body: options.body ? JSON.stringify(options.body) : undefined,
+    });
 
-  if (result.error) {
-    console.error(`[invokeWithAuth] ${functionName} error:`, result.error);
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error(`[invokeWithAuth] ${functionName} error:`, data);
+      return { data: null, error: data };
+    }
+
+    return { data, error: null };
+  } catch (error) {
+    console.error(`[invokeWithAuth] ${functionName} fetch error:`, error);
+    return { data: null, error };
   }
-
-  return result;
 }
 
 /**
@@ -88,21 +99,31 @@ export function useInvokeFunction() {
     // Merge custom headers with auth header
     const headers = {
       'x-clerk-auth': token,
+      'Content-Type': 'application/json',
       ...options.headers,
     };
 
     console.log(`[useInvokeFunction] Calling ${functionName} with Clerk auth`);
 
-    // Call the function with auth header
-    const result = await supabase.functions.invoke(functionName, {
-      ...options,
-      headers,
-    });
+    try {
+      // Use direct fetch instead of supabase.functions.invoke
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/${functionName}`, {
+        method: 'POST',
+        headers,
+        body: options.body ? JSON.stringify(options.body) : undefined,
+      });
 
-    if (result.error) {
-      console.error(`[useInvokeFunction] ${functionName} error:`, result.error);
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(`[useInvokeFunction] ${functionName} error:`, data);
+        return { data: null, error: data };
+      }
+
+      return { data, error: null };
+    } catch (error) {
+      console.error(`[useInvokeFunction] ${functionName} fetch error:`, error);
+      return { data: null, error };
     }
-
-    return result;
   };
 }

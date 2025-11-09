@@ -1,10 +1,11 @@
 import React, { useEffect, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { toast } from "sonner";
-import { supabase } from '@/integrations/supabase/client';
 import { createPageUrl } from '../../utils';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function ReferralNotification({ user }) {
+  const invokeFunction = useInvokeFunction();
   const navigate = useRouter();
   const location = usePathname();
 
@@ -42,7 +43,7 @@ export default function ReferralNotification({ user }) {
 
       const process = async () => {
         try {
-          const { data: response, error } = await supabase.functions.invoke('processReferral', {
+          const { data: response, error } = await invokeFunction('processReferral', {
             body: {
               referrerId: referrerId,
               newUserId: user.id,

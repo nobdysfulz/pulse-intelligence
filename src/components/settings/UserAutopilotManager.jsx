@@ -3,11 +3,13 @@ import { Button } from '../../../components/ui/button';
 import { Switch } from '../../../components/ui/switch';
 import { Label } from '../../../components/ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../../../components/ui/dialog';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Settings } from 'lucide-react';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function UserAutopilotManager({ user }) {
+  const invokeFunction = useInvokeFunction();
+
   const [isOpen, setIsOpen] = useState(false);
   const [permissions, setPermissions] = useState({
     'copilot.send_email': false,
@@ -57,7 +59,7 @@ export default function UserAutopilotManager({ user }) {
   const handleSave = async () => {
     setSaving(true);
     try {
-      await supabase.functions.invoke('updateUserPermissions', {
+      await invokeFunction('updateUserPermissions', {
         body: {
           userId: user.id,
           permissions: permissions

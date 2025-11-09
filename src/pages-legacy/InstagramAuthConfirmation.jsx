@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { supabase } from '../../integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 import LoadingIndicator from '../../src/components/ui/LoadingIndicator'; // Ensure this path is correct
 
 export default function InstagramAuthConfirmation() {
+  const invokeFunction = useInvokeFunction();
   const location = usePathname();
 
   useEffect(() => {
@@ -14,7 +16,7 @@ export default function InstagramAuthConfirmation() {
 
       if (code && state) {
         try {
-          const { data } = await supabase.functions.invoke('instagramOAuthCallback', { body: { code, state } });
+          const { data } = await invokeFunction('instagramOAuthCallback', { body: { code, state } });
 
           if (data.success) {
             window.opener.postMessage('instagram-auth-success', window.location.origin);

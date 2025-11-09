@@ -7,8 +7,8 @@ import { Label } from '../../../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectValue, SelectTrigger } from '../../../components/ui/select';
 import { Loader2, Upload, FileText, X } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import { UserContext } from '../context/UserContext';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const callTypes = [
     'New Buyer Lead', 
@@ -18,6 +18,7 @@ const callTypes = [
 ];
 
 export default function CreateCampaignModal({ isOpen, onClose, onCampaignStarted }) {
+  const invokeFunction = useInvokeFunction();
     const { user, marketConfig } = useContext(UserContext);
     const [campaignName, setCampaignName] = useState('');
     const [callType, setCallType] = useState('');
@@ -36,7 +37,7 @@ export default function CreateCampaignModal({ isOpen, onClose, onCampaignStarted
     
     const handleDownloadTemplate = async () => {
         try {
-            const { data } = await supabase.functions.invoke('downloadCampaignTemplate', { body: {} });
+            const { data } = await invokeFunction('downloadCampaignTemplate', { body: {} });
 
             if (data.downloadUrl) {
                 // If a signed URL is provided, open it to trigger download
@@ -113,7 +114,7 @@ export default function CreateCampaignModal({ isOpen, onClose, onCampaignStarted
                 agent_phone: user?.phone
             };
 
-            const { data } = await supabase.functions.invoke('sendContactsToElevenLabs', { body: { contacts, callType, agentData, campaignName } });
+            const { data } = await invokeFunction('sendContactsToElevenLabs', { body: { contacts, callType, agentData, campaignName } });
 
             if (data.requiresOnboarding) {
                  toast.error("AI Agent Setup Incomplete", { description: data.error });

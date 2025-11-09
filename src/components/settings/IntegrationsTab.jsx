@@ -7,11 +7,13 @@ import { Label } from '../ui/label';
 import { CheckCircle, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
 import { UserContext } from '../context/UserContext';
-import { supabase } from '@/integrations/supabase/client';
 import LoadingIndicator, { InlineLoadingIndicator } from '../../../src/components/ui/LoadingIndicator';
 import { ConnectionOperations } from '../../api/entities';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function IntegrationsTab({ onUpdate, user }) {
+  const invokeFunction = useInvokeFunction();
+
   const { agentConfig, refreshUserData } = useContext(UserContext);
   const [isGoogleWorkspaceConnected, setIsGoogleWorkspaceConnected] = useState(false);
   const [isLoftyConnected, setIsLoftyConnected] = useState(false);
@@ -185,7 +187,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
       setIsGoogleWorkspaceConnecting(false);
       return;
       /* OAuth implementation pending
-      const { data } = await supabase.functions.invoke('initiateGoogleWorkspaceOAuth');
+      const { data } = await invokeFunction('initiateGoogleWorkspaceOAuth');
       const popup = window.open(data.authUrl, 'googleWorkspaceAuth', 'width=600,height=700');
       */
 
@@ -209,7 +211,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
 
     setIsGoogleWorkspaceDisconnecting(true);
     try {
-      await supabase.functions.invoke('disconnectService', {
+      await invokeFunction('disconnectService', {
         body: { serviceName: 'google_workspace' }
       });
       
@@ -228,7 +230,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
   const handleConnectMicrosoft = async () => {
     setIsMicrosoftConnecting(true);
     try {
-      const { data } = await supabase.functions.invoke('initiateMicrosoftOAuth');
+      const { data } = await invokeFunction('initiateMicrosoftOAuth');
       const popup = window.open(data.authUrl, 'microsoftAuth', 'width=600,height=700');
 
       if (!popup || popup.closed) {
@@ -250,7 +252,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
     }
 
     try {
-      await supabase.functions.invoke('disconnectService', {
+      await invokeFunction('disconnectService', {
         body: { serviceName: 'microsoft_365' }
       });
       
@@ -267,7 +269,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
   const handleConnectFacebook = async () => {
     setIsFacebookConnecting(true);
     try {
-      const { data } = await supabase.functions.invoke('initiateMetaOAuth', {
+      const { data } = await invokeFunction('initiateMetaOAuth', {
         body: { service: 'facebook' }
       });
       const popup = window.open(data.authUrl, 'facebookAuth', 'width=600,height=700');
@@ -291,7 +293,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
     }
 
     try {
-      await supabase.functions.invoke('disconnectService', {
+      await invokeFunction('disconnectService', {
         body: { serviceName: 'facebook' }
       });
       
@@ -308,7 +310,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
   const handleConnectInstagram = async () => {
     setIsInstagramConnecting(true);
     try {
-      const { data } = await supabase.functions.invoke('initiateMetaOAuth', {
+      const { data } = await invokeFunction('initiateMetaOAuth', {
         body: { service: 'instagram' }
       });
       const popup = window.open(data.authUrl, 'instagramAuth', 'width=600,height=700');
@@ -332,7 +334,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
     }
 
     try {
-      await supabase.functions.invoke('disconnectService', {
+      await invokeFunction('disconnectService', {
         body: { serviceName: 'instagram' }
       });
       
@@ -349,7 +351,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
   const handleConnectLinkedIn = async () => {
     setIsLinkedInConnecting(true);
     try {
-      const { data } = await supabase.functions.invoke('initiateLinkedInOAuth');
+      const { data } = await invokeFunction('initiateLinkedInOAuth');
       const popup = window.open(data.authUrl, 'linkedinAuth', 'width=600,height=700');
 
       if (!popup || popup.closed) {
@@ -371,7 +373,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
     }
 
     try {
-      await supabase.functions.invoke('disconnectService', {
+      await invokeFunction('disconnectService', {
         body: { serviceName: 'linkedin' }
       });
       
@@ -388,7 +390,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
   const handleConnectZoom = async () => {
     setIsZoomConnecting(true);
     try {
-      const { data } = await supabase.functions.invoke('initiateZoomOAuth');
+      const { data } = await invokeFunction('initiateZoomOAuth');
       const popup = window.open(data.authUrl, 'zoomAuth', 'width=600,height=700');
 
       if (!popup || popup.closed) {
@@ -410,7 +412,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
     }
 
     try {
-      await supabase.functions.invoke('disconnectService', {
+      await invokeFunction('disconnectService', {
         body: { serviceName: 'zoom' }
       });
       
@@ -432,7 +434,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
 
     setIsLoftyConnecting(true);
     try {
-      const { data, error } = await supabase.functions.invoke('loftyAuth', {
+      const { data, error } = await invokeFunction('loftyAuth', {
         body: {
           apiKey: loftyApiKey
         }
@@ -477,7 +479,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
 
     setIsLoftyDisconnecting(true);
     try {
-      const { data, error } = await supabase.functions.invoke('disconnectService', {
+      const { data, error } = await invokeFunction('disconnectService', {
         body: { 
           serviceName: 'lofty',
           connectionType: 'crm'
@@ -506,7 +508,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
 
     setIsFubConnecting(true);
     try {
-      const { data, error } = await supabase.functions.invoke('followUpBossAuth', {
+      const { data, error } = await invokeFunction('followUpBossAuth', {
         body: {
           action: 'connect',
           apiKey: fubApiKey
@@ -546,7 +548,7 @@ export default function IntegrationsTab({ onUpdate, user }) {
   const handleDisconnectFub = async () => {
     setIsFubDisconnecting(true);
     try {
-      const { data, error } = await supabase.functions.invoke('followUpBossAuth', {
+      const { data, error } = await invokeFunction('followUpBossAuth', {
         body: { action: 'disconnect' }
       });
 

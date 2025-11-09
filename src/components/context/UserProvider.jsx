@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { UserContext } from './UserContext';
-import { supabase } from '@/integrations/supabase/client';
 import { useUser, useAuth } from '@clerk/clerk-react';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 // Set global token getter for entities.js
 if (typeof window !== 'undefined') {
@@ -11,6 +11,7 @@ if (typeof window !== 'undefined') {
 }
 
 export default function UserProvider({ children }) {
+  const invokeFunction = useInvokeFunction();
     const { user: clerkUser, isLoaded: isClerkLoaded } = useUser();
     const { getToken } = useAuth();
     const [user, setUser] = useState(null);
@@ -61,7 +62,7 @@ export default function UserProvider({ children }) {
             try {
                 console.log('[UserProvider] Ensuring user defaults exist...');
                 const initResult = await Promise.race([
-                    supabase.functions.invoke('initializeUserData', {
+                    invokeFunction('initializeUserData', {
                         headers: {
                             'x-clerk-auth': token,
                         },
@@ -80,7 +81,7 @@ export default function UserProvider({ children }) {
 
             try {
                 const result = await Promise.race([
-                    supabase.functions.invoke('getUserContext', {
+                    invokeFunction('getUserContext', {
                         headers: {
                             'x-clerk-auth': token,
                         },
@@ -113,7 +114,7 @@ export default function UserProvider({ children }) {
 
                             try {
                                 console.log('[UserProvider] Re-running initializeUserData with fresh token...');
-                                await supabase.functions.invoke('initializeUserData', {
+                                await invokeFunction('initializeUserData', {
                                     headers: {
                                         'x-clerk-auth': newToken,
                                     },
@@ -124,9 +125,7 @@ export default function UserProvider({ children }) {
                             }
 
                             // Retry with fresh token
-                            const { data: retryContext, error: retryError } = await supabase.functions.invoke(
-                                'getUserContext',
-                                {
+                            const { data: retryContext, error: retryError } = await invokeFunction('getUserContext', {
                                     headers: {
                                         'x-clerk-auth': newToken,
                                     },

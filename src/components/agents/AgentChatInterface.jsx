@@ -3,10 +3,10 @@ import { UserContext } from '../context/UserContext';
 import { Button } from '../../../components/ui/button';
 import { Loader2, Send } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import { AiAgentConversation } from '@/api/entities';
 import ReactMarkdown from 'react-markdown';
 import AITypingIndicator from '../../../src/components/ui/AITypingIndicator';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const TypingBubble = ({ text, onTypingComplete }) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -51,6 +51,7 @@ const agentNames = {
 };
 
 export default function AgentChatInterface({ agentType }) {
+  const invokeFunction = useInvokeFunction();
   const { user } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');

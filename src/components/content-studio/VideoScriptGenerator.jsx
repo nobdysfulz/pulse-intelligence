@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from '../../../components/ui/radio-group';
 import { Textarea } from '../../../components/ui/textarea';
 import { Loader2, Sparkles, Copy, Download } from 'lucide-react';
 import { toast } from "sonner";
-import { supabase } from '@/integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 const cleanAIResponse = (response) => {
   return response
@@ -21,6 +21,8 @@ const cleanAIResponse = (response) => {
 };
 
 export default function VideoScriptGenerator({ user, marketConfig, userCredits, onGenerationComplete }) {
+  const invokeFunction = useInvokeFunction();
+
   const [isLoading, setIsLoading] = useState(false);
   const [generatedScript, setGeneratedScript] = useState(null);
   const [scriptType, setScriptType] = useState('property_tour');
@@ -62,7 +64,7 @@ Create a structured script with sections for "Opening Hook," "Main Content," and
 For each section, provide the narration and visual direction.`;
 
     try {
-      const { data: response, error } = await supabase.functions.invoke('openaiChat', {
+      const { data: response, error } = await invokeFunction('openaiChat', {
         body: {
           messages: [{
             role: 'user',

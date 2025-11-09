@@ -4,8 +4,10 @@ import { supabase } from '../../integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { createPageUrl } from '@/utils';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function SsoLoginPage() {
+  const invokeFunction = useInvokeFunction();
     const [status, setStatus] = useState('processing'); // 'processing', 'success', 'error'
     const [message, setMessage] = useState('Authenticating...');
     const navigate = useRouter();
@@ -26,7 +28,7 @@ export default function SsoLoginPage() {
                 setMessage('Validating your credentials...');
 
                 // Validate token with backend
-                const response = await supabase.functions.invoke('consumeSSOToken', { body: { token } });
+                const response = await invokeFunction('consumeSSOToken', { body: { token } });
 
                 if (response.data.success) {
                     setStatus('success');

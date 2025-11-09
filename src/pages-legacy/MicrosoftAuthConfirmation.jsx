@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { supabase } from '../../integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 import LoadingIndicator from '../../src/components/ui/LoadingIndicator'; // Ensure this path is correct
 
 export default function MicrosoftAuthConfirmation() {
+  const invokeFunction = useInvokeFunction();
   const location = usePathname();
 
   useEffect(() => {
@@ -14,7 +16,7 @@ export default function MicrosoftAuthConfirmation() {
 
       if (code && state) {
         try {
-          const { data } = await supabase.functions.invoke('microsoftOAuthCallback', { body: { code, state } });
+          const { data } = await invokeFunction('microsoftOAuthCallback', { body: { code, state } });
 
           if (data.success) {
             window.opener.postMessage('microsoft-auth-success', window.location.origin);

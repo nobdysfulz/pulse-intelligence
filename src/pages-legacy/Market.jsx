@@ -17,6 +17,7 @@ import LoadingIndicator from "../components/ui/LoadingIndicator";
 import { InlineLoadingIndicator } from "../components/ui/LoadingIndicator";
 import MarketConfigForm from '../../src/components/market/MarketConfigForm';
 import { UserMarketConfig } from '../api/entities';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 
 // --- NEW COMPONENT FOR FORMATTING JSON ANALYSIS ---
@@ -126,6 +127,7 @@ const FormattedAnalysis = ({ analysis }) => {
 
 
 export default function MarketPage() {
+  const invokeFunction = useInvokeFunction();
   const { user, marketConfig, loading: contextLoading, refreshUserData } = useContext(UserContext);
   const [activeTab, setActiveTab] = useState('data');
   const [loading, setLoading] = useState(true);
@@ -172,7 +174,7 @@ export default function MarketPage() {
     setLoading(true);
     setMarketError(null);
     try {
-      const response = await supabase.functions.invoke('marketDataFetcher', { body: {} });
+      const response = await invokeFunction('marketDataFetcher', { body: {} });
       if (response.data?.marketData) {
         const payload = response.data.marketData;
         setMarketData({
@@ -259,7 +261,7 @@ export default function MarketPage() {
     setGeneratingReport(true);
     
     try {
-      const response = await supabase.functions.invoke('marketDataFetcher', { body: {} });
+      const response = await invokeFunction('marketDataFetcher', { body: {} });
       if (response.data?.marketData) {
         const payload = response.data.marketData;
         setMarketData({
@@ -446,12 +448,12 @@ export default function MarketPage() {
     setSendingMessage(true);
 
     try {
-      const { data: agentContext, error: contextError } = await supabase.functions.invoke('getAgentContext', { body: {} });
+      const { data: agentContext, error: contextError } = await invokeFunction('getAgentContext', { body: {} });
       if (contextError || agentContext?.error || !agentContext) {
         throw new Error(agentContext?.error || contextError?.message || 'Could not retrieve agent context.');
       }
 
-      const { data, error } = await supabase.functions.invoke('copilotChat', {
+      const { data, error } = await invokeFunction('copilotChat', {
         body: {
           userPrompt: messageText,
           conversationId,

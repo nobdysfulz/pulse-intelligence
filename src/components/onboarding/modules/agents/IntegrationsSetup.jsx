@@ -3,11 +3,13 @@ import { UserContext } from '../../../context/UserContext';
 import { Button } from '../../../ui/button';
 import { Check, ExternalLink, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import { ExternalServiceConnection } from '../../../../api/entities';
 import { useAuth } from '@clerk/clerk-react';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 export default function IntegrationsSetup({ data, onNext, onBack }) {
+  const invokeFunction = useInvokeFunction();
+
   const { user } = useContext(UserContext);
   const { getToken } = useAuth();
   const [loading, setLoading] = useState(true);
@@ -67,7 +69,7 @@ export default function IntegrationsSetup({ data, onNext, onBack }) {
       
       switch (service) {
         case 'google':
-          response = await supabase.functions.invoke('initiateGoogleWorkspaceOAuth', {
+          response = await invokeFunction('initiateGoogleWorkspaceOAuth', {
             headers: {
               'x-clerk-auth': token
             },
@@ -83,7 +85,7 @@ export default function IntegrationsSetup({ data, onNext, onBack }) {
           break;
           
         case 'microsoft':
-          response = await supabase.functions.invoke('initiateMicrosoftOAuth', {
+          response = await invokeFunction('initiateMicrosoftOAuth', {
             headers: {
               'x-clerk-auth': token
             },
@@ -99,7 +101,7 @@ export default function IntegrationsSetup({ data, onNext, onBack }) {
           break;
           
         case 'zoom':
-          response = await supabase.functions.invoke('initiateZoomOAuth', {
+          response = await invokeFunction('initiateZoomOAuth', {
             headers: {
               'x-clerk-auth': token
             },
@@ -115,7 +117,7 @@ export default function IntegrationsSetup({ data, onNext, onBack }) {
           break;
           
         case 'meta':
-          response = await supabase.functions.invoke('initiateMetaOAuth', {
+          response = await invokeFunction('initiateMetaOAuth', {
             headers: {
               'x-clerk-auth': token
             },

@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { useInvokeFunction } from '@/lib/supabase-functions';
 
 // This component handles referral tracking and processing
 export default function ReferralTracker() {
+  const invokeFunction = useInvokeFunction();
+
   useEffect(() => {
     const handleReferralTracking = async () => {
       try {
@@ -39,7 +41,7 @@ export default function ReferralTracker() {
               
               if (currentUser && referralData.referrerId !== currentUser.id) {
                 // Process the referral
-                const { error } = await supabase.functions.invoke('processReferral', {
+                const { error } = await invokeFunction('processReferral', {
                   body: {
                     referrerId: referralData.referrerId,
                     newUserId: currentUser.id,
